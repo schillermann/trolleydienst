@@ -1,318 +1,385 @@
 <?php
-include "function.php";
+include 'function.php';
 $ShowList=1;
 
 if (isset($_POST['DelTermin'])) {
-	$UpdateCommand="Delete from termine ";
-	$UpdateCommand.="Where (terminnr = ".$_GET['DELID'].") ";
-	$SQLResult=mysql_query($UpdateCommand,$verbindung);
+
+    $smtp_delete_date = $database_pdo->prepare(
+        'DELETE FROM termine
+	    WHERE terminnr = :id_schedule'
+    );
+
+    $smtp_delete_date->execute(
+        array(':id_schedule' => (int)$_GET['DELID'])
+    );
 }
 
 if (isset($_GET['SubType'])) {
 	if ($_GET['SubType'] == 'SetSL') {
-		$UpdateCommand="Update schichten_teilnehmer ";
-		$UpdateCommand.="set ";
-		$UpdateCommand.="status =2, ";
-		$UpdateCommand.="isschichtleiter =1  ";
-		$UpdateCommand.="Where (terminnr = ".$_GET['Terminnr'].") and ";
-		$UpdateCommand.="(Schichtnr = ".$_GET['Schichtnr'].") and ";
-		$UpdateCommand.="(teilnehmernr = ".$_GET['Nr'].") ";
-		$SQLResult=mysql_query($UpdateCommand,$verbindung);
+
+        $smtp_update_shift_from_user = $database_pdo->prepare(
+            'UPDATE schichten_teilnehmer
+		    SET status = 2, isschichtleiter = 1  
+		    WHERE terminnr = :id_schedule
+		    AND Schichtnr = :id_shift
+		    AND teilnehmernr = :id_user'
+        );
+
+        $smtp_update_shift_from_user->execute(
+            array(
+                ':id_schedule' => (int)$_GET['Terminnr'],
+                ':id_shift' => (int)$_GET['Schichtnr'],
+                ':id_user' => (int)$_GET['Nr']
+            )
+        );
 	}
 
 	if ($_GET['SubType'] == 'SetBack') {
-		$UpdateCommand="Update schichten_teilnehmer ";
-		$UpdateCommand.="set ";
-		$UpdateCommand.="status =0, ";
-		$UpdateCommand.="isschichtleiter =0 ";
-		$UpdateCommand.="Where (terminnr = ".$_GET['Terminnr'].") and ";
-		$UpdateCommand.="(Schichtnr = ".$_GET['Schichtnr'].") and ";
-		$UpdateCommand.="(teilnehmernr = ".$_GET['Nr'].") ";
-		$SQLResult=mysql_query($UpdateCommand,$verbindung);
+
+        $smtp_update_shift_from_user = $database_pdo->prepare(
+            'UPDATE schichten_teilnehmer
+            SET status = 0, isschichtleiter = 0 
+            WHERE terminnr = :id_schedule
+		    AND Schichtnr = :id_shift
+		    AND teilnehmernr = :id_user'
+        );
+
+        $smtp_update_shift_from_user->execute(
+            array(
+                ':id_schedule' => (int)$_GET['Terminnr'],
+                ':id_shift' => (int)$_GET['Schichtnr'],
+                ':id_user' => (int)$_GET['Nr']
+            )
+        );
 	}
 
 	if ($_GET['SubType'] == 'SetOK') {
-		$UpdateCommand="Update schichten_teilnehmer ";
-		$UpdateCommand.="set ";
-		$UpdateCommand.="status =2 ";
-		$UpdateCommand.="Where (terminnr = ".$_GET['Terminnr'].") and ";
-		$UpdateCommand.="(Schichtnr = ".$_GET['Schichtnr'].") and ";
-		$UpdateCommand.="(teilnehmernr = ".$_GET['Nr'].") ";
-		$SQLResult=mysql_query($UpdateCommand,$verbindung);
+
+        $smtp_update_shift_from_user = $database_pdo->prepare(
+            'UPDATE schichten_teilnehmer
+		    SET status = 2 
+		    WHERE terminnr = :id_schedule
+		    AND Schichtnr = :id_shift
+		    AND teilnehmernr = :id_user'
+        );
+
+        $smtp_update_shift_from_user->execute(
+            array(
+                ':id_schedule' => (int)$_GET['Terminnr'],
+                ':id_shift' => (int)$_GET['Schichtnr'],
+                ':id_user' => (int)$_GET['Nr']
+            )
+        );
 	}
 
 	if ($_GET['SubType'] == 'DelUser') {
 
-		$SQLCommand="Select Teil.vorname,Teil.email,SchichtTeil.status, ";
-		$SQLCommand.="Schicht.ort, DATE_FORMAT(Schicht.termin_von, '%d.%m.%Y') as mDatum ";
-		$SQLCommand.="from schichten_teilnehmer SchichtTeil ";
-		$SQLCommand.="inner join teilnehmer Teil ";
-		$SQLCommand.="on SchichtTeil.teilnehmernr = Teil.teilnehmernr ";
-		$SQLCommand.="inner join termine Schicht ";
-		$SQLCommand.="on SchichtTeil.terminnr = Schicht.terminnr ";
-		$SQLCommand.="Where (SchichtTeil.terminnr = ".$_GET['Terminnr'].") and ";
-		$SQLCommand.="(SchichtTeil.Schichtnr = ".$_GET['Schichtnr'].") and ";
-		$SQLCommand.="(SchichtTeil.teilnehmernr = ".$_GET['Nr'].") ";
+        $smpt_date_from_user = $database_pdo->prepare(
+            'SELECT Teil.vorname, Teil.email, SchichtTeil.status,
+		    Schicht.ort, DATE_FORMAT(Schicht.termin_von, "%d.%m.%Y") AS mDatum
+		    FROM schichten_teilnehmer SchichtTeil 
+		    INNER JOIN teilnehmer Teil 
+		    ON SchichtTeil.teilnehmernr = Teil.teilnehmernr 
+		    INNER JOIN termine Schicht
+		    ON SchichtTeil.terminnr = Schicht.terminnr 
+		    WHERE SchichtTeil.terminnr = :id_schedule
+		    AND SchichtTeil.Schichtnr = :id_shift
+		    AND SchichtTeil.teilnehmernr = :id_user'
+        );
 
-		$SQLResult=mysql_query($SQLCommand,$verbindung);
-		$row = mysql_fetch_object($SQLResult);
+        $smpt_date_from_user->execute(
+            array(
+                ':id_schedule' => (int)$_GET['Terminnr'],
+                ':id_shift' => (int)$_GET['Schichtnr'],
+                ':id_user' => (int)$_GET['Nr']
+            )
+        );
 
-		if ($row->status == 2)
+        $date_from_user = $smpt_date_from_user->fetch();
+
+		if ($date_from_user['status'] == 2)
 		{
-			$Body='Hallo '.$row->vorname.', <br><br>';
-			$Body.='aus organisatorischen Gründen wurde deine Schicht vom '.$row->mDatum.' in '.$row->ort.' zurückgenommen';
-			SendMail($row->email,'Schicht zurückgenommen',$Body);
+			$Body='Hallo ' . $date_from_user['vorname'] . ', <br><br>';
+			$Body.='aus organisatorischen Gründen wurde deine Schicht vom ' . $date_from_user['mDatum'] . ' in ' . $date_from_user['ort'] . ' zurückgenommen';
+			SendMail($date_from_user['email'], 'Schicht zurückgenommen', $Body);
 		}
 
-		$DeleteCommand="Delete from schichten_teilnehmer ";
-		$DeleteCommand.="Where (terminnr = ".$_GET['Terminnr'].") and ";
-		$DeleteCommand.="(Schichtnr = ".$_GET['Schichtnr'].") and ";
-		$DeleteCommand.="(teilnehmernr = ".$_GET['Nr'].") ";
-		$SQLResult=mysql_query($DeleteCommand,$verbindung);
+        $smpt_delete_user_from_shift = $database_pdo->prepare(
+            'DELETE FROM schichten_teilnehmer
+		    WHERE terminnr = :id_schedule
+		    AND	Schichtnr = :id_shift
+		    AND teilnehmernr = :id_user'
+        );
+
+        $smpt_delete_user_from_shift->execute(
+            array(
+                ':id_schedule' => (int)$_GET['Terminnr'],
+                ':id_shift' => (int)$_GET['Schichtnr'],
+                ':id_user' => (int)$_GET['Nr']
+            )
+        );
 	}
 
-	if ($_GET['SubType'] == 'AddUser')
+	if ($_GET['SubType'] == 'AddUser' && $_POST['NewRegUser'] > 0)
 	{
-		$UpdateCommand="Insert Into schichten_teilnehmer ";
-		$UpdateCommand.="(terminnr, schichtnr, teilnehmernr, status, isschichtleiter) ";
-		$UpdateCommand.="VALUES (";
-		$UpdateCommand.=$_GET['Terminnr'].",".$_GET['Schichtnr'].",".$_POST['NewRegUser'].",2,0)";
-		$SQLResult=mysql_query($UpdateCommand,$verbindung);
+        $smtp_insert_user_to_shift = $database_pdo->prepare(
+            'INSERT INTO schichten_teilnehmer
+		    (terminnr, schichtnr, teilnehmernr, status, isschichtleiter)
+		    VALUES (:id_schedule, :id_shift, :id_user, 2, 0)'
+        );
+
+        $smtp_insert_user_to_shift->execute(
+            array(
+                ':id_schedule' => (int)$_GET['Terminnr'],
+                ':id_shift' => (int)$_GET['Schichtnr'],
+                ':id_user' => (int)$_POST['NewRegUser']
+            )
+        );
 	}
 }
 
 if (isset($_POST['SaveNewDS'])) {
-	$a=0;
+	$a = 0;
 
-	if ($_POST['Terminserie'] != "") {
-		$pos = strpos($_POST['Terminserie'], ".");
-		$mTag = substr($_POST['Terminserie'],0,$pos);
-		$pos_Monat = strpos($_POST['Terminserie'], ".",$pos + 1);
-		$mMonat = substr($_POST['Terminserie'],$pos + 1,$pos_Monat - $pos - 1);
-		$mJahr = substr($_POST['Terminserie'],$pos_Monat + 1);
-		$TerminSerieBis = strtotime($mJahr.'-'.$mMonat.'-'.$mTag);
-	}
-	//02.03.2014
-	$mDatumfaellig="";
-	$pos = strpos($_POST['Datum'], ".");
-	if ($pos > 0)
-	{
-		$mTag = substr($_POST['Datum'],0,$pos);
-		$pos_Monat = strpos($_POST['Datum'], ".",$pos + 1);
-		$mMonat = substr($_POST['Datum'],$pos + 1,$pos_Monat - $pos - 1);
-		$mJahr = substr($_POST['Datum'],$pos_Monat + 1);
+	if ($_POST['Terminserie'] != '')
+        $TerminSerieBis = filter_datetime($_POST['Terminserie']);
 
-	}
+	$mDatumfaellig = '';
 
-	while ($a==0) {
-		$terminnr=1;
-		$sqlcommand="Select coalesce(Max(terminnr),0) + 1 as terminnr from termine";
-		$SQLResult=mysql_query($sqlcommand,$verbindung);
-		$row=mysql_fetch_object($SQLResult);
-		if ($row->terminnr > 0)
-			$terminnr = $row->terminnr;
+	$date_from = filter_datetime($_POST['Datum'], $_POST['von']);
+    $date_to = filter_datetime($_POST['Datum'], $_POST['bis']);
 
-		$Sonderschicht="0";
-		if(in_array("Sonderschicht",$_POST['Sonderschicht']))
-			$Sonderschicht="1";
+	while ($a == 0) {
+        $smtp_next_id_schedule = $database_pdo->query(
+            'SELECT coalesce(Max(terminnr),0) + 1 AS terminnr
+            FROM termine'
+        );
 
-		$InsertCommand="Insert Into termine (";
-		$InsertCommand.="terminnr,art,ort,termin_von,termin_bis,sonderschicht) ";
-		$InsertCommand.="VALUES (";
-		$InsertCommand.=$terminnr.",".$_POST['Art'].",'".$_POST['ort']."','";
-		$InsertCommand.=$mJahr."-".$mMonat."-".$mTag." ".$_POST['von'].":00','";
-		$InsertCommand.=$mJahr."-".$mMonat."-".$mTag." ".$_POST['bis'].":00',".$Sonderschicht.")";
-		$SQLResult=mysql_query($InsertCommand,$verbindung);
-		if (!$SQLResult)
+        $next_id_schedule = $smtp_next_id_schedule->fetch();
+
+        $smtp_insert_date = $database_pdo->prepare(
+            'INSERT INTO termine (terminnr, art, ort, termin_von, termin_bis, sonderschicht)
+		    VALUES (:id_schedule, :type_schedule, :place, :date_from, :date_to, :extra_shift)'
+        );
+
+        $terminnr = ($next_id_schedule['terminnr'] > 0) ? $next_id_schedule['terminnr'] : 1;
+        $extra_shift = (isset($_POST['Sonderschicht'])) ? 1 : 0;
+
+        $smtp_insert_date->execute(
+            array(
+                ':id_schedule' => $terminnr,
+                ':type_schedule' => (int)$_POST['Art'],
+                ':place' => filter_var($_POST['ort'], FILTER_SANITIZE_STRING),
+                ':date_from' => $date_from->format('Y-m-d H:i:s'),
+                ':date_to' => $date_to->format('Y-m-d H:i:s'),
+                ':extra_shift' => $extra_shift
+            )
+        );
+
+		if ($smtp_insert_date->rowCount() != 1)
 			exit("Termin konnte nicht gespeichert werden");
 
-		Get_SetSchichten($terminnr,$_POST['Stundenanzahl']);
+		Get_SetSchichten($database_pdo, $terminnr, (int)$_POST['Stundenanzahl']);
 
-		if ($_POST['Terminserie'] != "") {
-			$Serie_NewDatum = strtotime('+7 days', strtotime($mJahr.'-'.$mMonat.'-'.$mTag));
-			if ($TerminSerieBis >= $Serie_NewDatum) {
-				$mJahr = date('Y', $Serie_NewDatum);
-				$mMonat = date('m', $Serie_NewDatum);
-				$mTag = date('d', $Serie_NewDatum);
-			} else {
-				$a = 1;
-			}
+		if ($_POST['Terminserie'] != '') {
+
+            if($TerminSerieBis->getTimestamp() < $date_to->getTimestamp())
+                $a = 1;
+
+            $date_from->add(new \DateInterval('P7D'));
+            $date_to->add(new \DateInterval('P7D'));
 		} else {
-			$a=1;
+			$a = 1;
 		}
 	}
 }
 
 if (isset($_POST['SaveEditClient'])) {
 
-	//2.3.2014
-	//02.03.2014
-	$mDatumfaellig="";
-	$pos = strpos($_POST['Datum'], ".");
-	if ($pos > 0)
-	{
-		$mTag = substr($_POST['Datum'],0,$pos);
-		$pos_Monat = strpos($_POST['Datum'], ".",$pos + 1);
-		$mMonat = substr($_POST['Datum'],$pos + 1,$pos_Monat - $pos - 1);
-		$mJahr = substr($_POST['Datum'],$pos_Monat + 1);
-	}
+	$mDatumfaellig = '';
+    $date_from = filter_datetime($_POST['Datum'], $_POST['von']);
+    $date_to = filter_datetime($_POST['Datum'], $_POST['bis']);
+    $extra_shift = (isset($_POST['Sonderschicht'])) ? 1 : 0;
 
-	$Sonderschicht="0";
-	if(in_array("Sonderschicht",$_POST['Sonderschicht']))
-		$Sonderschicht="1";
+    $smtp_update_schedule = $database_pdo->prepare(
+        'UPDATE termine
+	    SET art = :type_schedule, ort = :place, termin_von = :date_from, termin_bis = :date_to, sonderschicht = :extra_shift
+	    WHERE terminnr = :id_schedule'
+    );
 
-	$UpdateCommand="Update termine ";
-	$UpdateCommand.="set ";
-	$UpdateCommand.="art='".$_POST['Art']."', ";
-	$UpdateCommand.="ort='".$_POST['ort']."', ";
-	$UpdateCommand.="termin_von='".$mJahr."-".$mMonat."-".$mTag." ".$_POST['von'].":00',";
-	$UpdateCommand.="termin_bis='".$mJahr."-".$mMonat."-".$mTag." ".$_POST['bis'].":00', ";
-	$UpdateCommand.="sonderschicht=".$Sonderschicht." ";
+    $smtp_update_schedule->execute(
+        array(
+            ':type_schedule' => (int)$_POST['Art'],
+            ':place' => filter_var($_POST['ort'], FILTER_SANITIZE_STRING),
+            ':date_from' => $date_from->format('Y-m-d H:i:s'),
+            ':date_to' => $date_to->format('Y-m-d H:i:s'),
+            ':extra_shift' => $extra_shift,
+            ':id_schedule' => (int)$_GET['ID']
+        )
+    );
 
-	$UpdateCommand.="Where (terminnr = ".$_GET['ID'].")";
-	$SQLResult=mysql_query($UpdateCommand,$verbindung);
-	if (!$SQLResult)
-        exit("Termin konnte nicht gespeichert werden");
-	Get_SetSchichten($_GET['ID']);
+	if ($smtp_update_schedule->rowCount() != 1)
+        exit('Termin konnte nicht gespeichert werden');
+
+	Get_SetSchichten($database_pdo, (int)$_GET['ID'], (int)$_POST['Stundenanzahl']);
 }
 
 if (isset($_POST['NewDS'])) {
-	$ShowList=0;
-	$mHTML.="<h3>Neuer Termin</h3>";
-	$mHTML.="<form action=\"index.php?Type=Termine\" method=\"post\">";
-	$mHTML.="<table border=0 cellspacing=0>";
-	$mHTML.="<colgroup>";
-	$mHTML.="<COL WIDTH=150>";
-	$mHTML.="<COL WIDTH=150>";
-	$mHTML.="</colgroup>";;
-	$mHTML.="<tr>";
-	$mHTML.="<td>Schichtart:</td>";
-	$mHTML.="<td>";
-	$mHTML.="<select name=\"Art\">";
-	$mHTML.="<option value=\"0\">Infostand</option>";
-	$mHTML.="<option value=\"1\" selected>Trolley</option>";
-	$mHTML.="</select>";
-	$mHTML.="</td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Ort:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"ort\" size=30></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Datum:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"Datum\" size=30></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>von:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"von\" size=30 value=\"10:00\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>bis:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"bis\" size=30 value=\"18:00\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Sonderschicht:</td>";
-	$mHTML.="<td><input type=\"checkbox\" name=\"Sonderschicht[]\" value=\"Sonderschicht\" ></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Stundenanzahl:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"Stundenanzahl\" size=30 value=\"1\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Terminserie bis zum:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"Terminserie\" size=30 value=\"\"></td>";
-	$mHTML.="</tr>";
-
-	$mHTML.="</table>";
-	$mHTML.="<input type=\"Submit\" name=\"SaveNewDS\" value=\"Speichern\">";
-	$mHTML.="</form></br>";
+	$ShowList = 0;
+	$mHTML .=
+        '<h3>Neuer Termin</h3>
+	    <form action="index.php?Type=Termine" method="post">
+            <table border=0 cellspacing=0>
+                <colgroup>
+                    <COL WIDTH=150>
+                    <COL WIDTH=150>
+                </colgroup>
+                <tr>
+                    <td>Schichtart:</td>
+                    <td>
+                        <select name="Art">
+                            <option value="0">Infostand</option>
+                            <option value="1" selected>Trolley</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ort:</td>
+                    <td><input type="text" name="ort" size="30"></td>
+                </tr>
+                <tr>
+                    <td>Datum:</td>
+                    <td><input type="date" name="Datum" size="30"></td>
+                </tr>
+                <tr>
+                    <td>von:</td>
+                    <td><input type="time" name="von" size="30" value="10:00"></td>
+                </tr>
+                <tr>
+                    <td>bis:</td>
+                    <td><input type="time" name="bis" size="30" value="18:00"></td>
+                </tr>
+                <tr>
+                    <td>Sonderschicht:</td>
+                    <td><input type="checkbox" name="Sonderschicht" value="Sonderschicht" ></td>
+                </tr>
+                <tr>
+                    <td>Stundenanzahl:</td>
+                    <td><input type="number" name="Stundenanzahl" size="30" value="1"></td>
+                </tr>
+                <tr>
+                    <td>Terminserie bis zum:</td>
+                    <td><input type="date" name="Terminserie" size="30"></td>
+                </tr>
+            </table>
+            <input type="Submit" name="SaveNewDS" value="Speichern">
+        </form></br>';
 }
 
 
 if (isset($_GET['ASKDELID'])) {
 	$ShowList=0;
-	$SQLCommand="Select terminnr , art , ort, ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%d.%m.%Y') as mDatum, ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%H:%i') as mvon, ";
-	$SQLCommand.="DATE_FORMAT(termin_bis, '%H:%i') as mbis ";
-	$SQLCommand.="from termine ";
-	$SQLCommand.="Where (terminnr  = '".$_GET['ASKDELID']."')";
-	//echo $SQLCommand;
-	$SQLResult=mysql_query($SQLCommand,$verbindung);
-	$row = mysql_fetch_object($SQLResult);
-	$mHTML.="<h3>Termin l&ouml;schen</h3>";
-	$mHTML.="<form action=\"index.php?Type=Termine&DELID=".$_GET['ASKDELID']."\" method=\"post\">";
-	$mHTML.="Möchten Sie den Termin am ".$row->mDatum." wirklich l&ouml;schen?</br>";
-	$mHTML.="<input type=\"submit\" name=\"DelTermin\" value=\"Ja\"> ";
-	$mHTML.="<input type=\"submit\" name=\"NotDelTermin\" value=\"Nein\">";
-	$mHTML.="<form>";
+
+    $smtp_select_date = $database_pdo->prepare(
+        'SELECT terminnr , art , ort,
+	    DATE_FORMAT(termin_von, "%d.%m.%Y") as mDatum,
+	    DATE_FORMAT(termin_von, "%H:%i") as mvon,
+	    DATE_FORMAT(termin_bis, "%H:%i") as mbis
+	    FROM termine
+        WHERE terminnr  = :id_schedule'
+    );
+
+    $smtp_select_date->execute(
+        array(':id_schedule' => (int)$_GET['ASKDELID'])
+    );
+
+	$date = $smtp_select_date->fetch();
+	$mHTML .=
+        '<h3>Termin löschen</h3>
+	    <form action="index.php?Type=Termine&DELID=' . (int)$_GET['ASKDELID'] . '" method="post">
+            Möchten Sie den Termin am ' . $date['mDatum'] . ' wirklich löschen?</br>
+            <input type="submit" name="DelTermin" value="Ja">
+            <input type="submit" name="NotDelTermin" value="Nein">
+	    <form>';
 }
 
 
 if (isset($_GET['ID'])) {
 	$ShowList=0;
-	$SQLCommand="Select terminnr , art , ort, ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%d.%m.%Y') as mDatum, ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%H:%i') as mvon, ";
-	$SQLCommand.="DATE_FORMAT(termin_bis, '%H:%i') as mbis, ";
-	$SQLCommand.="coalesce(sonderschicht,0) as sonderschicht ";
-	$SQLCommand.="from termine ";
-	$SQLCommand.="Where (terminnr  = '".$_GET['ID']."')";
-	//echo $SQLCommand;
-	$SQLResult=mysql_query($SQLCommand,$verbindung);
-	$row = mysql_fetch_object($SQLResult);
 
-	$mHTML.="<h3>Termin bearbeiten</h3>";
-	$mHTML.="<form action=\"index.php?Type=Termine&ID=".$_GET['ID']."\" method=\"post\">";
-	$mHTML.="<table border=0 cellspacing=0>";
-	$mHTML.="<colgroup>";
-	$mHTML.="<COL WIDTH=150>";
-	$mHTML.="<COL WIDTH=150>";
-	$mHTML.="</colgroup>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Schichtart:</td>";
-	$mHTML.="<td>";
-	$mHTML.="<select name=\"Art\">";
-	$mHTML.="<option value=\"0\" ";
-	if ($row->art == 0)
-		$mHTML.=" selected ";
+    $sql_id_schedule = array(':id_schedule' => (int)$_GET['ID']);
 
-	$mHTML.=">Infostand</option>";
-	$mHTML.="<option value=\"1\" ";
-	if ($row->art == 1)
-		$mHTML.=" selected ";
+    $smtp_number_of_shift = $database_pdo->prepare(
+        'SELECT COUNT(terminnr) AS number FROM schichten
+        WHERE terminnr = :id_schedule'
+    );
 
-	$mHTML.=">Trolley</option>";
-	$mHTML.="</select>";
-	$mHTML.="</td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Ort:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"ort\" size=30 value=\"".$row->ort."\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Datum:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"Datum\" size=30 value=\"".$row->mDatum."\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>von:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"von\" size=30 value=\"".$row->mvon."\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>bis:</td>";
-	$mHTML.="<td><input type=\"Text\" name=\"bis\" size=30 value=\"".$row->mbis."\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Sonderschicht:</td>";
-	$mHTML.="<td><input type=\"checkbox\" name=\"Sonderschicht[]\" value=\"Sonderschicht\" ";
-	if ($row->sonderschicht == 1)
-		$mHTML.=" checked ";
+    $smtp_number_of_shift->execute($sql_id_schedule);
+    $shift = $smtp_number_of_shift->fetch();
 
-	$mHTML.="></td>";
-	$mHTML.="</tr>";
-	$mHTML.="</table>";
-	$mHTML.="<input type=\"Submit\" name=\"SaveEditClient\" value=\"Speichern\">";
-	$mHTML.="</form></br>";
+    $smtp_select_date = $database_pdo->prepare(
+        'SELECT terminnr, art, ort, termin_von, termin_bis, coalesce(sonderschicht, 0) AS sonderschicht
+	    FROM termine
+	    WHERE terminnr = :id_schedule'
+    );
+
+    $smtp_select_date->execute($sql_id_schedule);
+
+	$date = $smtp_select_date->fetch();
+
+    $select_literature_table = ($date['art'] == 0) ? 'selected' : '';
+    $select_literature_cart = ($date['art'] == 1) ? 'selected' : '';
+    $extra_shift = ($date['sonderschicht'] == 1) ? 'checked' : '';
+
+    $date_from = new DateTime($date['termin_von']);
+    $date_to = new DateTime($date['termin_bis']);
+    $date_diff = date_diff($date_from, $date_to);
+    $shift_hours = $date_diff->format('%h') / $shift['number'];
+
+	$mHTML .=
+        '<h3>Termin bearbeiten</h3>
+	    <form action="index.php?Type=Termine&ID=' . (int)$_GET['ID'] . '" method="post">
+	        <table border=0 cellspacing=0>
+	            <colgroup>
+                    <COL WIDTH=150>
+                    <COL WIDTH=150>
+                </colgroup>
+                <tr>
+                    <td>Schichtart:</td>
+                    <td>
+                        <select name="Art">
+                            <option value="0" ' . $select_literature_table . '>Infostand</option>
+                            <option value="1" ' . $select_literature_cart . '>Trolley</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ort:</td>
+                    <td><input type="text" name="ort" size="30" value="' . $date['ort'] . '"></td>
+                </tr>
+                <tr>
+                    <td>Datum:</td>
+                    <td><input type="date" name="Datum" size="30" value="' . $date_from->format('Y-m-d') . '"></td>
+                </tr>
+                <tr>
+                    <td>von:</td>
+                    <td><input type="time" name="von" size="30" value="' . $date_from->format('H:i') . '"></td>
+                </tr>
+                <tr>
+                    <td>bis:</td>
+                    <td><input type="time" name="bis" size="30" value="' . $date_to->format('H:i') . '"></td>
+                </tr>
+                <tr>
+                    <td>Stundenanzahl:</td>
+                    <td><input type="number" name="Stundenanzahl" size="30" value="' . $shift_hours . '"></td>
+                </tr>
+                <tr>
+                    <td>Sonderschicht:</td>
+                    <td><input type="checkbox" name="Sonderschicht" value="Sonderschicht" '. $extra_shift .'></td>
+	            </tr>
+	        </table>
+	        <input type="Submit" name="SaveEditClient" value="Speichern">
+	    </form></br>';
 }
 
 if ($ShowList==1) {
@@ -321,225 +388,282 @@ if ($ShowList==1) {
 		$_SESSION['AdminFilterDays'] = 0;
 
 	if (isset($_POST['FilterTerminTage']))
-		$_SESSION['AdminFilterDays'] = $_POST['FilterTerminTage'];
+		$_SESSION['AdminFilterDays'] = (int)$_POST['FilterTerminTage'];
 
-	$InfostandUser = GetUserLookup(0);
-	$TrolleyUser = GetUserLookup(1);
+	$InfostandUser = GetUserLookup($database_pdo, 0);
+	$TrolleyUser = GetUserLookup($database_pdo, 1);
 
-	$mHTML.="<h3>Termine</h3>";
-	$mHTML.="<form action=\"index.php?Type=Termine\" method=\"POST\">";
-	$mHTML.="<table border=0>";
-	$mHTML.="<tr>";
-	$mHTML.="<td>Termine der letzten <input type=\"text\" name=\"FilterTerminTage\" value=\"".$_SESSION['AdminFilterDays']."\" size=\"3\"> Tage anzeigen <input type=\"submit\" name=\"Refresh\" value=\"Aktualisieren\"></td>";
-	$mHTML.="</tr>";
-	$mHTML.="</table>";
-	$mHTML.="<form>";
-	$mHTML.="</frameset>";
-	$mHTML.="</br>";
-	$mHTML.="<form action=\"index.php?Type=Termine\" method=\"POST\">";
-	$mHTML.="<input type=\"submit\" name=\"NewDS\" value=\"Neuen Termin\"></form>";
-	$mHTML.="</br><div class=\"div_Legende\">";
-	$mHTML.="<table border=0>";
-	$mHTML.="<colgroup>";
-	$mHTML.="<COL WIDTH=60>";
-	$mHTML.="<COL WIDTH=20>";
-	$mHTML.="<COL WIDTH=60>";
-	$mHTML.="<COL WIDTH=20>";
-	$mHTML.="<COL WIDTH=60>";
-	$mHTML.="<COL WIDTH=20>";
-	$mHTML.="<COL WIDTH=60>";
-	$mHTML.="</colgroup>";
-	$mHTML.="<tr>";
-	$mHTML.="<td class=\"Legende\">Legende:</td>";
-	$mHTML.="<td class=\"Teilnehmer_Status0_Legende\"></td>";
-	$mHTML.="<td class=\"Legende\">beworben</td>";
-	$mHTML.="<td class=\"Teilnehmer_Status2_Legende\"></td>";
-	$mHTML.="<td class=\"Legende\">bestätigt</td>";
-	$mHTML.="<td class=\"Teilnehmer_Schichtleiter_Legende\"></td>";
-	$mHTML.="<td class=\"Legende\">Schichtleiter</td>";
-	$mHTML.="</tr>";
-	$mHTML.="</table>";
-	$mHTML.="</div>";
-	$SQLCommand="Select terminnr , art , ort , ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%d.%m.%Y') as mDatum, ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%w') as mWochentag, ";
-	$SQLCommand.="DATE_FORMAT(termin_von, '%H:%i') as mVon, ";
-	$SQLCommand.="DATE_FORMAT(termin_bis, '%H:%i') as mBis, ";
-	$SQLCommand.="coalesce(sonderschicht,0) as sonderschicht ";
-	$SQLCommand.="from termine  ";
-	$SQLCommand.=" Where (datediff(curdate(),termin_von) <= ".$_SESSION['AdminFilterDays']." ) ";
+	$mHTML .=
+        '<h3>Termine</h3>
+	    <form action="index.php?Type=Termine" method="POST">
+	        <table border=0>
+	            <tr>
+	                <td>
+	                    Termine der letzten
+	                    <input type="text" name="FilterTerminTage" value="' . (int)$_SESSION['AdminFilterDays'] . '" size="3">
+                        Tage anzeigen
+                        <input type="submit" name="Refresh" value="Aktualisieren">
+                    </td>
+	            </tr>
+	        </table>
+	     <form>
+	    </br>
+	    <form action="index.php?Type=Termine" method="POST">
+	        <input type="submit" name="NewDS" value="Neuen Termin">
+	    </form>
+	    </br>
+	    <div class="div_Legende">
+	        <table border=0>
+	            <colgroup>
+                    <COL WIDTH=60>
+                    <COL WIDTH=20>
+                    <COL WIDTH=60>
+                    <COL WIDTH=20>
+                    <COL WIDTH=60>
+                    <COL WIDTH=20>
+                    <COL WIDTH=60>
+                </colgroup>
+	            <tr>
+	                <td class="Legende">Legende:</td>
+                    <td class="Teilnehmer_Status0_Legende">??</td>
+                    <td class="Legende">beworben</td>
+                    <td class="Teilnehmer_Status2_Legende"></td>
+                    <td class="Legende">bestätigt</td>
+                    <td class="Teilnehmer_Schichtleiter_Legende">SL</td>
+                    <td class="Legende">Schichtleiter</td>
+	            </tr>
+	        </table>
+	    </div>';
 
-	$SQLCommand.="order by termin_von ASC ";
+    $smtp_select_data_of_shift = $database_pdo->prepare(
+        'SELECT terminnr, art, ort,
+	    DATE_FORMAT(termin_von, "%d.%m.%Y") AS mDatum,
+	    DATE_FORMAT(termin_von, "%w") AS mWochentag,
+	    DATE_FORMAT(termin_von, "%H:%i") AS mVon,
+	    DATE_FORMAT(termin_bis, "%H:%i") AS mBis,
+	    coalesce(sonderschicht, 0) AS sonderschicht
+	    FROM termine
+	    WHERE datediff(curdate(), termin_von) <= :admin_filter_days
+	    ORDER BY termin_von ASC'
+    );
 
-	$SQLResult=mysql_query($SQLCommand,$verbindung);
-	while($row = mysql_fetch_object($SQLResult)) {
-		$zusText="";
+    $smtp_select_data_of_shift->execute(
+        array(':admin_filter_days' => (int)$_SESSION['AdminFilterDays'])
+    );
 
-		if ($row->sonderschicht) {
-			$Farbe='#D99694';
-			$zusText="Sonderschicht ";
+	while($date_of_shift = $smtp_select_data_of_shift->fetch()) {
+		$zusText = '';
+
+		if ($date_of_shift['sonderschicht']) {
+			$Farbe = '#D99694';
+			$zusText = 'Sonderschicht ';
 		} else {
-		  if ($row->art == 0) {
-			$Farbe='#FFC000';
+		  if ($date_of_shift['art'] == 0) {
+			$Farbe = '#FFC000';
 		  } else {
-			$Farbe='#8B72AA';
-			$Farbe='#B3A2C7';
+			$Farbe = '#8B72AA';
+			$Farbe = '#B3A2C7';
 		  }
 		}
 
-		$mType=0;
-		$mHTML.="<div class=\"div_Schicht\" style=\"background-color:".$Farbe.";\">";
-		$mHTML.="<div class=\"div_Schicht_Header\">";
-		$mHTML.="<div class=\"div_Schicht_Header_left\">";
-		$mHTML.="<a name=\"".$row->terminnr."\"></a>";
-		$mHTML.=Get_Wochentag($row->mWochentag).", ".$row->mDatum;
-		$mHTML.="</div>";
-		$mHTML.="<div class=\"div_Schicht_Header_right\">";
-		if ($row->art == 0) {
-			$mHTML.="<b>".$zusText."Infostand:</b>";
-			$mType = 0;
-		} else {
-			$mHTML.="<b>".$zusText."Trolley:</b>";
-			$mType = 1;
-		}
-		$mHTML.=$row->ort;
-		$mHTML.="<a href=\"index.php?Type=Termine&ID=".$row->terminnr."\"><img src=\"images/edit.png\" style=\"max-width:22px;max-height:22px;\"></a>";
-		$mHTML.="<a href=\"index.php?Type=Termine&ASKDELID=".$row->terminnr."\"><img src=\"images/Nein.png\" style=\"max-width:22px;max-height:22px;\"></a>";
-		$mHTML.="</div>";
-		$mHTML.="</div>";
-		$mHTML.="<div class=\"div_Schichtrows\">";
-		$SQLCommandSchichten="Select sch.terminnr, sch.von, sch.bis, sch.Schichtnr, ";
-		$SQLCommandSchichten.="DATE_FORMAT(sch.von, '%H:%i') as Zeitvon, ";
-		$SQLCommandSchichten.="DATE_FORMAT(sch.bis, '%H:%i') as Zeitbis ";
-		$SQLCommandSchichten.="from schichten sch ";
-		$SQLCommandSchichten.="Where (sch.terminnr=".$row->terminnr.") ";
-		$SQLCommandSchichten.="order by sch.Schichtnr ";
-		$SQLResultSchichten=mysql_query($SQLCommandSchichten,$verbindung);
-		while($rowSchichten = mysql_fetch_object($SQLResultSchichten)) {
+		$header_date = Get_Wochentag($date_of_shift['mWochentag']).', ' . $date_of_shift['mDatum'];
 
-			$SQLCommandSchTeil="SELECT count(*) as Anz  ";
-			$SQLCommandSchTeil.="FROM schichten_teilnehmer SchTeil ";
-			$SQLCommandSchTeil.="Where (SchTeil.terminnr = ".$row->terminnr.") and ";
-			$SQLCommandSchTeil.="(SchTeil.schichtnr = ".$rowSchichten->Schichtnr.") and ";
-			$SQLCommandSchTeil.="(SchTeil.isschichtleiter = 1) ";
-			$SQLResultSchTeil=mysql_query($SQLCommandSchTeil,$verbindung);
-			$rowSchTeil = mysql_fetch_object($SQLResultSchTeil);
-			$mAnzSchichtleiter = $rowSchTeil->Anz;
-			$mHTML.="<div class=\"div_Schicht_Time\">".$rowSchichten->Zeitvon." - ".$rowSchichten->Zeitbis."</div>";
-			$mHTML.="<div class=\"div_Schicht_Teilnehmer\"><table><tr>";
+        if ($date_of_shift['art'] == 0) {
+            $header_title = $zusText . 'Infostand:';
+            $mType = 0;
+        } else {
+            $header_title = $zusText . 'Trolley:';
+            $mType = 1;
+        }
+
+
+		$mHTML .=
+            '<div class="div_Schicht" style="background-color:' . $Farbe . '">
+		    <div class="div_Schicht_Header">
+		    <div class="div_Schicht_Header_left"><a name="' . $date_of_shift['terminnr'] . '"></a>' . $header_date . '</div>
+		    <div class="div_Schicht_Header_right">
+		    <b>' . $header_title . '</b>' .
+            $date_of_shift['ort'] . '<a href="index.php?Type=Termine&ID=' . $date_of_shift['terminnr'] . '">
+            <img src="images/edit.png" style="max-width:22px;max-height:22px;"></a>
+		    <a href="index.php?Type=Termine&ASKDELID=' . $date_of_shift['terminnr'] . '">
+            <img src="images/Nein.png" style="max-width:22px;max-height:22px;"></a>
+		    </div>
+		    </div>
+		    <div class="div_Schichtrows">';
+
+        $smtp_select_shift_list = $database_pdo->prepare(
+            'SELECT terminnr, von, bis, Schichtnr,
+		    DATE_FORMAT(von, "%H:%i") AS Zeitvon,
+		    DATE_FORMAT(bis, "%H:%i") AS Zeitbis
+		    FROM schichten
+		    WHERE terminnr= :id_schedule
+		    ORDER BY Schichtnr'
+        );
+
+        $smtp_select_shift_list->execute(
+            array(':id_schedule' => (int)$date_of_shift['terminnr'])
+        );
+
+		while($shift_list = $smtp_select_shift_list->fetch()) {
+
+            $smpt_select_number_of_user_from_shift = $database_pdo->prepare(
+                'SELECT count(*) AS Anz
+			    FROM schichten_teilnehmer SchTeil
+			    WHERE SchTeil.terminnr = :id_schedule
+			    AND SchTeil.schichtnr = :id_shift
+			    AND SchTeil.isschichtleiter = 1'
+            );
+
+            $smpt_select_number_of_user_from_shift->execute(
+                array(
+                    ':id_schedule' => (int)$date_of_shift['terminnr'],
+                    ':id_shift' => (int)$shift_list['Schichtnr']
+                )
+            );
+
+			$number_of_user_from_shift = $smpt_select_number_of_user_from_shift->fetch();
+			$mAnzSchichtleiter = $number_of_user_from_shift['Anz'];
+
+			$mHTML .=
+                '<div class="div_Schicht_Time">' . $shift_list['Zeitvon'] . ' - ' . $shift_list['Zeitbis'] . '</div>
+			    <div class="div_Schicht_Teilnehmer"><table><tr>';
             $mAnzTD=0;
 			$AllowApply=1;
 			$mAnzAktiv=0;
-			$SQLCommandSchTeil="SELECT SchTeil.teilnehmernr,SchTeil.status,SchTeil.isschichtleiter, ";
-			$SQLCommandSchTeil.="muser.vorname as vorname, muser.nachname as nachname, ";
-			$SQLCommandSchTeil.="muser.versammlung, muser.sprache, muser.infostand, muser.trolley, ";
-			$SQLCommandSchTeil.="coalesce(muser.Bemerkung,'') as UserBemerkung,  ";
-			$SQLCommandSchTeil.="coalesce(muser.MaxSchichten,2) as MaxSchichten,  ";
-			$SQLCommandSchTeil.="coalesce(muser.TeilnehmerBemerkung,'') as TeilnehmerBemerkung  ";
-			$SQLCommandSchTeil.="FROM schichten_teilnehmer SchTeil ";
-			$SQLCommandSchTeil.="left outer join teilnehmer muser ";
-			$SQLCommandSchTeil.="on SchTeil.teilnehmernr = muser.teilnehmernr ";
-			$SQLCommandSchTeil.="Where (SchTeil.terminnr = ".$row->terminnr.") and ";
-			$SQLCommandSchTeil.="(SchTeil.schichtnr = ".$rowSchichten->Schichtnr.") ";
-			$SQLResultSchTeil=mysql_query($SQLCommandSchTeil,$verbindung);
 
-			while($rowSchTeil = mysql_fetch_object($SQLResultSchTeil)) {
+            $smtp_select_user_from_date = $database_pdo->prepare(
+                'SELECT SchTeil.teilnehmernr, SchTeil.status, SchTeil.isschichtleiter,
+			    muser.vorname AS vorname, muser.nachname AS nachname,
+			    muser.versammlung, muser.sprache, muser.infostand, muser.trolley,
+			    coalesce(muser.Bemerkung, "") AS UserBemerkung,
+			    coalesce(muser.MaxSchichten, 2) AS MaxSchichten,
+			    coalesce(muser.TeilnehmerBemerkung, "") AS TeilnehmerBemerkung
+			    FROM schichten_teilnehmer SchTeil
+			    LEFT OUTER JOIN teilnehmer muser
+			    ON SchTeil.teilnehmernr = muser.teilnehmernr
+			    WHERE SchTeil.terminnr = :id_schedule
+			    AND SchTeil.schichtnr = :id_shift'
+            );
+
+            $smtp_select_user_from_date->execute(
+                array(
+                    ':id_schedule' => (int)$date_of_shift['terminnr'],
+                    ':id_shift' => (int)$shift_list['Schichtnr']
+                )
+            );
+
+			while($user_from_date = $smtp_select_user_from_date->fetch()) {
 				$AddSchulung='';
-				if ($row->art == 0)
-					if ($rowSchTeil->infostand == 2)
+				if ($date_of_shift['art'] == 0)
+					if ($user_from_date['infostand'] == 2)
 						$AddSchulung='Schulung, ';
 				else
-					if ($rowSchTeil->trolley == 2)
+					if ($user_from_date['trolley'] == 2)
 						$AddSchulung='Schulung, ';
 
 				$mAnzTD = $mAnzTD + 1;
 
 				if ($mAnzTD > 0) {
-					$mHTML.="</tr><tr>";
-					$mAnzTD= 0;
+					$mHTML .= '</tr><tr>';
+					$mAnzTD = 0;
 				}
 
-				if ($rowSchTeil->status == 0)
-					$class="Teilnehmer_Status0";
+				if ($user_from_date['status'] == 0)
+					$class = 'Teilnehmer_Status0';
 
-				if ($rowSchTeil->status == 2) {
+				if ($user_from_date['status'] == 2) {
 					$mAnzAktiv = $mAnzAktiv + 1;
-					if ($rowSchTeil->isschichtleiter == 1)
-						$class="Teilnehmer_Schichtleiter";
+					if ($user_from_date['isschichtleiter'] == 1)
+						$class = 'Teilnehmer_Schichtleiter';
 					else
-						$class="Teilnehmer_Status2";
+						$class = 'Teilnehmer_Status2';
 				}
-				$mHTML.="<td class=\"".$class." td_Teilnehmer\" style=\"position:relative;\">".$rowSchTeil->vorname." ".$rowSchTeil->nachname." (".$AddSchulung.$rowSchTeil->versammlung.")";
+				$mHTML .=
+                    '<td class="' . $class. ' td_Teilnehmer" style="position:relative;">' . $user_from_date['vorname'] .
+                    ' ' . $user_from_date['nachname'] . ' (' . $AddSchulung . $user_from_date['versammlung'] . ')';
 
-				if ($rowSchTeil->status == 0)
-					$mHTML.="  <a href=\"index.php?Type=Termine&SubType=SetOK&Terminnr=".$row->terminnr."&Schichtnr=".$rowSchichten->Schichtnr."&Nr=".$rowSchTeil->teilnehmernr."#".$row->terminnr."\"><img src=\"images/Ja.png\" style=\"max-width:22px;max-height:22px;\"></a>";
+				if ($user_from_date['status'] == 0)
+					$mHTML .=
+                        '<a href="index.php?Type=Termine&SubType=SetOK&Terminnr=' .
+                        $date_of_shift['terminnr'] . "&Schichtnr=" . $shift_list['Schichtnr'] .
+                        '&Nr=' . $user_from_date['teilnehmernr'] . '#' . $date_of_shift['terminnr'] . '">
+                        <img src="images/Ja.png" style="max-width:22px;max-height:22px;"></a>';
 				else
-					$mHTML.="  <a href=\"index.php?Type=Termine&SubType=SetBack&Terminnr=".$row->terminnr."&Schichtnr=".$rowSchichten->Schichtnr."&Nr=".$rowSchTeil->teilnehmernr."#".$row->terminnr."\"><img src=\"images/goback.png\" style=\"max-width:22px;max-height:22px;\"></a>";
+					$mHTML .=
+                        '<a href="index.php?Type=Termine&SubType=SetBack&Terminnr=' . $date_of_shift['terminnr'] .
+                        '&Schichtnr=' . $shift_list['Schichtnr'] . '&Nr=' . $user_from_date['teilnehmernr'] . '#' .
+                        $date_of_shift['terminnr'] . '">
+                        <img src="images/goback.png" style="max-width:22px;max-height:22px;"></a>';
 
 				if ($mAnzSchichtleiter == 0)
-				  $mHTML.="  <a href=\"index.php?Type=Termine&SubType=SetSL&Terminnr=".$row->terminnr."&Schichtnr=".$rowSchichten->Schichtnr."&Nr=".$rowSchTeil->teilnehmernr."#".$row->terminnr."\"><img src=\"images/SL.png\" style=\"max-width:22px;max-height:22px;\"></a>";
+				  $mHTML .=
+                      '<a href="index.php?Type=Termine&SubType=SetSL&Terminnr=' .
+                      $date_of_shift['terminnr'] . '&Schichtnr=' . $shift_list['Schichtnr'] . '&Nr=' .
+                      $user_from_date['teilnehmernr'] . '#' . $date_of_shift['terminnr'] . '">
+                      <img src="images/SL.png" style="max-width:22px;max-height:22px;"></a>';
 
-				$mHTML.="<a href=\"index.php?Type=Termine&SubType=DelUser&Terminnr=".$row->terminnr."&Schichtnr=".$rowSchichten->Schichtnr."&Nr=".$rowSchTeil->teilnehmernr."#".$row->terminnr."\"><img src=\"images/Nein.png\" style=\"max-width:22px;max-height:22px;\"></a>";
+				$mHTML .=
+                    '<a href="index.php?Type=Termine&SubType=DelUser&Terminnr=' . $date_of_shift['terminnr'] .
+                    '&Schichtnr=' . $shift_list['Schichtnr'] . '&Nr=' . $user_from_date['teilnehmernr'] .
+                    '#' . $date_of_shift['terminnr'] . '">
+                    <img src="images/Nein.png" style="max-width:22px;max-height:22px;"></a>';
 
 				$BemerkungsText="";
-				if ($rowSchTeil->MaxSchichten != '')
-					$BemerkungsText.="<b>Stunden/Tag:</b>".$rowSchTeil->MaxSchichten."<br>";
+				if ($user_from_date['MaxSchichten'] != '')
+					$BemerkungsText .= '<b>Stunden/Tag:</b>' . $user_from_date['MaxSchichten'] . '<br>';
 
-				if ($rowSchTeil->TeilnehmerBemerkung != '')
-					$BemerkungsText.="<b>Bemerkung:</b><br>".$rowSchTeil->TeilnehmerBemerkung."<br>";
+				if ($user_from_date['TeilnehmerBemerkung'] != '')
+					$BemerkungsText .= '<b>Bemerkung:</b><br>' . $user_from_date['TeilnehmerBemerkung'] . '<br>';
 
-				if ($rowSchTeil->UserBemerkung != '')
-					$BemerkungsText.="<b>interne Bemerkung:</b><br>".$rowSchTeil->UserBemerkung."<br>";
+				if ($user_from_date['UserBemerkung'] != '')
+					$BemerkungsText .= '<b>interne Bemerkung:</b><br>' . $user_from_date['UserBemerkung'] . '<br>';
 
 				if ($BemerkungsText != '')
-					$mHTML.="<div class=\"arrow_box\">".$BemerkungsText."</div>";
+					$mHTML .= '<div class="arrow_box">' . $BemerkungsText . '</div>';
 
-				$mHTML.="</td>";
+				$mHTML .= '</td>';
 			}
 
-			$mHTML.="</tr><tr>";
-			$mHTML.="<td>";
-
-			$mHTML.="<form action=\"index.php?Type=Termine&SubType=AddUser&Terminnr=".$row->terminnr."&Schichtnr=".$rowSchichten->Schichtnr."#".$row->terminnr."\" method=\"POST\">";
+			$mHTML .=
+                '</tr><tr><td>
+                <form action="index.php?Type=Termine&SubType=AddUser&Terminnr=' . $date_of_shift['terminnr'] .
+                '&Schichtnr=' . $shift_list['Schichtnr'] . '#' . $date_of_shift['terminnr'] . '" method="POST">';
 
 			if ($mType == 0)
-				$mHTML.="<select name=\"NewRegUser\">".$InfostandUser."</select>";
+				$mHTML .= '<select name="NewRegUser">' . $InfostandUser . '</select>';
 			else
-				$mHTML.="<select name=\"NewRegUser\">".$TrolleyUser."</select>";
+				$mHTML .= '<select name="NewRegUser">' . $TrolleyUser . '</select>';
 
-			$mHTML.="<input type=\"submit\" name=\"AddSchichtuser\" value=\"Hinzufügen\"></form>";
-			$mHTML.="</td>";
+			$mHTML .= '<input type="submit" name="AddSchichtuser" value="Hinzufügen"></form></td>';
 
 			if ($mAnzSchichtleiter == 0)
 				if ($mAnzAktiv >= 2)
-					if ($row->art == 0)
-						$mHTML.="<td><font color=\"red\">Schichtleiter fehlt</td>";
+					if ($date_of_shift['art'] == 0)
+						$mHTML .= '<td><font color="red">Schichtleiter fehlt</td>';
 
-			$mHTML.="</tr></table>";
-			$mHTML.="</div><div class=\"Div_Clear\"></div>";
+			$mHTML .= '</tr></table></div><div class="Div_Clear"></div>';
 		}
 
-		$mHTML.="</div>";
-		$mHTML.="<div class=\"div_Schicht_Footer\"></div>";
-		$mHTML.="</div>";
+		$mHTML .= '</div><div class="div_Schicht_Footer"></div></div>';
 	}
 
-	$mHTML.="<script type=\"text/javascript\"> ";
-	$mHTML.="$('.td_Teilnehmer').hover(function(){ ";
-	$mHTML.=" $(this).find('.arrow_box').show(); ";
-	$mHTML.="}); ";
-	$mHTML.="$('.td_Teilnehmer a').hover(function(){ ";
-	$mHTML.=" $(this).parent().find('.arrow_box').show(); ";
-	$mHTML.="}); ";
-	$mHTML.="$('.td_Teilnehmer').mouseout(function () { ";
-	$mHTML.="	$(this).find('.arrow_box').hide(); ";
-	$mHTML.="}); ";
-	$mHTML.="$('.arrow_box').hover(function(){ ";
-	$mHTML.=" $(this).show(); ";
-	$mHTML.="}); ";
-	$mHTML.="$('.arrow_box').mouseout(function () { ";
-	$mHTML.="	$(this).hide(); ";
-	$mHTML.="}); ";
-	$mHTML.="</script> ";
+	$mHTML .=
+        '<script type="text/javascript">
+	        $(".td_Teilnehmer").hover(function(){ 
+	            $(this).find(".arrow_box").show(); 
+	        });
+	        $(".td_Teilnehmer a").hover(function(){
+	            $(this).parent().find(".arrow_box").show();
+	        });
+	        $(".td_Teilnehmer").mouseout(function () {
+	            $(this).find(".arrow_box").hide();
+	        });
+	        $(".arrow_box").hover(function(){
+	            $(this).show();
+	        });
+	        $(".arrow_box").mouseout(function () {
+	            $(this).hide();
+	        });
+	    </script>';
 }
 ?>

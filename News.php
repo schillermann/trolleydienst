@@ -1,196 +1,217 @@
 <?php
-  $ShowNews=1;
+$ShowNews=1;
+if(!empty($_SESSION)) {
+    if (isset($_GET['DowID'])) {
 
-  if (isset($_GET['DowID']))
-  {
-  	$SQLCommand="Select ID,Bezeichnung,Dateiname,ServerPfadname ";
-  	$SQLCommand.="from Newsletter ";
-  	$SQLCommand.="Where (ID=".$_GET['DowID'].")";
-  	$SQLResult=mysql_query($SQLCommand,$verbindung);
-  	$row = mysql_fetch_object($SQLResult);
-  	
-  	header("Content-Type: application/force-download");
-  	header("Content-Disposition: attachment; filename=".$row->Dateiname);
-  	header("Content-type:application/pdf");
+        $stmt_file = $database_pdo->prepare(
+            'SELECT ID, Bezeichnung, Dateiname, ServerPfadname
+            FROM newsletter
+            WHERE ID = :id_file'
+        );
 
-  	ob_clean();
-  	flush();
-  	readfile('./News/'.$row->ServerPfadname);
-  	
-  	
-  }
-  
-  if (isset($_GET['DelID']))
-  {
-  	$SQLCommand="Select ID,Bezeichnung,Dateiname,ServerPfadname ";
-  	$SQLCommand.="from Newsletter ";
-  	$SQLCommand.="Where (ID=".$_GET['DelID'].")";
-  	$SQLResult=mysql_query($SQLCommand,$verbindung);
-  	$row = mysql_fetch_object($SQLResult);
-  	
-  	unlink('.\\News\\'.$row->ServerPfadname);
-  	$DeleteDS="Delete from Newsletter Where (ID=".$_GET['DelID'].")";
-  	$SQLResult=mysql_query($DeleteDS,$verbindung);
-  }
-  
-  if (isset($_POST['SaveNews']))
-  {
-  	if (is_dir("./News") == false)
-  		mkdir("./News");
+        $stmt_file->execute(
+            array(':id_file' => (int)$_GET['DowID'])
+        );
+        $file = $stmt_file->fetch();
 
-  	$mFilename = uniqid();
-  	$mFilename.= ".";
-  	$mFilename.= pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+        header('Content-Type: application/force-download');
+        header('Content-Disposition: attachment; filename=' . $file['Dateiname']);
 
-  	if (file_exists("./News/".$mFilename))
-  	{
-  		echo $_FILES["file"]["name"] . " existiert schon. ";
-  		exit;
-  	}
-  	else
-  	{
-  		move_uploaded_file($_FILES["file"]["tmp_name"],
-  		"./News/".$mFilename);
-  	}
+        ob_clean();
+        flush();
+        readfile('./News/' . $file['ServerPfadname']);
+    }
 
-  	$ID=1;
-  	$sqlcommand="Select coalesce(Max(ID),0) + 1 as ID from Newsletter ";
-  	$SQLResult=mysql_query($sqlcommand,$verbindung);
-  	$row=mysql_fetch_object($SQLResult);
-  	if ($row->ID > 0)
-  	{
-  		$ID = $row->ID;
-  	}
+    if (isset($_GET['DelID']) && !empty($_SESSION)) {
 
-  	$SQLCommand="Insert Into Newsletter (ID,Bezeichnung,Dateiname,ServerPfadname,newsletter_typ) VALUES (";
-  	$SQLCommand.=$ID.",'".$_POST['Bezeichnung']."','".$_FILES["file"]["name"]."','".$mFilename."',".$_POST['TypeNews'].")";
-  	$SQLResult=mysql_query($SQLCommand,$verbindung);
-  	if (!$SQLResult)
-  	{
-  		echo $SQLCommand."</br>";
-  		echo "Infos konnte nicht eingefügt werden";
-  		exit;
-  	}
- }
-  
-if (isset($_POST['SaveEditNews']))
-{
-    $SQLCommand="Update Newsletter ";
-    $SQLCommand.= " set Bezeichnung = '".$_POST['Bezeichnung']."', ";
-    $SQLCommand.= " newsletter_typ = ".$_POST['TypeNews']." ";
-    $SQLCommand.= " Where (ID = ".$_POST['NewsID'].")";
-    $SQLResult=mysql_query($SQLCommand,$verbindung);
-    if (!$SQLResult)
-    {
-        echo $SQLCommand."</br>";
-        echo "Infos konnte nicht gespeichert werden";
-        exit;
+        $stmt_file_download = $database_pdo->prepare(
+            'SELECT ID, Bezeichnung, Dateiname, ServerPfadname
+            FROM newsletter
+            WHERE ID = :id_file'
+        );
+
+        $stmt_file->execute(
+            array(':id_file' => (int)$_GET['DelID'])
+        );
+
+        $file = $stmt_file->fetch();
+
+        unlink('./News/' . $file_download['ServerPfadname']);
+
+        $stmt_file_delete = $database_pdo->prepare(
+            'DELETE FROM newsletter WHERE ID = :id_file'
+        );
+
+        $stmt_file_delete->execute(
+            array(':id_file' => (int)$_GET['DelID'])
+        );
+    }
+
+    if (isset($_POST['SaveNews'])) {
+        if (is_dir("./News") == false && !mkdir("./News"))
+            exit('Der Ordner News kann nicht angelegt werden!');
+
+        $mFilename = uniqid();
+        $mFilename .= ".";
+        $mFilename .= pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+
+        if (file_exists('./News/' . $mFilename))
+            exit($_FILES["file"]["name"] . ' existiert schon!');
+        else
+            move_uploaded_file($_FILES["file"]["tmp_name"], './News/' . $mFilename);
+
+        $stmt_id_file_last = $database_pdo->prepare(
+            'SELECT coalesce(MAX(ID),0) + 1 AS ID FROM newsletter'
+        );
+
+        $stmt_id_file_last->execute();
+        $id_file_last = $stmt_id_file_last->fetch();
+        $ID = ($id_file_last['ID'] == 0) ? 1 : (int)$id_file_last['ID'];
+
+        $stmt_insert_file = $database_pdo->prepare(
+            'INSERT INTO newsletter (ID, Bezeichnung, Dateiname, ServerPfadname, newsletter_typ)
+            VALUES (:id_file, :label_file, :name_file, :path_file, :type_news)'
+        );
+
+        $stmt_insert_file->execute(
+            array(
+                ':id_file' => $ID,
+                ':label_file' => filter_filename($_POST['Bezeichnung']),
+                ':name_file' => $_FILES["file"]["name"],
+                ':path_file' => $mFilename,
+                ':type_news' => (int)$_POST['TypeNews']
+            )
+        );
+        if ($stmt_insert_file->rowCount() != 1)
+            exit('Infos konnte nicht eingefügt werden!');
+    }
+
+    if (isset($_POST['SaveEditNews'])) {
+
+        $stmt_update_file = $database_pdo->prepare(
+            'UPDATE newsletter 
+            SET Bezeichnung = :label_file, newsletter_typ = :type_news
+            WHERE ID = :id_news'
+        );
+
+        $stmt_update_file->execute(
+            array(
+                ':label_file' => filter_filename($_POST['Bezeichnung']),
+                ':type_news' => (int)$_POST['TypeNews'],
+                ':id_news' => (int)$_POST['NewsID']
+            )
+        );
+
+        if ($stmt_update_file->rowCount() != 1)
+            exit ('Infos konnte nicht gespeichert werden!');
+    }
+
+    if (isset($_GET['EditDS'])) {
+        $ShowNews = 0;
+
+        $stmt_file = $database_pdo->prepare(
+            'SELECT ID, Bezeichnung, Dateiname, ServerPfadname, coalesce(newsletter_typ,0) AS newsletter_typ
+            FROM newsletter
+            WHERE ID = :id_file'
+        );
+
+        $stmt_file->execute(
+            array(':id_file' => (int)$_GET['EditDS'])
+        );
+
+        $file = $stmt_file->fetch();
+        $guide_selected = '';
+        $oezi_selected = '';
+        $literature_cart_selected = '';
+        $literature_table_selected = '';
+
+        switch ($file['newsletter_typ']) {
+            case -1:
+                $guide_selected = 'selected';
+                break;
+            case 0:
+                $oezi_selected = 'selected';
+                break;
+            case 1:
+                $literature_cart_selected = 'selected';
+                break;
+            case 2:
+                $literature_table_selected = 'selected';
+                break;
+        }
+
+        $mHTML .=
+            '<h3>Information ' . $file['Bezeichnung'] . ' bearbeiten</h3>
+            <fieldset style="width:470px">
+                <legend>News</legend>
+                <form action="index.php?Type=Infos" method="post" enctype="multipart/form-data">
+                    <table border=0 cellspacing=0>
+                        <colgroup>
+                            <COL WIDTH=150>
+                            <COL WIDTH=150>
+                        </colgroup>
+                        <input type="hidden" name="NewsID" size=30 value="' . $file['ID'] . '">
+                        <tr>
+                            <td>Bezeichnung:</td>
+                            <td><input type="Text" name="Bezeichnung" size=30 value="' . $file['Bezeichnung'] . '"></td>
+                        </tr>
+                        <tr>
+                            <td>Typ:</td>
+                            <td>
+                            <select name="TypeNews">
+                            <option value="-1" ' . $guide_selected . '>Anleitung</option>
+                            <option value="0" '. $oezi_selected .'>Özi</option>
+                            <option value="1" ' . $literature_cart_selected . '>Trolley</option>
+                            <option value="2" ' . $literature_table_selected . '>Infostand</option>
+                            </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="Submit" name="SaveEditNews" value="Speichern">
+                </form>
+                <a href="index.php?Type=Infos&DelID=' . $file['ID'] . '">Löschen</a>
+            </fieldset></br>';
+    }
+
+    if (isset($_POST['NewNews'])) {
+        $mHTML .=
+            '<h3>Neue Information</h3>
+            <fieldset style="width:470px">
+                <legend>News</legend>
+                <form action="index.php?Type=Infos" method="post" enctype="multipart/form-data">
+                    <table border=0 cellspacing=0>
+                        <colgroup>
+                            <COL WIDTH=150>
+                            <COL WIDTH=150>
+                        </colgroup>
+                        <tr>
+                            <td>Bezeichnung:</td>
+                            <td><input type="Text" name="Bezeichnung" size=30></td>
+                        </tr>
+                        <tr>
+                            <td>Typ:</td>
+                            <td>
+                            <select name="TypeNews">
+                            <option value="-1">Anleitung</option>
+                            <option value="0" selected>Özi</option>
+                            <option value="1">Trolley</option>
+                            <option value="2">Infostand</option>
+                            </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Datei:</td>
+                            <td><input type="file" name="file" id="file"></td>
+                        </tr>
+                    </table>
+                    <input type="Submit" name="SaveNews" value="Speichern">
+                </form>
+            </fieldset></br>';
+        $ShowNews = 0;
     }
 }
-  
-if (isset($_GET['EditDS']))
-{
-    $ShowNews=0;
-    $SQLCommand="Select ID,Bezeichnung,Dateiname,ServerPfadname,coalesce(newsletter_typ,0) as newsletter_typ ";
-    $SQLCommand.="from Newsletter ";
-    $SQLCommand.="Where (ID=".$_GET['EditDS'].")";
-    //echo $SQLCommand;
-    $SQLResult=mysql_query($SQLCommand,$verbindung);
-    $row = mysql_fetch_object($SQLResult);
 
-    $mHTML.="<h3>Information ".$row->Bezeichnung." bearbeiten</h3>";
-    $mHTML.="<fieldset style=\"width:470px\">";
-    $mHTML.="<legend>News</legend>";
-    $mHTML.="<form action=\"index.php?Type=Infos\" method=\"post\" enctype=\"multipart/form-data\">";
-    $mHTML.="<table border=0 cellspacing=0>";
-    $mHTML.="<colgroup>";
-    $mHTML.="<COL WIDTH=150>";
-    $mHTML.="<COL WIDTH=150>";
-    $mHTML.="</colgroup>";
-
-    $mHTML.="<input type=\"hidden\" name=\"NewsID\" size=30 value=\"".$row->ID."\">";
-    $mHTML.="<tr>";
-    $mHTML.="<td>Bezeichnung:</td>";
-    $mHTML.="<td><input type=\"Text\" name=\"Bezeichnung\" size=30 value=\"".$row->Bezeichnung."\"></td>";
-    $mHTML.="</tr>";
-    $mHTML.="<tr>";
-    $mHTML.="<td>Typ:</td>";
-    $mHTML.="<td>";
-    $mHTML.="<select name=\"TypeNews\">";
-    $mHTML.="<option value=\"-1\"";
-    if ($row->newsletter_typ == 0)
-    {
-        $mHTML.=" selected ";
-    }
-    $mHTML.=">Anleitung</option>";
-    $mHTML.="<option value=\"0\"";
-    if ($row->newsletter_typ == 0)
-    {
-        $mHTML.=" selected ";
-    }
-    $mHTML.=">�zi</option>";
-    $mHTML.="<option value=\"1\"";
-    if ($row->newsletter_typ == 1)
-    {
-        $mHTML.=" selected ";
-    }
-    $mHTML.=">Trolley</option>";
-    $mHTML.="<option value=\"2\"";
-    if ($row->newsletter_typ == 2)
-    {
-        $mHTML.=" selected ";
-    }
-    $mHTML.=">Infostand</option>";
-    $mHTML.="</select>";
-    $mHTML.="</td>";
-    $mHTML.="</tr>";
-
-    $mHTML.="</table>";
-    $mHTML.="<input type=\"Submit\" name=\"SaveEditNews\" value=\"Speichern\">";
-    $mHTML.="</form>";
-    $mHTML.="<a href=\"index.php?Type=Infos&DelID=".$row->ID."\">Löschen</a>";
-    $mHTML.="</fieldset></br>";
-}
-  
-if (isset($_POST['NewNews']))
-{
-    $mHTML.="<h3>Neue Information</h3>";
-    $mHTML.="<fieldset style=\"width:470px\">";
-    $mHTML.="<legend>News</legend>";
-    $mHTML.="<form action=\"index.php?Type=Infos\" method=\"post\" enctype=\"multipart/form-data\">";
-    $mHTML.="<table border=0 cellspacing=0>";
-    $mHTML.="<colgroup>";
-    $mHTML.="<COL WIDTH=150>";
-    $mHTML.="<COL WIDTH=150>";
-    $mHTML.="</colgroup>";
-
-    $mHTML.="<tr>";
-    $mHTML.="<td>Bezeichnung:</td>";
-    $mHTML.="<td><input type=\"Text\" name=\"Bezeichnung\" size=30></td>";
-    $mHTML.="</tr>";
-    $mHTML.="<tr>";
-    $mHTML.="<td>Typ:</td>";
-    $mHTML.="<td>";
-    $mHTML.="<select name=\"TypeNews\">";
-    $mHTML.="<option value=\"-1\">Anleitung</option>";
-    $mHTML.="<option value=\"0\" selected>Özi</option>";
-    $mHTML.="<option value=\"1\">Trolley</option>";
-    $mHTML.="<option value=\"2\">Infostand</option>";
-    $mHTML.="</select>";
-    $mHTML.="</td>";
-    $mHTML.="</tr>";
-    $mHTML.="<tr>";
-    $mHTML.="<td>Datei:</td>";
-    $mHTML.="<td><input type=\"file\" name=\"file\" id=\"file\"></td>";
-    $mHTML.="</tr>";
-    $mHTML.="</table>";
-    $mHTML.="<input type=\"Submit\" name=\"SaveNews\" value=\"Speichern\">";
-    $mHTML.="</form></fieldset></br>";
-    $ShowNews=0;
-}
-
-if ($ShowNews == 1)
-{
+if ($ShowNews == 1) {
     $mHTML.="<h3>News</h3>";
     if ($_SESSION['admin'] == 1)
     {
@@ -198,7 +219,6 @@ if ($ShowNews == 1)
         $mHTML.="<input type=\"submit\" name=\"NewNews\" Value=\"Neue Information\">";
         $mHTML.="</form></br>";
     }
-
 
     for ($i = -1; $i <= 1; $i++) {
 
@@ -233,45 +253,58 @@ if ($ShowNews == 1)
         $mHTML.=$mHeader;
         $mHTML.="</div>";
 
-        $SQLCommand="Select ID,Bezeichnung,Dateiname,ServerPfadname ";
-        $SQLCommand.="from Newsletter ";
-        $SQLCommand.=" Where (coalesce(newsletter_typ,0) = ".$i.") ";
-        $SQLCommand.=" order by Bezeichnung ";
+        $sql = 'SELECT ID, Bezeichnung, Dateiname, ServerPfadname
+            FROM newsletter 
+            WHERE coalesce(newsletter_typ,0) = ' . $i . '
+            ORDER BY Bezeichnung';
         if ($i == 0)
-            $SQLCommand.=" DESC ";
+            $sql .= " DESC ";
+
+        $stmt_file_list = $database_pdo->prepare($sql);
+
+        $stmt_file_list->execute();
 
         $mHTML.="<div class=\"News\">";
 
-        $SQLResult=mysql_query($SQLCommand,$verbindung);
-        while($row = mysql_fetch_object($SQLResult))
-        {
-            $mHTML.="<div class=\"div_NewsItem\">";
+        while($file = $stmt_file_list->fetch()) {
+            $mHTML .=
+                '<div class="div_NewsItem">
+                    <div class="div_NewsItem_innerleft">
+                        <a href="index.php?Type=Infos&DowID=' . $file['ID'] . '">
+                            <img src="images/' . $mBild . '" style="max-height:70px;">
+                        </a>
+                    </div>';
 
-            $mHTML.="<div class=\"div_NewsItem_innerleft\">";
-            $mHTML.="<a href=\"index.php?Type=Infos&DowID=".$row->ID."\">";
-            $mHTML.="<img src=\"images/".$mBild."\" style=\"max-height:70px;\">";
-            $mHTML.="</a>";
-            $mHTML.="</div>";
-
-            $Link="index.php?Type=Infos&DowID=".$row->ID;
+            $Link = 'index.php?Type=Infos&DowID=' . $file['ID'];
             if ($_SESSION['admin'] == 1)
-            {
-                $Link="index.php?Type=Infos&EditDS=".$row->ID;
-            }
+                $Link="index.php?Type=Infos&EditDS=" . $file['ID'];
 
-            $mHTML.="<div class=\"div_NewsItem_innerleft\">";
-            $mHTML.="<a href=\"".$Link."\"><p>";
-            $mHTML.=$row->Bezeichnung;
-            $mHTML.="</p></a>";
-            $mHTML.="</div>";
-
-            $mHTML.="<div class=\"Div_Clear\"></div>";
-
-            $mHTML.="</div>";
+            $mHTML .=
+                '<div class="div_NewsItem_innerleft">
+                    <a href="' . $Link . '">
+                        <p>' . $file['Bezeichnung'] . '</p>
+                    </a>
+                </div>
+                <div class="Div_Clear"></div>
+                </div>';
         }
-        $mHTML.="<div class=\"Div_Clear\"></div>";
-        $mHTML.="</div>";
+        $mHTML .= '<div class="Div_Clear"></div></div>';
     }
+}
+
+function filter_filename(string $filename) : string {
+    $filename_filtered = preg_replace('/[^A-Za-z0-9\-$]/', '', $filename);
+
+    $filename_valid = filter_var(
+        $filename_filtered,
+        FILTER_VALIDATE_REGEXP,
+        array("options"=>array("regexp"=>"/^[a-zA-Z]/"))
+    );
+
+    if($filename_valid === FALSE)
+        return 'unknown';
+    else
+        return $filename_valid;
 }
 
 ?>
