@@ -24,31 +24,28 @@ body {
 	background: linear-gradient(left, #ECEAE7 0%,#ADACA9 50px, #ECEAE7 50px, #ECEAE7 950px,#ADACA9 950px, #ECEAE7 1000px);
 }
 
-.div_logo, .div_logo img {
-	float: left;
-}
 
-.div_logo h1 {
-	float: right;
-	font-size: 24px;
-	margin-top: 36px;
-	margin-left: 10px;
-}
 
-.div_logo small {
-	font-size: 15px;
-	color: #777777;
-}
-
-.div_logo p {
-	font-size: 12px;
-	margin: 8px 0px 0px 0px;
+.div_logo {
+	float:left;
+	width:150px;
+	height:120px;
 }
 
 .div_HeaderRight {
 	float:right;
-	margin-right: 114px;
-	margin-top: 10px;
+	width:850px;
+	height:120px;	
+}
+
+.div_HeaderRight H2{
+	color:#373433;
+	margin:20px 0 0 0;	
+}
+
+.div_HeaderTitleleft {
+	float:left;
+	width:170px;
 }
 
 .div_HeaderTitleright {
@@ -420,10 +417,7 @@ td.News {
 	padding:0px 3px;
 	min-height:50px;
 	vertical-align:middle;
-}
-
-.div_NewsItem_innerleft p{
-	padding-top:15px;
+	p{padding-top:15px;}
 }
 
 .div_NewsItem_innerleft a{

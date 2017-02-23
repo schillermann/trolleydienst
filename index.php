@@ -1,6 +1,6 @@
 <?php
 session_start();
-define('TROLLEYDIENST_VERSION', '1.2.0');
+define('TROLLEYDIENST_VERSION', '1.2.1');
 require 'config.php';
 require 'DBConnect.php';
 
@@ -89,25 +89,21 @@ $mHTML =
         </header>
         <body>
             <div class="div_page">
-                <div class="div_logo">
-                    <img src="images/Logo.png">
-                    <h1>
-                        ' . CONGREGATION_NAME . '<br>
-                        <small>Öffentliches Zeugnisgeben</small><br>
-                        <p>' . $version . '</p>
-                    </h1>
+                <div class="div_logo"><img src="images/Logo.png" style="max-height:120px;"></div>
+                <div class="div_HeaderRight">
+                    <div class="div_HeaderTitleleft"></div>
+                    <div class="div_HeaderTitleright">' . $message_welcome . '</div>
                 </div>
-                <div class="div_HeaderRight">' . $message_welcome . '</div>
-            <div class="Div_Clear"></div>
-            <div class="div_Menu">
-                <ul>
-                    <li><a href="index.php?Type=Schichten">Schichten</a></li>
-                    <li><a href="index.php?Type=Infos">News</a></li>
-                    <li><a href="index.php?Type=Profil">Profil</a></li>
-                    ' . $admin_nav . '
-                </ul>
-            </div>
-            <div class="div_MainTypePage">';
+                <div class="Div_Clear"></div>
+                <div class="div_Menu">
+                    <ul>
+                        <li><a href="index.php?Type=Schichten">Schichten</a></li>
+                        <li><a href="index.php?Type=Infos">News</a></li>
+                        <li><a href="index.php?Type=Profil">Profil</a></li>
+                        ' . $admin_nav . '
+                    </ul>
+                </div>
+                <div class="div_MainTypePage">';
 
 if (isset($_SESSION['ID'])) {
     if (isset($_GET['Type'])) {
