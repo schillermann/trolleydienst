@@ -64,11 +64,11 @@ DEINE_NACHRICHT
 ---
 Deine Brüder
 
-Organisationsteam
+Trolley Team
 Öffentliches Zeugnisgeben ' . CONGREGATION_NAME . '
 
 ' . $_SERVER['SERVER_NAME'] . '
-' . EMAIL_ADDRESS . '</textarea>
+' . EMAIL_REPLY_TO_ADDRESS . '</textarea>
                     </td>
                 </tr>
                 <tr>

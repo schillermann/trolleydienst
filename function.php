@@ -150,9 +150,11 @@ function generateMessageID()
  } 
 
 function SendMail($to, $subject, $message) {
+    $header = 'From: ' . CONGREGATION_NAME . ' <' . EMAIL_FROM_ADDRESS . '>' . "\n";
+    $header .= 'Reply-To: Trolley Team <' . EMAIL_REPLY_TO_ADDRESS . '>' . "\n";
+    $header .= 'Content-type: text/plain; charset=UTF-8';
 
-    $headers = 'From: <' . EMAIL_ADDRESS . '>';
-    return mail($to, $subject, $message, $headers);
+    return mail($to, $subject, $message, $header);
 }
 
 function filter_datetime(string $date, string $time = null) : \DateTime {

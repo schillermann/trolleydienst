@@ -41,11 +41,11 @@ dein neues Passwort ist: ' . $str_password . '
 ---
 Deine Brüder
 
-Organisationsteam
+Trolley Team
 Öffentliches Zeugnisgeben ' . CONGREGATION_NAME . '
 
 ' . $_SERVER['SERVER_NAME'] . '
-' . EMAIL_ADDRESS;
+' . EMAIL_REPLY_TO_ADDRESS;
 
         $smtp_update_user_password = $database_pdo->prepare(
             'UPDATE teilnehmer

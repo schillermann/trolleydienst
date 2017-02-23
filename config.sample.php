@@ -16,5 +16,6 @@ define('DATABASE_NAME', 'database_name_here');
 define('DATABASE_USER', 'username_here');
 define('DATABASE_PASSWORD', 'password_here');
 
-define('EMAIL_ADDRESS', 'example@adresse');
+define('EMAIL_FROM_ADDRESS', 'example@adresse');
+define('EMAIL_REPLY_TO_ADDRESS', 'example@adresse');
 define('CONGREGATION_NAME', 'congregation_name_here');

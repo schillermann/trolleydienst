@@ -33,11 +33,11 @@ if (isset($_POST['DelSchichtTeil'])) {
     );
 
     while($shift = $stmt_shift_list->fetch()) {
-        $mMessage = 'Liebes ÖZ-Organisationsteam, <br><br>';
+        $mMessage = 'Liebes Trolley Team, <br><br>';
         $mMessage .= 'folgende Schicht wurde zurückgewiesen: <br>';
         $mMessage .= 'Datum: ' . $shift['mDatum'] . ' ' . $shift['Zeitvon'] . '-' . $shift['Zeitbis'] . '<br>';
         $mMessage .= 'Von: ' . $shift['vorname'] . ' ' . $shift['nachname'] . '<br>';
-        SendMail(EMAIL_ADDRESS, 'Schicht zurückgewiesen' , $mMessage);
+        SendMail(EMAIL_REPLY_TO_ADDRESS, 'Schicht zurückgewiesen' , $mMessage);
     }
 
     $stmt_delete_user_from_shift = $database_pdo->prepare(

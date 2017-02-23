@@ -93,7 +93,7 @@ if (isset($_POST['SaveNewClient'])) {
             </table>
             <br><br>
             Bitte ändere dein Kennwort in dem Menüpunkt Profil<br><br>
-            Bei Anregungen und Problemen kannst du gerne ein Mail an ' . EMAIL_ADDRESS . ' schreiben oder antworte einfach diese E-Mail.<br>';
+            Bei Anregungen und Problemen kannst du gerne ein Mail an ' . EMAIL_REPLY_TO_ADDRESS . ' schreiben oder antworte einfach diese E-Mail.<br>';
 
         SendMail($_POST["eMail"], $Betreff, $text);
 

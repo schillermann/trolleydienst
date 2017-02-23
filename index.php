@@ -1,5 +1,6 @@
 <?php
 session_start();
+define('TROLLEYDIENST_VERSION', '1.2.0');
 require 'config.php';
 require 'DBConnect.php';
 
@@ -65,7 +66,7 @@ $message_welcome = '';
 $version = '';
 
 if (isset($_SESSION['ID'])) {
-    $version = 'Version 1.0.0';
+    $version = 'Version ' . TROLLEYDIENST_VERSION;
     $message_welcome = 'Willkommen ' . $_SESSION['Name'] . ' - <a href="index.php?Logout=Logout">Abmelden</a>';
 }
 
@@ -84,7 +85,7 @@ $mHTML =
             <title>Schichtplanung</title>
             <meta charset="utf-8"/>
             <link rel="stylesheet" type="text/css" href="css/main.css">
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script src="jquery.min.js"></script>
         </header>
         <body>
             <div class="div_page">
