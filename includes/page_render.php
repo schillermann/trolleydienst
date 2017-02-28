@@ -12,5 +12,5 @@ return function (array $template_placeholder = array()) : string {
     $layout_placeholder['content'] = $page_template($template_placeholder);
 
     $page_layout = include 'modules/page_layout.php';
-    $page_layout($layout_placeholder);
+    return $page_layout($layout_placeholder);
 };

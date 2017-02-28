@@ -28,6 +28,9 @@
                         </a>
                     </li>
                     <?php endforeach; ?>
+                    <?php if(!empty($_SESSION)) : ?>
+                    <li style="float:right"><a href="/?logout">Abmelden</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>

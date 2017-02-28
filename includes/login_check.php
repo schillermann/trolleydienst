@@ -1,5 +1,5 @@
 <?php
-function check_login(\PDO $database): bool {
+return function (\PDO $database, string $username, string $password): bool {
 
     $stmt_user_login = $database->prepare(
         'SELECT teilnehmernr, vorname, nachname, email,
@@ -13,23 +13,20 @@ function check_login(\PDO $database): bool {
 
     $stmt_user_login->execute(
         array(
-            ':username' => $_POST['login_name'],
-            ':password' => md5($_POST['login_PWD'])
+            ':username' => $username,
+            ':password' => md5($password)
         )
     );
     $user = $stmt_user_login->fetch();
 
-    if ($user)
-    {
-        $_SESSION['role'] = 'user';
-        /*
-        $_SESSION['ID'] = $user['teilnehmernr'];
-        $_SESSION['Name'] = $user['vorname'] . ' ' . $user['nachname'];
-        $_SESSION['eMail'] = $user['email'];
-        $_SESSION['infostand'] = ($user['literature_table'] == 0) ? 0 : 1;
-        $_SESSION['trolley'] = ($user['literature_cart'] == 0) ? 0 : 1;
-        $_SESSION['admin'] = (int)$user['admin'];
-*/
+    if ($user) {
+        $_SESSION['id_user'] = $user['teilnehmernr'];
+        $_SESSION['name'] = $user['vorname'] . ' ' . $user['nachname'];
+        $_SESSION['email'] = $user['email'];
+        $_SESSION['literature_table'] = ($user['literature_table'] == 0) ? 0 : 1;
+        $_SESSION['literature_cart'] = ($user['literature_cart'] == 0) ? 0 : 1;
+        $_SESSION['role'] = ($user['admin'] == 1) ? 'admin' : 'user';
+
         $stmt_user_last_login = $database->prepare(
             'UPDATE
               teilnehmer
@@ -49,4 +46,4 @@ function check_login(\PDO $database): bool {
     {
         return FALSE;
     }
-}
+};

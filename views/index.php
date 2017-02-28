@@ -1,11 +1,11 @@
-<?php if ($placeholder['error_message'] !== FALSE) : ?>
+<?php if (isset($placeholder['error_message'])) : ?>
 <div id="divLoginNote" class="note-box login-alert-box">
     <p class="error">
         Anmeldung ist fehlgeschlagen.
     </p>
 </div>
 <?php endif; ?>
-<form action="/" method="post">
+<form method="post">
     <fieldset class="login">
         <legend>Anmelden</legend>
         <p>Wenn du ein Konto hast, bitte <em>Benutzernamen</em> und <em>Kennwort</em> eingeben.</p>

@@ -1,5 +1,7 @@
 <?php
-return function (array $navigation, string $role): array {
+return function (array $navigation, string $role = ''): array {
+
+    if(empty($role)) $role = NULL;
 
     foreach ($navigation as $index => $link) {
         if(isset($link['role'])) {
