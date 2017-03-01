@@ -8,9 +8,12 @@ return function (array $template_placeholder = array()) : string {
     $layout_placeholder = array();
     $layout_placeholder['navigation'] = $navigation_permission($navigation_config, $role);
 
-    $page_template = include 'modules/page_template.php';
-    $layout_placeholder['content'] = $page_template($template_placeholder);
+    $template_file = 'views/' . basename($_SERVER['SCRIPT_NAME']);
+    $page_template = include 'modules/render_template.php';
 
-    $page_layout = include 'modules/page_layout.php';
-    return $page_layout($layout_placeholder);
+    $layout_placeholder['content'] = $page_template($template_placeholder, $template_file);
+
+    $layout_file = 'views/layout.php';
+    $page_layout = include 'modules/render_template.php';
+    return $page_layout($layout_placeholder, $layout_file);
 };

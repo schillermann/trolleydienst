@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="de">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <title>Trolleydienst</title>
         <meta name="description" content="Trolleydienst Verwaltung">
-        <link href="../css/global.css" rel="stylesheet">
+        <link href="/css/global.css" rel="stylesheet">
     </head>
 
     <body>
