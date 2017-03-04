@@ -19,12 +19,14 @@ if (isset($_POST['SaveNewClient'])) {
 
     if (($number_of_user['Anz'] == 0) && ($_POST['username'] != '')) {
 
-        $next_id_user = $database_pdo->query(
+        $smtp_next_id_user = $database_pdo->query(
             'SELECT coalesce(Max(teilnehmernr), 0) + 1 AS teilnehmernr 
             FROM teilnehmer'
         );
 
-        $teilnehmernr = ($next_id_user['teilnehmernr'] == 0) ? 1 : $next_id_user['teilnehmernr'];
+        $next_id_user = $smtp_next_id_user->fetch();
+
+        $teilnehmernr = ($next_id_user['teilnehmernr'] == 0) ? 1 : (int)$next_id_user['teilnehmernr'];
 
         $Admin = 0;
         if (isset($_POST['Dienstart']) && in_array("Admin", $_POST['Dienstart']))
@@ -47,7 +49,7 @@ if (isset($_POST['SaveNewClient'])) {
             VALUES
             (
               :id_user, 0, :firstname, :surname, :email, :username, :password,
-              :literature_table, :literature_cart, :is_admin
+              :literature_table, :literature_cart, :is_admin, :phone, :mobile, :congregation, :language
             )'
         );
 
@@ -189,7 +191,7 @@ if (isset($_POST['NewClient'])) {
                 </tr>
                 <tr>
                     <td>Versammlung:</td>
-                    <td><input type="Text" name="versammlung" value="' . CONGREGATION_NAME . '" size="30"></td>";
+                    <td><input type="Text" name="versammlung" value="' . CONGREGATION_NAME . '" size="30"></td>
                 </tr>
                 <tr>
                     <td>Sprache:</td>
