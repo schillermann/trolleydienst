@@ -1,7 +1,11 @@
 <?php
 session_start();
 
-include "function.php";
+if(empty($_SESSION))
+    header('location: /');
+
+spl_autoload_register();
+
 $database_pdo = include 'includes/database_pdo.php';
 
 $stmt_settings_schedule_max_days = $database_pdo->prepare(
@@ -21,13 +25,11 @@ if ($_SESSION['literature_cart'] == 1)
     $AllowSchichtArt[] = 1;
 
 $stmt_schedule = $database_pdo->prepare(
-    'SELECT terminnr, art, ort,
-    DATE_FORMAT(termin_von, "%d.%m.%Y") as mDatum,
-    DATE_FORMAT(termin_von, "%w") as mWochentag,
-    DATE_FORMAT(termin_von, "%H:%i") as mVon,
-    DATE_FORMAT(termin_bis, "%H:%i") as mBis,
-    DATEDIFF(termin_von,curdate()) AS DiffDate,
-    coalesce(sonderschicht,0) as sonderschicht
+    'SELECT terminnr AS id_schedule, art AS type, ort AS place,
+    termin_von AS datetime_from,
+    termin_bis AS datetime_to,
+    DATEDIFF(termin_von,curdate()) AS datetime_diff,
+    coalesce(sonderschicht,0) as shift_extra
     FROM termine
     WHERE art IN(' . implode(',', $AllowSchichtArt) . ')
     AND (datediff(curdate(),termin_von) <= :schedule_max_days )
@@ -38,141 +40,51 @@ $stmt_schedule->execute(
     array(':schedule_max_days' => (int)$mTageFilter)
 );
 
-$mHTML = '';
+$template_placeholder = array();
+$template_placeholder['schedule_list'] = array();
 
-while($schedule = $stmt_schedule->fetch()) {
-    $zusText="";
-    if ($schedule['sonderschicht']) {
-        $Farbe='#D99694';
-        $zusText="Sonderschicht ";
-    } else {
-        if ($schedule['art'] == 0)
-            $Farbe='#FFC000';
-        else
-            $Farbe='#B3A2C7';
-    }
-
-    $mHTML.=
-        '<div class="div_Schicht" style="background-color:' . $Farbe . '">
-        <div class="div_Schicht_Header">
-        <div class="div_Schicht_Header_left">
-        <a name="' . $schedule['terminnr'] . '"></a>
-        ' . Get_Wochentag($schedule['mWochentag']) . ', ' . $schedule['mDatum'] . '
-        </div>
-        <div class="div_Schicht_Header_right">';
-
-    if ($schedule['art'] == 0)
-        $mHTML .= '<b>' . $zusText . 'Infostand:</b>';
-    else
-        $mHTML .= '<b>' . $zusText . 'Trolley:</b>';
-
-    $mOrt = strtoupper($schedule['ort']);
-    $mHTML.=$mOrt;
-    $mHTML.= '</div></div><div class="div_Schichtrows">';
+while ($next_schedule = $stmt_schedule->fetchObject('Models\Schedule')) {
 
     $stmt_shifts = $database_pdo->prepare(
-        'SELECT sch.terminnr, sch.von, sch.bis, sch.Schichtnr,
-        DATE_FORMAT(sch.von, "%H:%i") as Zeitvon,
-        DATE_FORMAT(sch.bis, "%H:%i") as Zeitbis
+        'SELECT sch.terminnr AS id_schedule, sch.Schichtnr AS id_shift, sch.von AS datetime_from, sch.bis AS datetime_to
         FROM schichten sch
         WHERE sch.terminnr = :id_schedule
         ORDER BY sch.Schichtnr'
     );
 
     $stmt_shifts->execute(
-        array(
-            ':id_schedule' => (int)$schedule['terminnr']
-        )
+        array(':id_schedule' => $next_schedule->get_schedule_id())
     );
 
-    while($shift = $stmt_shifts->fetch()) {
-        $mHTML .=
-            '<div class="div_Schicht_Time">' . $shift['Zeitvon'] . ' - ' . $shift['Zeitbis'] . '</div>
-            <div class="div_Schicht_Teilnehmer"><table><tr>';
-
-        $mAnzTD=0;
-        $AllowApply=1;
+    while ($shift = $stmt_shifts->fetchObject('Models\Shift')) {
 
         $stmt_users_from_shift = $database_pdo->prepare(
-            'SELECT SchTeil.teilnehmernr, SchTeil.status, SchTeil.isschichtleiter,
-            muser.vorname AS vorname, muser.nachname AS nachname,
-            muser.Handy AS mobil
+            'SELECT SchTeil.teilnehmernr AS id_user, SchTeil.status AS status,
+            SchTeil.isschichtleiter AS shift_supervisor, muser.vorname AS firstname,
+            muser.nachname AS surname, muser.Handy AS mobile
             FROM schichten_teilnehmer SchTeil
             LEFT OUTER JOIN teilnehmer muser
             ON SchTeil.teilnehmernr = muser.teilnehmernr
             WHERE SchTeil.terminnr = :id_schedule
             AND SchTeil.schichtnr = :id_shift
-            ORDER BY SchTeil.isschichtleiter DESC '
+            ORDER BY SchTeil.isschichtleiter DESC'
         );
 
         $stmt_users_from_shift->execute(
             array(
-                ':id_schedule' => (int)$shift['terminnr'],
-                ':id_shift' => (int)$shift['Schichtnr']
+                ':id_schedule' => $shift->get_id_schedule(),
+                ':id_shift' => $shift->get_id_shift()
             )
         );
 
-        while($user_from_shift = $stmt_users_from_shift->fetch()) {
-            if ($user_from_shift['teilnehmernr'] == $_SESSION['id_user']) {
-                $AllowApply=0;
-                if ($user_from_shift['status'] == 0)
-                    $class="Teilnehmer_Status0";
+        while($user_from_shift = $stmt_users_from_shift->fetchObject('Models\ShiftUser'))
+            $shift->add_shift_user($user_from_shift);
 
-                if ($user_from_shift['status'] == 2)
-                    if ($user_from_shift['isschichtleiter'] == 1)
-                        $class="Teilnehmer_Schichtleiter";
-                    else
-                        $class="Teilnehmer_Status2";
-
-                $mAnzTD = $mAnzTD + 1;
-                $mHTML .=
-                    '<td class="' . $class . '">' . $user_from_shift['vorname'] . ' ' . $user_from_shift['nachname'];
-
-                if (($schedule['DiffDate'] > 3) || ($user_from_shift['status'] == 0))
-                    $mHTML .=
-                        '<a href="index.php?Type=Schichten&SubType=DelUser&Terminnr=' . $shift['terminnr'] .
-                        '&Schichtnr=' . $shift['Schichtnr'] . "#" . $shift['terminnr'] . '">' .
-                        '<img src="images/Nein.png" style="max-width:22px;max-height:22px;"></a>';
-
-                $mHTML .= '</td>';
-            } else {
-                if ($user_from_shift['status'] == 2) {
-                    if ($user_from_shift['isschichtleiter'] == 1)
-                        $mHTML .= '<td class="otherTeilnehmer_Schichtleiter">';
-                    else
-                        $mHTML .= '<td class="otherTeilnehmer">';
-
-                    $mAnzTD = $mAnzTD + 1;
-                    if(empty($user_from_shift['mobil']))
-                        $mHTML .=  $user_from_shift['vorname'] . " " . $user_from_shift['nachname'] . '</td>';
-                    else
-                        $mHTML .=
-                            '<a href="tel:' . $user_from_shift['mobil'] . '">' .
-                            $user_from_shift['vorname'] . " " . $user_from_shift['nachname'] . '</a></td>';
-                }
-            }
-        }
-
-        if ($mAnzTD >= 2)
-            $AllowApply = 0;
-
-        if ($AllowApply == 1) {
-            $mAnzTD = $mAnzTD + 1;
-            $mHTML .=
-                '<td  class="otherTeilnehmer">
-                    <form action="index.php?Type=Schichten#' . $schedule['terminnr'] . '" method="post">
-                        <input type="hidden" name="Terminnr" value="' . $schedule['terminnr'] . '">
-                        <input type="hidden" name="Schichtnr" value="' . $shift['Schichtnr'] . '">
-                        <input type="submit" name="SetSchicht" value="bewerben">
-                    </form>
-                </td>';
-        }
-        $mHTML .= '</tr></table></div><div class="Div_Clear"></div>';
+        $next_schedule->add_shift($shift);
     }
 
-    $mHTML .= '</div><div class="div_Schicht_Footer"></div></div>';
+    $template_placeholder['schedule_list'][] = $next_schedule;
 }
 
-$template_placeholder['content'] = $mHTML;
 $render_page = include 'includes/page_render.php';
 echo $render_page($template_placeholder);

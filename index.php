@@ -6,12 +6,15 @@ if(isset($_GET['logout'])) {
     header('location: /');
 }
 
+if(isset($_SESSION) && !empty($_SESSION))
+    header('location: shift.php');
+
 $template_placeholder = array();
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
 
     $database_pdo = include 'includes/database_pdo.php';
-    $check_login = include 'includes/login_check.php';
+    $check_login = include 'includes/check_login.php';
 
     $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
 
@@ -22,5 +25,5 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 }
 
 $render_page = include 'includes/page_render.php';
-echo $render_page($template_placeholder)
+echo $render_page($template_placeholder);
 ?>

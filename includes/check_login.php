@@ -20,7 +20,7 @@ return function (\PDO $database, string $username, string $password): bool {
     $user = $stmt_user_login->fetch();
 
     if ($user) {
-        $_SESSION['id_user'] = $user['teilnehmernr'];
+        $_SESSION['id_user'] = (int)$user['teilnehmernr'];
         $_SESSION['name'] = $user['vorname'] . ' ' . $user['nachname'];
         $_SESSION['email'] = $user['email'];
         $_SESSION['literature_table'] = ($user['literature_table'] == 0) ? 0 : 1;

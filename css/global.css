@@ -70,12 +70,6 @@ input[type="checkbox"] {
     min-height: 0 !important;
 }
 
-form {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 650px;
-}
-
 fieldset {
     border: 1px solid #CDC9C7;
     border-radius: 2px;
@@ -93,6 +87,14 @@ legend {
     width: auto;
     max-width: 1140px;
     margin: 0 auto;
+}
+
+.button {
+    border-radius: 7px;
+    background:#898989;
+    border:0px;
+    padding:5px 15px;
+    color:#FFFFFF;
 }
 
 /**
@@ -143,6 +145,16 @@ legend {
 
 #main_nav li a:hover {
     background-color: #111;
+}
+
+/**
+ * Content
+ */
+
+#content-apps {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 650px;
 }
 
 /**
