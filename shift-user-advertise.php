@@ -48,5 +48,5 @@ $shift_datetime = $stmt_select_shift->fetch();
 $template_placeolder['shift_datetime_from'] = new \DateTime($shift_datetime['datetime_from']);
 $template_placeolder['shift_datetime_to'] = new \DateTime($shift_datetime['datetime_to']);
 
-$render_page = include 'includes/page_render.php';
+$render_page = include 'includes/render_page.php';
 echo $render_page($template_placeolder);

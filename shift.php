@@ -86,5 +86,5 @@ while ($next_schedule = $stmt_schedule->fetchObject('Models\Schedule')) {
     $template_placeholder['schedule_list'][] = $next_schedule;
 }
 
-$render_page = include 'includes/page_render.php';
+$render_page = include 'includes/render_page.php';
 echo $render_page($template_placeholder);

@@ -24,6 +24,6 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         $template_placeholder['error_message'] = TRUE;
 }
 
-$render_page = include 'includes/page_render.php';
+$render_page = include 'includes/render_page.php';
 echo $render_page($template_placeholder);
 ?>
