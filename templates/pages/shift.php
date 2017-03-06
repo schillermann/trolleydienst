@@ -1,4 +1,4 @@
-<?php $get_weekday = include 'helpers/get_weekday.php'; ?>
+<?php $get_weekday = include 'templates/helpers/get_weekday.php'; ?>
 <div id="content-apps">
     <h3 class="Title_Middle">Schichten</h3>
     <div class="div_Legende">

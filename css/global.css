@@ -67,12 +67,9 @@ input[type="submit"]:hover {
 }
 
 input[type="checkbox"] {
+    display: inline-block;
     min-height: 0 !important;
-}
-
-fieldset {
-    border: 1px solid #CDC9C7;
-    border-radius: 2px;
+    width: auto;
 }
 
 legend {
@@ -158,18 +155,45 @@ legend {
 }
 
 /**
- * Login
+ * Messages
  */
 
-.login div {
+.note-box {
+    border: 1px dotted rgba(189,183,181,0.5);
+    background-color: #faf8f5;
+    margin: 1em 0;
+    padding: .5em 1em;
+}
+
+.error {
+    font-weight: 400;
+    color: #CC0000;
+}
+
+.success {
+    font-weight: 400;
+    color: #1E8402;
+}
+
+/**
+ * From
+ */
+
+fieldset {
+    border: 1px solid #CDC9C7;
+    border-radius: 2px;
+}
+
+fieldset div {
     padding: 9px 3px 0px 35px;
 }
 
-#username, #password {
-    width: 175px;
+fieldset div input, fieldset div select {
+    width: 250px;
     display: block;
 }
 
 .from_button {
     margin: 1.5em 0 1em;
 }
+

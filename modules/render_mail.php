@@ -1,11 +1,11 @@
 <?php
-return function (string $email_template_file, array $placeholder): array {
+return function (string $template_file, array $placeholder): array {
 
     $email_data = array();
     $email_data['subject'] = '';
     $email_data['message'] = '';
 
-    $template_mail = file_get_contents('views/mails/shift_user_remove.php');
+    $template_mail = file_get_contents($template_file);
     if($template_mail === FALSE)
         return $email_data;
 

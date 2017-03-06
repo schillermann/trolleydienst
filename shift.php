@@ -1,10 +1,5 @@
 <?php
-session_start();
-
-if(empty($_SESSION))
-    header('location: /');
-
-spl_autoload_register();
+require 'includes/init_page.php';
 
 $database_pdo = include 'includes/database_pdo.php';
 

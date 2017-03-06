@@ -59,7 +59,7 @@ if($stmt_delete_user_from_shift->rowCount() == 1) {
 
     $user = $stmt_select_user->fetch();
 
-    $mail_shift_user_remove = include 'includes/mail_shift_user_remove.php';
+    $mail_shift_user_remove = include 'includes/send_mail_shift_user_remove.php';
     $mail_shift_user_remove($shift_datetime_from, $shift_datetime_to, $user['firstname'], $user['surname']);
 
     header('location: shift.php' . $anchor);
