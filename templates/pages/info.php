@@ -1,52 +1,33 @@
-<div id="content-apps">
-    <h2>Schichten</h2>
-    <a href="info-add.php" class="button" role="button">
-        Information hochladen
-    </a>
-    <div class="NewsHeader" style="margin:10px 25px 20px 10px;color:#5F497A;border-bottom:solid 1px #5F497A;">
-        <b><?php echo CONGREGATION_NAME; ?></b> - Infos rund um die Website
-    </div>
-    <div class="News"><div class="Div_Clear"></div></div>
-    <div class="NewsHeader" style="margin:10px 25px 20px 10px;color:#5F497A;border-bottom:solid 1px #5F497A;">
-        <b>ÖZi</b> - Die News vom öffentlichen Zeugnisgeben
-    </div>
-    <div class="News"><div class="Div_Clear"></div></div>
-    <div class="NewsHeader" style="margin:10px 25px 20px 10px;color:#5F497A;border-bottom:solid 1px #5F497A;">
-        <b>Trolley</b> - Alle Infos, Merkblätter und Gebiete
-    </div>
-    <div class="News">
-        <div class="div_NewsItem">
-            <div class="div_NewsItem_innerleft">
-                <a href="index.php?Type=Infos&amp;DowID=3">
-                    <img src="images/News_Trolley.png" style="max-height:70px;">
-                </a>
-            </div><div class="div_NewsItem_innerleft">
-                <a href="index.php?Type=Infos&amp;EditDS=3">
-                    <p>Trolleydienst Gebiet Friesenplatz</p>
-                </a>
-            </div>
-            <div class="Div_Clear"></div>
-        </div><div class="div_NewsItem">
-            <div class="div_NewsItem_innerleft">
-                <a href="index.php?Type=Infos&amp;DowID=4">
-                    <img src="images/News_Trolley.png" style="max-height:70px;">
-                </a>
-            </div><div class="div_NewsItem_innerleft">
-                <a href="index.php?Type=Infos&amp;EditDS=4">
-                    <p>Trolleydienst Gebiet Hans-Böckler-Platz</p>
-                </a>
-            </div>
-            <div class="Div_Clear"></div>
-        </div><div class="div_NewsItem">
-            <div class="div_NewsItem_innerleft">
-                <a href="index.php?Type=Infos&amp;DowID=2">
-                    <img src="images/News_Trolley.png" style="max-height:70px;">
-                </a>
-            </div><div class="div_NewsItem_innerleft">
-                <a href="index.php?Type=Infos&amp;EditDS=2">
-                    <p>Trolleydienst Gebiet Venloer</p>
-                </a>
-            </div>
-            <div class="Div_Clear"></div>
-        </div><div class="Div_Clear"></div></div>
-</div>
+<h1>Infos</h1>
+<a href="info-add.php" class="button" role="button">
+    Information hochladen
+</a>
+<section class="info-list">
+    <h2><?php echo CONGREGATION_NAME; ?> <small>- Infos rund um die Website</small></h2>
+    <ul id="info-guideline">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</section>
+
+<section class="info-list">
+    <h2>ÖZi <small>- Die News vom öffentlichen Zeugnisgeben</small></h2>
+    <ul id="info-public-witnessing">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</section>
+
+<section class="info-list">
+    <h2>Trolley <small>- Alle Infos, Merkblätter und Gebiete</small></h2>
+    <ul id="info-trolley">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</section>

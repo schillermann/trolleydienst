@@ -1,6 +1,6 @@
 <?php
 return function (array $template_placeholder = array()) : string {
-    $navigation_config = include 'config_nav.php';
+    $navigation_config = include 'navigation.php';
 
     $navigation_permission = include 'modules/navigation_permission.php';
     $role = (isset($_SESSION['role'])) ? $_SESSION['role'] : '';

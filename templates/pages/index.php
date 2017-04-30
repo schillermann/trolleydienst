@@ -1,4 +1,4 @@
-<div id="content-apps">
+<div class="container-center">
     <?php if (isset($placeholder['error_message'])) : ?>
         <div class="note-box">
             <p class="error">
