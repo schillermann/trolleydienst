@@ -1,5 +1,9 @@
 <?php
-function Get_Wochentag(int $Wochentagnr) : string {
+/**
+ * @param int $Wochentagnr
+ * @return string
+ */
+function Get_Wochentag($Wochentagnr) {
 	$mWochentagname = '';
 	if ($Wochentagnr == 0)
 		$mWochentagname = 'Sonntag';
@@ -19,7 +23,13 @@ function Get_Wochentag(int $Wochentagnr) : string {
 	return $mWochentagname;
 }
 
-function Get_SetSchichten(PDO $database_pdo, int $Terminnr, int $AnzStunden) {
+/**
+ * @param PDO $database_pdo
+ * @param int $Terminnr
+ * @param int $AnzStunden
+ * @return int
+ */
+function Get_SetSchichten($database_pdo, $Terminnr, $AnzStunden) {
 
 	if ($AnzStunden < 1)
 		$AnzStunden = 1;
@@ -119,7 +129,12 @@ function Get_SetSchichten(PDO $database_pdo, int $Terminnr, int $AnzStunden) {
 	return 1;
 }
 
-function GetUserLookup(PDO $database_pdo, int $mType) : string {
+/**
+ * @param PDO $database_pdo
+ * @param int $mType
+ * @return string
+ */
+function GetUserLookup($database_pdo, $mType) {
 
     $sql_where = ($mType == 0) ? 'infostand' : 'trolley';
 	$sql_select_user_list =
@@ -157,7 +172,12 @@ function SendMail($to, $subject, $message) {
     return mail($to, $subject, $message, $header);
 }
 
-function filter_datetime(string $date, string $time = null) : \DateTime {
+/**
+ * @param string $date
+ * @param string|null $time
+ * @return DateTime
+ */
+function filter_datetime($date, $time = null) {
 
     if($date_format_german = DateTime::createFromFormat('d.m.Y', $date))
         $date_time = $date_format_german;

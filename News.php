@@ -292,7 +292,11 @@ if ($ShowNews == 1) {
     }
 }
 
-function filter_filename(string $filename) : string {
+/**
+ * @param string $filename
+ * @return string
+ */
+function filter_filename($filename) {
     $filename_filtered = preg_replace('/[^A-Za-z0-9\-$]/', '', $filename);
 
     $filename_valid = filter_var(
