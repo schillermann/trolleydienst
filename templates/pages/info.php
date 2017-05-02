@@ -13,7 +13,9 @@
         </a>
         <figcaption>
             <p><?php echo $file->get_file_label(); ?></p>
-            <a href="#<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+            <?php if ($_SESSION['role'] == 'admin') : ?>
+            <a href="info-edit.php?id_file=<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+            <?php endif; ?>
         </figcaption>
     </figure>
     <?php endforeach; ?>
@@ -28,7 +30,9 @@
         </a>
         <figcaption>
             <p><?php echo $file->get_file_label(); ?></p>
-            <a href="#<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+            <?php if ($_SESSION['role'] == 'admin') : ?>
+            <a href="info-edit.php?id_file=<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+            <?php endif; ?>
         </figcaption>
     </figure>
     <?php endforeach; ?>
@@ -43,7 +47,9 @@
             </a>
             <figcaption>
                 <p><?php echo $file->get_file_label(); ?></p>
-                <a href="#<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+                <?php if ($_SESSION['role'] == 'admin') : ?>
+                <a href="info-edit.php?id_file=<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+                <?php endif; ?>
             </figcaption>
         </figure>
     <?php endforeach; ?>
@@ -58,7 +64,9 @@
             </a>
             <figcaption>
                 <p><?php echo $file->get_file_label(); ?></p>
+                <?php if ($_SESSION['role'] == 'admin') : ?>
                 <a href="#<?php echo $file->get_id_file(); ?>" class="button">bearbeiten</a>
+                <?php endif; ?>
             </figcaption>
         </figure>
     <?php endforeach; ?>

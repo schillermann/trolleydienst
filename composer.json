@@ -1,0 +1,13 @@
+{
+  "name": "schillermann/trolleydienst",
+  "description": "Plan the public witnessing with table and cart",
+  "authors": [
+    {
+      "name": "Mario Schillermann",
+      "email": "mario.schillermann@outlook.com"
+    }
+  ],
+  "require": {
+    "components/font-awesome": "~4.7.0"
+  }
+}
