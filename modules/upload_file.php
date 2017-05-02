@@ -11,6 +11,10 @@ return function (array $file, string $file_target_path, int $file_size_max_byte 
     if($file['size'] > $file_size_max_byte)
         return FALSE;
 
+    if(!is_dir($file_target_path))
+        if(mkdir($file_target_path))
+            return FALSE;
+
     if(!move_uploaded_file($file["tmp_name"], $file_target_path . $file['name']))
         return FALSE;
 

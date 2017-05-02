@@ -8,6 +8,20 @@ body {
     background-color: #edeae6;
 }
 
+
+h2 {
+    margin: 10px 25px 20px 10px;
+    color: #604A7B;
+    border-bottom: solid 1px #604A7B;
+}
+
+figure {
+    display: inline-block;
+    text-align: center;
+    width: 100px;
+    max-height: 200px;
+}
+
 header {
     min-height: 50px;
 }
@@ -199,47 +213,4 @@ fieldset div input, fieldset div select {
 
 .from_button {
     margin: 1.5em 0 1em;
-}
-
-/**
- * Info
- */
-
-.info-list h2 {
-    margin: 10px 25px 20px 10px;
-    color: #604A7B;
-    border-bottom: solid 1px #604A7B;
-}
-
-.info-list ul  {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.info-list  li {
-    float: left;
-}
-
-.info-list li a {
-    display: block;
-    width: 202px;
-    height: 60px;
-    text-decoration: none;
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding-left: 68px;
-    padding-top: 10px;
-}
-
-#info-guideline li a {
-    background-image: url(../images/New_Anleitung.png);
-}
-
-#info-public-witnessing li a {
-    background-image: url(../images/News_Oezi.png);
-}
-
-#info-trolley li a {
-    background-image: url(../images/News_Trolley.png);
 }

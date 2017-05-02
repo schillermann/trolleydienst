@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Trolleydienst</title>
         <meta name="description" content="Trolleydienst Verwaltung">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="/css/global.css" rel="stylesheet">
     </head>
 

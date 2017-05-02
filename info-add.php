@@ -33,10 +33,10 @@ if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
     $stmt_insert_file->execute(
         array(
             ':id_file' => $id_file,
-            ':label_file' => filter_var($_POST['Bezeichnung'], FILTER_SANITIZE_STRING),
+            ':label_file' => filter_var($_POST['file_label'], FILTER_SANITIZE_STRING),
             ':name_file' => $_FILES["file"]["name"],
             ':file_name_hash' => $file_name_hash,
-            ':type_news' => (int)$_POST['TypeNews']
+            ':type_news' => (int)$_POST['file_type']
         )
     );
     if ($stmt_insert_file->rowCount() != 1)
