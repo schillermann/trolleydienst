@@ -8,8 +8,8 @@
 
     <?php foreach ($placeholder['file_list'][-1] as $file) : ?>
     <figure>
-        <a href="uploads/<?php echo $file->get_file_name(); ?>">
-            <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_name()); ?>" width="100%">
+        <a href="uploads/<?php echo $file->get_file_hash(); ?>">
+            <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_hash()); ?>" width="100%">
         </a>
         <figcaption>
             <p><?php echo $file->get_file_label(); ?></p>
@@ -25,8 +25,8 @@
     <h2>ÖZi<small> - Die News vom öffentlichen Zeugnisgeben</small></h2>
     <?php foreach ($placeholder['file_list'][0] as $file) : ?>
     <figure>
-        <a href="uploads/<?php echo $file->get_file_name(); ?>">
-            <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_name()); ?>" width="100%">
+        <a href="uploads/<?php echo $file->get_file_hash(); ?>">
+            <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_hash()); ?>" width="100%">
         </a>
         <figcaption>
             <p><?php echo $file->get_file_label(); ?></p>
@@ -42,8 +42,8 @@
     <h2>Trolley<small> - Alle Infos, Merkblätter und Gebiete</small></h2>
     <?php foreach ($placeholder['file_list'][1] as $file) : ?>
         <figure>
-            <a href="uploads/<?php echo $file->get_file_name(); ?>">
-                <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_name()); ?>" width="100%">
+            <a href="uploads/<?php echo $file->get_file_hash(); ?>">
+                <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_hash()); ?>" width="100%">
             </a>
             <figcaption>
                 <p><?php echo $file->get_file_label(); ?></p>
@@ -59,8 +59,8 @@
     <h2>Infostand<small> - Alle Infos, Merkblätter und Gebiete</small></h2>
     <?php foreach ($placeholder['file_list'][2] as $file) : ?>
         <figure>
-            <a href="uploads/<?php echo $file->get_file_name(); ?>">
-                <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_name()); ?>" width="100%">
+            <a href="uploads/<?php echo $file->get_file_hash(); ?>">
+                <img src="<?php echo $parse_file_preview_url('uploads/' . $file->get_file_hash()); ?>" width="100%">
             </a>
             <figcaption>
                 <p><?php echo $file->get_file_label(); ?></p>

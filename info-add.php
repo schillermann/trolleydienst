@@ -11,7 +11,7 @@ if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
     $file_size_max = $convert_megabyte_in_byte(UPLOAD_SIZE_MAX_IN_MEGABYTE);
     $file_types_allow = array('image/jpeg', 'image/png', 'image/gif', 'application/pdf');
 
-    $template_placeholder['file_uploaded'] = $upload_file($_FILES["file"], 'uploads/', $file_size_max, $file_types_allow);
+
 
     $stmt_id_file_last = $database_pdo->prepare(
         'SELECT coalesce(MAX(ID),0) + 1 AS ID FROM newsletter'
@@ -29,6 +29,8 @@ if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
     $file_name_hash = uniqid();
     $file_name_hash .= ".";
     $file_name_hash .= pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
+
+    $template_placeholder['file_uploaded'] = $upload_file($file_name_hash, 'uploads/', $file_size_max, $file_types_allow);
 
     $stmt_insert_file->execute(
         array(
