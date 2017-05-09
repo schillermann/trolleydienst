@@ -22,7 +22,7 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     if($check_login($database_pdo, $username, $_POST['password']))
         header('location: shift.php');
     else
-        $template_placeholder['error_message'] = TRUE;
+        $template_placeholder['error_message'] = true;
 }
 
 $render_page = include 'includes/render_page.php';

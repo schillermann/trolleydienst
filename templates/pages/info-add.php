@@ -1,17 +1,17 @@
 <h2>Info hochladen</h2>
-    <div class="container-center">
+<div class="container-center">
     <?php if (isset($placeholder['file_uploaded'])) : ?>
-        <div class="note-box">
-            <?php if ($placeholder['file_uploaded']): ?>
-                <p class="success">
-                    Die Datei wurde hochgeladen.
-                </p>
-            <?php else: ?>
-            <p class="error">
-                Die Datei konnte nicht hochgeladen werden!
+    <div class="note-box">
+        <?php if ($placeholder['file_uploaded']): ?>
+            <p class="success">
+                Die Datei wurde hochgeladen.
             </p>
-            <?php endif; ?>
-        </div>
+        <?php else: ?>
+        <p class="error">
+            Die Datei konnte nicht hochgeladen werden!
+        </p>
+        <?php endif; ?>
+    </div>
     <?php endif; ?>
 
     <form method="post" enctype="multipart/form-data">

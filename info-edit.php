@@ -31,7 +31,7 @@ elseif (isset($_POST['save'])) {
     $file_type = filter_input(INPUT_POST, 'file_type', FILTER_VALIDATE_INT, $file_type_options);
     $template_placeholder = array();
 
-    if($file_label != NULL && $file_type) {
+    if($file_label != null && $file_type) {
 
         $file_label = filter_input(INPUT_POST, 'file_label', FILTER_SANITIZE_STRING);
 

@@ -6,7 +6,7 @@ return function (string $template_file, array $placeholder): array {
     $email_data['message'] = '';
 
     $template_mail = file_get_contents($template_file);
-    if($template_mail === FALSE)
+    if($template_mail === false)
         return $email_data;
 
     $email_data['subject'] = strstr($template_mail, PHP_EOL, true);

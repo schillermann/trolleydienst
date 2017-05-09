@@ -1,21 +1,16 @@
 <?php
-return function (\PDO $database, string $username, string $password): Models\User {
+return function (\PDO $database, int $id_user): Models\User {
 
     $stmt_user_login = $database->prepare(
-        'SELECT teilnehmernr AS id_user, vorname AS firstname, nachname AS surname, email,
-        infostand AS literature_table,
-        trolley AS literature_cart,
-        admin AS admin
+        'SELECT teilnehmernr AS id_user, vorname AS firstname, nachname AS surname, email, username,
+        infostand AS literature_table, trolley AS literature_cart, admin AS admin, Telefonnr AS phone,
+        Handy AS mobile, MaxSchichten AS shift_max, TeilnehmerBemerkung AS note
         FROM teilnehmer
-        WHERE username = :username
-        AND pwd = :password'
+        WHERE teilnehmernr = :id_user'
     );
 
     $stmt_user_login->execute(
-        array(
-            ':username' => $username,
-            ':password' => md5($password)
-        )
+        array(':id_user' => $id_user)
     );
     return $stmt_user_login->fetchObject('Models\User');
 };
