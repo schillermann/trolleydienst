@@ -44,17 +44,15 @@
         </fieldset>
         <div class="from_button">
 
+            <button type="submit" name="save" class="active">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
+            </button>
+            <button type="submit" name="cancel">
+                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
+            </button>
             <button type="submit" name="delete">
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
             </button>
-
-            <button type="submit" name="cancel" style="float: right">
-                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
-            </button>
-            <button type="submit" name="save" style="float: right">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
-            </button>
-
 
         </div>
     </form>

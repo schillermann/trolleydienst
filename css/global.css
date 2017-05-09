@@ -46,7 +46,12 @@ input, select, textarea {
     border: 1px solid #bdb7b5;
     box-sizing: border-box;
     min-height: 34px;
-    max-width: 100%;
+}
+
+textarea {
+    display: block;
+    width: 100%;
+    height: 100px;
 }
 
 input:hover, select:hover, textarea:hover {
@@ -104,12 +109,18 @@ legend {
     margin: 0 auto;
 }
 
-.button {
-    border-radius: 7px;
-    background:#898989;
-    border:0px;
-    padding:5px 15px;
-    color:#FFFFFF;
+button {
+    background:#f2f0ed;
+    border: 1px solid rgba(189,183,181,0.5);
+    cursor: pointer;
+    transition: box-shadow .28s;
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 1rem;
+    letter-spacing: .25px;
+    min-width: 4.5em;
+    margin-right: 5px;
+    text-align: center;
 }
 
 /**
@@ -154,8 +165,9 @@ legend {
     text-decoration: none;
 }
 
-#main_nav li a.active {
+.active {
     background-color: #604A7B;
+    color: #fff;
 }
 
 #main_nav li a:hover {
