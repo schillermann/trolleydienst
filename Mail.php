@@ -14,23 +14,23 @@ if (isset($_POST['SendMail'])) {
     if ($_POST['Empfaenger'] == 2)
         $sql .= ' AND trolley = 1';
 
-    $smpt_user_list_with_status_null = $database_pdo->prepare($sql);
+    $stmt_user_list_with_status_null = $database_pdo->query($sql);
 
-  	$mText = $_POST['Text'];
-  	$mText = filter_var($mText, FILTER_SANITIZE_STRING);
-  	$mText = nl2br($mText);
-  	$subject = filter_var($_POST['Betreff'], FILTER_SANITIZE_STRING);
+    $mText = $_POST['Text'];
+    $mText = filter_var($mText, FILTER_SANITIZE_STRING);
+    $mText = nl2br($mText);
+    $subject = filter_var($_POST['Betreff'], FILTER_SANITIZE_STRING);
 
-  	while($receiver = $smpt_user_list_with_status_null->fetch()) {
-  		$title = 'Hallo ' . $receiver['vorname'] . ', <br><br>';
-        SendMail($receiver['email'], $subject, $title . $mText);
-  	}
-  	$mHTML .=
+    while($receiver = $stmt_user_list_with_status_null->fetch())
+        if(!empty($receiver['email']))
+            SendMail($receiver['email'], $subject, $title . $mText);
+
+    $mHTML .=
         '<h3>Mail-Versand</h3>
   	    <div class="div_Mail">
   	        Die E-Mail wurde erfolgreich versendet
   	    </div>';
-  	$ShowMail=0;
+    $ShowMail=0;
 }
 
 if ($ShowMail == 1) {

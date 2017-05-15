@@ -24,27 +24,27 @@ if(!empty($_SESSION)) {
 
     if (isset($_GET['DelID']) && !empty($_SESSION)) {
 
-        $stmt_file_download = $database_pdo->prepare(
+        $stmt_file_info = $database_pdo->prepare(
             'SELECT ID, Bezeichnung, Dateiname, ServerPfadname
             FROM newsletter
             WHERE ID = :id_file'
         );
 
-        $stmt_file->execute(
+        $stmt_file_info->execute(
             array(':id_file' => (int)$_GET['DelID'])
         );
 
-        $file = $stmt_file->fetch();
+        $file_info = $stmt_file_info->fetch();
 
-        unlink('./News/' . $file_download['ServerPfadname']);
+        if(unlink('./News/' . $file_info['ServerPfadname'])) {
+            $stmt_file_info_delete = $database_pdo->prepare(
+                'DELETE FROM newsletter WHERE ID = :id_file'
+            );
 
-        $stmt_file_delete = $database_pdo->prepare(
-            'DELETE FROM newsletter WHERE ID = :id_file'
-        );
-
-        $stmt_file_delete->execute(
-            array(':id_file' => (int)$_GET['DelID'])
-        );
+            $stmt_file_info_delete->execute(
+                array(':id_file' => (int)$_GET['DelID'])
+            );
+        }
     }
 
     if (isset($_POST['SaveNews'])) {

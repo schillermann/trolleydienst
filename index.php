@@ -1,6 +1,6 @@
 <?php
 session_start();
-define('TROLLEYDIENST_VERSION', '1.2.2');
+define('TROLLEYDIENST_VERSION', '1.2.3');
 require 'config.php';
 require 'DBConnect.php';
 
