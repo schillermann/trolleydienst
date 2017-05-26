@@ -123,6 +123,14 @@ button {
     text-align: center;
 }
 
+table {
+    width: 100%;
+}
+
+th {
+    text-align: left;
+}
+
 /**
  * Header
  **/
@@ -149,6 +157,7 @@ button {
     list-style-type: none;
     margin: 0 0 0 85px;
     padding: 0;
+    min-height: 44px;
     overflow: hidden;
     background-color: #333;
 }
@@ -225,4 +234,23 @@ fieldset div input, fieldset div select {
 
 .from_button {
     margin: 1.5em 0 1em;
+}
+
+/**
+ *Pages
+ */
+#user-list .fa {
+     font-size: 2.6em;
+}
+
+.fa-times {
+    color: red;
+}
+
+.fa-check {
+    color: #4ACD00;
+}
+
+.fa-pencil {
+    color: #333;
 }

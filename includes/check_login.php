@@ -13,8 +13,8 @@ return function (\PDO $database_pdo, string $username, string $password): bool {
     $_SESSION['id_user'] = $user->get_id_user();
     $_SESSION['name'] = $user->get_firstname() . ' ' . $user->get_surname();
     $_SESSION['email'] = $user->get_email();
-    $_SESSION['literature_table'] = ($user->is_literature_table()) ? 1 : 0;
-    $_SESSION['literature_cart'] = ($user->is_literature_cart()) ? 1 : 0;
+    $_SESSION['literature_table'] = $user->get_literature_table();
+    $_SESSION['literature_cart'] = $user->get_literature_cart();
     $_SESSION['role'] = ($user->is_admin()) ? 'admin' : 'user';
 
     $update_user_logintime = include 'tables/update_user_logintime.php';

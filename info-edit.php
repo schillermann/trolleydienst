@@ -35,7 +35,7 @@ elseif (isset($_POST['save'])) {
 
         $file_label = filter_input(INPUT_POST, 'file_label', FILTER_SANITIZE_STRING);
 
-        $update_info = include 'database/update_info.php';
+        $update_info = include 'tables/update_info.php';
         $template_placeholder['update_info_success'] = $update_info($database_pdo, $id_file, $file_label, (int)$_POST['file_type']);
     }
 }
