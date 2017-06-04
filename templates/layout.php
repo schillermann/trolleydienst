@@ -11,18 +11,18 @@
 
     <body>
         <div>
-            <div class="wrapper_center">
+            <div class="wrapper-center">
                 <a id="logo"><img src="../images/logo-trolleydienst.png"></a>
             </div>
         </div>
         <div>
-            <header class="wrapper_center">
-                <h2 id="site_name">Trolleydienst</h2>
+            <header class="wrapper-center">
+                <h2 id="site-name">Trolleydienst</h2>
             </header>
         </div>
         <nav>
-            <div class="wrapper_center">
-                <ul id="main_nav">
+            <div class="wrapper-center">
+                <ul id="main-nav">
                     <?php foreach ($placeholder['navigation'] as $page): ?>
                     <li>
                         <a href="<?php echo $page['link']; ?>" <?php echo (isset($page['active'])) ? 'class="active"' : ''; ?>>
@@ -36,12 +36,12 @@
                 </ul>
             </div>
         </nav>
-        <div class="wrapper_center">
+        <div class="wrapper-center">
             <main>
                 <?php echo $placeholder['content']; ?>
             </main>
             <footer>
-                <div class="wrapper_center">
+                <div class="wrapper-center">
                     FOOTER
                 </div>
             </footer>

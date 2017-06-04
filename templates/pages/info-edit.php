@@ -42,7 +42,7 @@
             </div>
 
         </fieldset>
-        <div class="from_button">
+        <div class="from-button">
 
             <button type="submit" name="save" class="active" tabindex="3">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern

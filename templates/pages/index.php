@@ -27,7 +27,7 @@
                 </label>
             </div>
         </fieldset>
-        <div class="from_button">
+        <div class="from-button">
             <input id="button_submit" type="submit" value="Anmelden" tabindex="4">
         </div>
     </form>

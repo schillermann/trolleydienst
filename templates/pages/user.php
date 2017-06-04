@@ -1,3 +1,14 @@
+<form method="post">
+    <div class="from-button">
+        <button tabindex="1" class="active">
+            <a href="user-add.php"><i class="fa fa-plus" aria-hidden="true"></i> Neuer Teilnehmer</a>
+        </button>
+        <input placeholder="Teilnehmer suchen" tabindex="2">
+        <button type="submit" name="user_search" tabindex="3">
+            <i class="fa fa-search" aria-hidden="true"></i>
+        </button>
+    </div>
+</form>
 <table id="user-list">
     <tr>
         <th>Vorname</th>

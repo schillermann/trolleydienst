@@ -74,7 +74,7 @@
             </div>
 
         </fieldset>
-        <div class="from_button">
+        <div class="from-button">
             <button type="submit" name="profile_save" class="active" tabindex="11">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> Profil speichern
             </button>
@@ -93,7 +93,7 @@
             </div>
 
         </fieldset>
-        <div class="from_button">
+        <div class="from-button">
             <button type="submit" name="password_save" class="active" tabindex="14">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> Passwort ändern
             </button>

@@ -106,13 +106,13 @@
             </div>
 
         </fieldset>
-        <div class="from_button">
+        <div class="from-button">
 
             <button type="submit" name="save" class="active" tabindex="15">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <button type="submit" name="cancel" tabindex="16">
-                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
+            <button tabindex="16">
+                <a href="user.php"><i class="fa fa-ban" aria-hidden="true"></i> abbrechen</a>
             </button>
             <button type="submit" name="delete" tabindex="17">
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen

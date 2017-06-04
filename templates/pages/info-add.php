@@ -39,7 +39,7 @@
             </div>
 
         </fieldset>
-        <div class="from_button">
+        <div class="from-button">
             <input id="button_submit" type="submit" value="Datei hochladen" tabindex="4">
         </div>
     </form>
