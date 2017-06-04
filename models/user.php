@@ -36,7 +36,7 @@ class User {
 
     function set_firstname(string $firstname) {
         $firstname_filtered = filter_var($firstname, FILTER_SANITIZE_STRING);
-        if($firstname_filtered)
+        if($firstname_filtered !== false)
             $this->firstname = $firstname_filtered;
     }
 
@@ -46,7 +46,7 @@ class User {
 
     function set_surname(string $surname) {
         $surname_filtered = filter_var($surname, FILTER_SANITIZE_STRING);
-        if($surname_filtered)
+        if($surname_filtered !== false)
             $this->surname = $surname_filtered;
     }
 
@@ -56,7 +56,7 @@ class User {
 
     function set_email(string $email) {
         $email_filtered = filter_var($email, FILTER_VALIDATE_EMAIL);
-        if($email_filtered)
+        if($email_filtered !== false || empty($email))
             $this->email = $email_filtered;
     }
 
@@ -66,8 +66,16 @@ class User {
 
     function set_username(string $username) {
         $username_filtered = preg_replace( '|[^a-z0-9 _.\-@]|i', '', $username);
-        if(!empty($username_filtered))
+        if($username_filtered !== null)
             $this->username = $username_filtered;
+    }
+
+    function get_password(): string {
+        return $this->password;
+    }
+
+    function set_password(string $password) {
+        $this->password = $password;
     }
 
     function get_literature_table(): string {
@@ -102,7 +110,7 @@ class User {
 
     function set_phone(string $phone) {
         $phone_filtered = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
-        if($phone_filtered)
+        if($phone_filtered !== false)
             $this->phone = $phone_filtered;
     }
 
@@ -112,7 +120,7 @@ class User {
 
     function set_mobile(string $mobile) {
         $mobile_filtered = filter_var($mobile, FILTER_SANITIZE_NUMBER_INT);
-        if($mobile_filtered)
+        if($mobile_filtered !== false)
             $this->mobile = $mobile_filtered;
     }
 
@@ -122,7 +130,7 @@ class User {
 
     function set_congregation(string $congregation) {
         $congregation_filtered = filter_var($congregation, FILTER_SANITIZE_STRING);
-        if($congregation_filtered)
+        if($congregation_filtered !== false)
             $this->congregation = $congregation_filtered;
     }
 
@@ -132,7 +140,7 @@ class User {
 
     function set_language(string $language) {
         $language_filtered = filter_var($language, FILTER_SANITIZE_STRING);
-        if($language_filtered)
+        if($language_filtered !== false)
             $this->language = $language_filtered;
     }
 
@@ -150,7 +158,7 @@ class User {
 
     function set_note_user(string $note_user) {
         $note_user_filtered = filter_var($note_user, FILTER_SANITIZE_STRING);
-        if($note_user_filtered)
+        if($note_user_filtered !== false)
             $this->note_user = $note_user_filtered;
     }
 
@@ -160,9 +168,9 @@ class User {
 
     function set_note_admin(string $note_admin) {
         $note_admin_filtered = filter_var($note_admin, FILTER_SANITIZE_STRING);
-        if($note_admin_filtered)
+        if($note_admin_filtered !== false)
             $this->note_admin = $note_admin_filtered;
     }
 
-    protected $id_user, $active, $firstname, $surname, $email, $username, $literature_table, $literature_cart, $admin, $phone, $mobile, $congregation, $language, $shift_max, $note_admin, $note_user;
+    protected $id_user, $active, $firstname, $surname, $email, $username, $password, $literature_table, $literature_cart, $admin, $phone, $mobile, $congregation, $language, $shift_max, $note_admin, $note_user;
 }

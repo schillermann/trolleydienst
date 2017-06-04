@@ -1,5 +1,5 @@
 <?php
-return function (array $template_placeholder = array()) : string {
+return function (array $placeholder = array(), string $file_name = '') : string {
     $navigation_config = include 'navigation.php';
 
     $navigation_permission = include 'modules/navigation_permission.php';
@@ -8,10 +8,11 @@ return function (array $template_placeholder = array()) : string {
     $layout_placeholder = array();
     $layout_placeholder['navigation'] = $navigation_permission($navigation_config, $role);
 
-    $template_file = 'templates/pages/' . basename($_SERVER['SCRIPT_NAME']);
-    $page_template = include 'modules/render_template.php';
+    $page_file_name = (empty($file_name))? basename($_SERVER['SCRIPT_NAME']) : $file_name;
+    $page_file_path = 'templates/pages/' . $page_file_name;
+    $render_template = include 'modules/render_template.php';
 
-    $layout_placeholder['content'] = $page_template($template_placeholder, $template_file);
+    $layout_placeholder['content'] = $render_template($placeholder, $page_file_path);
 
     $layout_file = 'templates/layout.php';
     $page_layout = include 'modules/render_template.php';

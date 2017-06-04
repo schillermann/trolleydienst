@@ -25,7 +25,7 @@
 
             <div>
                 <label for="file_type">Typ</label>
-                <select name="file_type" tabindex="2">
+                <select id="file_type" name="file_type" tabindex="2">
                     <option value="-1">Anleitung</option>
                     <option value="0" selected="">Özi</option>
                     <option value="1">Trolley</option>
@@ -40,7 +40,10 @@
 
         </fieldset>
         <div class="from-button">
-            <input id="button_submit" type="submit" value="Datei hochladen" tabindex="4">
+            <button type="submit" name="upload" class="active" tabindex="4">
+                <i class="fa fa-cloud-upload" aria-hidden="true"></i> Datei hochladen
+            </button>
+
         </div>
     </form>
 </div>

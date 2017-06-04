@@ -39,6 +39,10 @@ nav, footer {
     background-color: #373433;
 }
 
+footer {
+    min-height: 20px;
+}
+
 input, select, textarea {
     padding: 6px;
     margin: 2px 0;
@@ -185,12 +189,14 @@ th {
 
 .active {
     background-color: #604A7B;
-    color: #fff;
+    color: white;
 }
 
-.active a {
-    color: #fff;
+.warning {
+    background-color: red;
+    color: white;
 }
+
 /**
  * Content
  */

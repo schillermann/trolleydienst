@@ -42,7 +42,6 @@
             </main>
             <footer>
                 <div class="wrapper-center">
-                    FOOTER
                 </div>
             </footer>
         </div>

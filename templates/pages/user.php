@@ -1,7 +1,7 @@
 <form method="post">
     <div class="from-button">
-        <button tabindex="1" class="active">
-            <a href="user-add.php"><i class="fa fa-plus" aria-hidden="true"></i> Neuer Teilnehmer</a>
+        <button onClick="location.href='user-add.php'" type="button" tabindex="1" class="active">
+            <i class="fa fa-plus" aria-hidden="true"></i> Neuer Teilnehmer
         </button>
         <input placeholder="Teilnehmer suchen" tabindex="2">
         <button type="submit" name="user_search" tabindex="3">

@@ -1,5 +1,5 @@
 <?php
-if(!isset($_GET['id_user']) || isset($_POST['cancel']))
+if(!isset($_GET['id_user']))
     header('location: user.php');
 
 require 'includes/init_page.php';
@@ -28,6 +28,14 @@ if (isset($_POST['save'])) {
 
     $update_user = include 'tables/update_user.php';
     $template_placeholder['update_user'] = $update_user($database_pdo, $user);
+
+    if($template_placeholder['update_user'])
+        header('location: user.php');
+}
+elseif (isset($_POST['delete'])) {
+    $delete_user = include 'tables/delete_user.php';
+    if($delete_user($database_pdo, $id_user))
+        header('location: user.php');
 }
 
 $template_placeholder['user'] = $user;

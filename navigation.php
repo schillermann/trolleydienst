@@ -21,11 +21,6 @@ return  array(
         'role' => 'admin'
     ),
     array(
-        'name' => 'Termine',
-        'link' => 'schedule.php',
-        'role' => 'admin'
-    ),
-    array(
         'name' => 'E-Mail',
         'link' => 'email.php',
         'role' => 'admin'

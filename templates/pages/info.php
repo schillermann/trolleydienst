@@ -1,7 +1,7 @@
 <?php $parse_file_preview_url = include 'templates/helpers/parse_file_preview_url.php'; ?>
 <h1>Infos</h1>
-<button tabindex="1" class="active">
-    <a href="info-add.php"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Information hochladen</a>
+<button onClick="location.href='info-add.php'" type="button" tabindex="1" class="active">
+    <i class="fa fa-cloud-upload" aria-hidden="true"></i> Information hochladen
 </button>
 
 <section>
