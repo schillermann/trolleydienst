@@ -47,10 +47,10 @@
             <button type="submit" name="save" class="active" tabindex="3">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <button type="submit" name="cancel" tabindex="4">
+            <a href="info.php" class="button" tabindex="4">
                 <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
-            </button>
-            <button type="submit" name="delete" tabindex="5">
+            </a>
+            <button type="submit" name="delete" class="warning" tabindex="5">
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
             </button>
 

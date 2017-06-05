@@ -111,9 +111,9 @@
             <button type="submit" name="save" class="active" tabindex="15">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <button onClick="location.href='user.php'" type="button" tabindex="16">
+            <a href="user.php" class="button" tabindex="16">
                 <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
-            </button>
+            </a>
             <button type="submit" name="delete" class="warning" tabindex="17">
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
             </button>

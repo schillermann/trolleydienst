@@ -1,17 +1,17 @@
 <?php
-if(!isset($_GET['id_file']) || isset($_POST['cancel']))
+if(!isset($_GET['id_file']))
     header('location: info.php');
 
 require 'includes/init_page.php';
 
 $database_pdo = include 'includes/database_pdo.php';
-$select_info = include 'database/select_info.php';
+$select_info = include 'tables/select_info.php';
 
 $id_file = (int)$_GET['id_file'];
 
 if(isset($_POST['delete'])) {
 
-    $delete_info = include "database/delete_info.php";
+    $delete_info = include "tables/delete_info.php";
 
     $info_file = $select_info($database_pdo, $id_file);
     $template_placeholder['delete_info_success'] = unlink('uploads/' . $info_file->get_file_hash());

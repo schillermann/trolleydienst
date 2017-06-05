@@ -213,23 +213,28 @@ fieldset div input, fieldset div select {
     margin: 1.5em 0 1em;
 }
 
-button {
-    background:#f2f0ed;
-    border: 1px solid rgba(189,183,181,0.5);
-    cursor: pointer;
+button, .button {
     transition: box-shadow .28s;
-    min-height: 36px;
-    padding: 0 12px;
+    display: inline-block;
+    text-decoration: none;
+    padding: 6px 12px;
+    line-height: 1.42857143;
     font-size: 1rem;
-    letter-spacing: .25px;
-    min-width: 4.5em;
-    margin-right: 5px;
     text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    background-image: none;
+    border: 1px solid rgba(189,183,181,0.5);
+    color: black;
+    background-color: #f2f0ed;
 }
 
-button a {
-    color: #000;
-    text-decoration: none;
+button:hover, .button:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
 }
 
 /**

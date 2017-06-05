@@ -23,8 +23,8 @@
         </table>
     </div>
     <div class="from-button">
-        <button onClick="location.href='user.php'" type="button">
+        <a href="user.php" class="button">
             <i class="fa fa-chevron-left" aria-hidden="true"></i> zurück
-        </button>
+        </a>
     </div>
 </div>

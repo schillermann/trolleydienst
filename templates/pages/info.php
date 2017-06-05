@@ -1,8 +1,8 @@
 <?php $parse_file_preview_url = include 'templates/helpers/parse_file_preview_url.php'; ?>
-<h1>Infos</h1>
-<button onClick="location.href='info-add.php'" type="button" tabindex="1" class="active">
+<h2>Infos</h2>
+<a href="info-add.php" tabindex="1" class="button active">
     <i class="fa fa-cloud-upload" aria-hidden="true"></i> Information hochladen
-</button>
+</a>
 
 <section>
     <h2><?php echo CONGREGATION_NAME; ?><small> - Infos rund um die Website</small></h2>

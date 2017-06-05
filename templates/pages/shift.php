@@ -1,7 +1,10 @@
 <?php $get_weekday = include 'templates/helpers/get_weekday.php'; ?>
 
-<h1>Schichten</h1>
-<div class="div_Legende">
+<h2>Schichten</h2>
+<a href="shift-add.php" tabindex="1" class="button active">
+    <i class="fa fa-plus" aria-hidden="true"></i> Neue Schichten
+</a>
+<div>
     <table>
         <colgroup>
             <COL width="60">

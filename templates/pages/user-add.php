@@ -75,13 +75,10 @@
 
         </fieldset>
         <div class="from-button">
-
             <button type="submit" name="save" class="active" tabindex="15">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <button tabindex="16">
-                <a href="user.php"><i class="fa fa-ban" aria-hidden="true"></i> abbrechen</a>
-            </button>
+            <a href="user.php" tabindex="16" class="button"><i class="fa fa-ban" aria-hidden="true"></i> abbrechen</a>
         </div>
     </form>
 </div>
