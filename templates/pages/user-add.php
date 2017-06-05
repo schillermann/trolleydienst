@@ -70,7 +70,7 @@
             </div>
             <div>
                 <label for="note_admin">Admin Bemerkung</label>
-                <textarea id="note_admin" name="note_admin" tabindex="13"><?php echo $placeholder['user']->get_note_admin();?></textarea>
+                <textarea id="note_admin" name="note_admin" class="note" tabindex="13"><?php echo $placeholder['user']->get_note_admin();?></textarea>
             </div>
 
         </fieldset>

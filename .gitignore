@@ -3,3 +3,4 @@ config.php
 News/
 uploads/
 vendor/
+composer.phar

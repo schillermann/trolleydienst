@@ -97,12 +97,12 @@
             </div>
             <div>
                 <label for="note_admin">Admin Bemerkung</label>
-                <textarea id="note_admin" name="note_admin" tabindex="13"><?php echo $placeholder['user']->get_note_admin();?></textarea>
+                <textarea id="note_admin" name="note_admin" class="note" tabindex="13"><?php echo $placeholder['user']->get_note_admin();?></textarea>
             </div>
 
             <div>
                 <label for="note_user">Teilnehmer Bemerkung</label>
-                <textarea id="note_user" name="note_user" tabindex="14" disabled><?php echo $placeholder['user']->get_note_user();?></textarea>
+                <textarea id="note_user" name="note_user" class="note" tabindex="14" disabled><?php echo $placeholder['user']->get_note_user();?></textarea>
             </div>
 
         </fieldset>

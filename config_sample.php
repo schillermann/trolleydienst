@@ -18,4 +18,5 @@ define('DATABASE_PASSWORD', 'password_here');
 
 define('EMAIL_FROM_ADDRESS', 'example@adresse');
 define('EMAIL_REPLY_TO_ADDRESS', 'example@adresse');
+define('TEAM_NAME', 'your_team_name_here');
 define('CONGREGATION_NAME', 'congregation_name_here');

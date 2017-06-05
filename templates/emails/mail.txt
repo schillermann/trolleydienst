@@ -1,0 +1,13 @@
+Hallo,
+
+DEINE_NACHRICHT
+
+---
+Deine Brüder
+
+TEAM_NAME
+Öffentliches Zeugnisgeben CONGREGATION_NAME
+
+Kontakt:
+ E-Mail: EMAIL_REPLY_TO_ADDRESS
+ Webseite: WEBSITE_LINK

@@ -4,7 +4,6 @@ $recipient_literature_table = ($placeholder['recipient'] == Enum\Recipient::LITE
 $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITERATURE_CART)? 'selected' : '';
 ?>
 <h2>Mail-Versand</h2>
-<div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div class="note-box">
             <?php if (isset($placeholder['message']['success'])): ?>
@@ -45,7 +44,7 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
             </div>
             <div>
                 <label for="text">Text</label>
-                <textarea id="text" name="text" tabindex="3" required><?php echo $placeholder['text'];?></textarea>
+                <textarea id="text" name="text" tabindex="3" rows="20" required><?php echo $placeholder['text'];?></textarea>
             </div>
 
         </fieldset>
@@ -55,4 +54,3 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
             </button>
         </div>
     </form>
-</div>

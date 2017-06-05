@@ -10,7 +10,7 @@ body {
 
 
 h2 {
-    margin: 10px 25px 20px 10px;
+    margin: 10px 0px 20px 0px;
     color: #604A7B;
     border-bottom: solid 1px #604A7B;
 }
@@ -41,95 +41,6 @@ nav, footer {
 
 footer {
     min-height: 20px;
-}
-
-input, select, textarea {
-    padding: 6px;
-    margin: 2px 0;
-    font-family: inherit;
-    border: 1px solid #bdb7b5;
-    box-sizing: border-box;
-    min-height: 36px;
-}
-
-textarea {
-    display: block;
-    width: 100%;
-    height: 100px;
-}
-
-input:hover, select:hover, textarea:hover {
-    border: 1px solid #604A7B;
-    box-shadow: none;
-    outline-color: #604A7B;
-    outline-style: auto;
-    outline-width: 1px;
-}
-
-input[type="submit"] {
-    color: #fff;
-    background-color: #604A7B;
-    border: 1px solid rgba(189, 183, 181, 0.5);
-    border-radius: 2px;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.37);
-    box-sizing: border-box;
-    cursor: pointer;
-    min-height: 36px;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-right: 5px;
-    padding: 0 12px;
-    letter-spacing: .25px;
-    min-width: 4.5em;
-    text-align: center !important;
-    transition: box-shadow .28s;
-}
-
-input[type="submit"]:hover {
-    background-color: #57436f;
-    border: 1px solid #bdb7b5;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.37);
-    outline-color: transparent;
-    outline-width: 0;
-}
-
-input[type="checkbox"] {
-    display: inline-block;
-    min-height: 0 !important;
-    width: auto;
-}
-
-legend {
-    font-weight: 200;
-    padding: 0 10px;
-    line-height: 2em;
-    color: #604A7B;
-    font-size: 20px;
-}
-
-.wrapper-center {
-    width: auto;
-    max-width: 1140px;
-    margin: 0 auto;
-}
-
-button {
-    background:#f2f0ed;
-    border: 1px solid rgba(189,183,181,0.5);
-    cursor: pointer;
-    transition: box-shadow .28s;
-    min-height: 36px;
-    padding: 0 12px;
-    font-size: 1rem;
-    letter-spacing: .25px;
-    min-width: 4.5em;
-    margin-right: 5px;
-    text-align: center;
-}
-
-button a {
-    color: #000;
-    text-decoration: none;
 }
 
 table {
@@ -198,16 +109,6 @@ th {
 }
 
 /**
- * Content
- */
-
-.container-center {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 650px;
-}
-
-/**
  * Messages
  */
 
@@ -232,6 +133,68 @@ th {
  * From
  */
 
+input, select, textarea {
+    padding: 6px;
+    margin: 2px 0;
+    font-family: inherit;
+    border: 1px solid #bdb7b5;
+    box-sizing: border-box;
+    min-height: 36px;
+}
+
+textarea {
+    width: 100%;
+}
+
+input:hover, select:hover, textarea:hover {
+    border: 1px solid #604A7B;
+    box-shadow: none;
+    outline-color: #604A7B;
+    outline-style: auto;
+    outline-width: 1px;
+}
+
+input[type="submit"] {
+    color: #fff;
+    background-color: #604A7B;
+    border: 1px solid rgba(189, 183, 181, 0.5);
+    border-radius: 2px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.37);
+    box-sizing: border-box;
+    cursor: pointer;
+    min-height: 36px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    padding: 0 12px;
+    letter-spacing: .25px;
+    min-width: 4.5em;
+    text-align: center !important;
+    transition: box-shadow .28s;
+}
+
+input[type="submit"]:hover {
+    background-color: #57436f;
+    border: 1px solid #bdb7b5;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.37);
+    outline-color: transparent;
+    outline-width: 0;
+}
+
+input[type="checkbox"] {
+    display: inline-block;
+    min-height: 0 !important;
+    width: auto;
+}
+
+legend {
+    font-weight: 200;
+    padding: 0 10px;
+    line-height: 2em;
+    color: #604A7B;
+    font-size: 20px;
+}
+
 fieldset {
     border: 1px solid #CDC9C7;
     border-radius: 2px;
@@ -250,13 +213,28 @@ fieldset div input, fieldset div select {
     margin: 1.5em 0 1em;
 }
 
-/**
- *Pages
- */
-#user-list .fa {
-     font-size: 2.6em;
+button {
+    background:#f2f0ed;
+    border: 1px solid rgba(189,183,181,0.5);
+    cursor: pointer;
+    transition: box-shadow .28s;
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 1rem;
+    letter-spacing: .25px;
+    min-width: 4.5em;
+    margin-right: 5px;
+    text-align: center;
 }
 
+button a {
+    color: #000;
+    text-decoration: none;
+}
+
+/**
+ * Icons
+ */
 .fa-times {
     color: red;
 }
@@ -267,4 +245,29 @@ fieldset div input, fieldset div select {
 
 .fa-pencil {
     color: #333;
+}
+
+
+/**
+ * Content
+ */
+
+.wrapper-center {
+    width: auto;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.container-center {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 650px;
+}
+
+#user-list .fa {
+    font-size: 2.6em;
+}
+
+textarea.note {
+    height: 80px;
 }
