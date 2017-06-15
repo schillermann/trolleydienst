@@ -35,8 +35,8 @@
                 <input id="shift_hour_number" type="number" name="shift_hour_number" tabindex="7" required value="2">
             </div>
             <div>
-                <label for="appointment_series_until">Terminserie bis zum</label>
-                <input id="appointment_series_until" type="date" name="appointment_series_until" tabindex="8">
+                <label for="shiftday_series_until">Terminserie bis zum</label>
+                <input id="shiftday_series_until" type="date" name="shiftday_series_until" tabindex="8">
             </div>
         </fieldset>
         <div class="from-button">

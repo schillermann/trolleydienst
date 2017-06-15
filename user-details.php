@@ -6,7 +6,7 @@ require 'includes/init_page.php';
 $database_pdo = include 'includes/database_pdo.php';
 
 $id_user = (int)$_GET['id_user'];
-$select_user = include 'tables/select_user.php';
+$select_user = include 'tables/select_users.php';
 $user = $select_user($database_pdo, $id_user);
 
 $placeholder = array();

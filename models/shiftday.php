@@ -1,12 +1,12 @@
 <?php
 namespace Models;
 
-class Appointment {
+class ShiftDay {
 
-    function __construct(int $id = -1, int $type = -1, string $place = '', \DateTime $time_from = null, \DateTime $time_to = null, bool $is_extra_shift = false) {
+    function __construct(int $id_shift_day = -1, int $type = -1, string $place = '', \DateTime $time_from = null, \DateTime $time_to = null, bool $is_extra_shift = false) {
 
-        if($id != -1)
-            $this->id = $id;
+        if($id_shift_day != -1)
+            $this->id_shift_day = $id_shift_day;
         if($type != -1)
             $this->type = $type;
         if($time_from === null)
@@ -27,8 +27,8 @@ class Appointment {
             $this->is_extra_shift = $is_extra_shift;
     }
 
-    function get_id(): int {
-        return $this->id;
+    function get_id_shift_day(): int {
+        return $this->id_shift_day;
     }
 
     function get_type(): int {
@@ -51,5 +51,5 @@ class Appointment {
         return $this->is_extra_shift;
     }
 
-    protected $id, $type, $place, $time_from, $time_to, $is_extra_shift;
+    protected $id_shift_day, $type, $place, $time_from, $time_to, $is_extra_shift;
 }

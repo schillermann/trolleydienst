@@ -1,14 +1,14 @@
 <?php
 namespace Models;
 
-class AppointmentShiftList {
+class ShiftDayShiftList {
 
-    function __construct(Appointment $appointment) {
-        $this->appointment = $appointment;
+    function __construct(ShiftDay $shiftday) {
+        $this->shiftday = $shiftday;
     }
 
-    function get_appointment(): Appointment {
-        return $this->appointment;
+    function get_shiftday(): ShiftDay {
+        return $this->shiftday;
     }
 
     function add_shift_user_list(ShiftUserList $shift) {
@@ -19,5 +19,5 @@ class AppointmentShiftList {
         return new \ArrayIterator( $this->shift_user_list );
     }
 
-    protected  $appointment, $shift_user_list = array();
+    protected  $shiftday, $shift_user_list = array();
 }

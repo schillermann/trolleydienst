@@ -6,7 +6,7 @@ require 'includes/init_page.php';
 $database_pdo = include 'includes/database_pdo.php';
 
 $id_user = (int)$_GET['id_user'];
-$select_user = include 'tables/select_user.php';
+$select_user = include 'tables/select_users.php';
 $user = $select_user($database_pdo, $id_user);
 
 $placeholder = array();
@@ -26,14 +26,14 @@ if (isset($_POST['save'])) {
     $user->set_admin($_POST['admin']);
     $user->set_note_admin($_POST['note_admin']);
 
-    $update_user = include 'tables/update_user.php';
+    $update_user = include 'tables/update_users.php';
     $placeholder['update_user'] = $update_user($database_pdo, $user);
 
     if($placeholder['update_user'])
         header('location: user.php');
 }
 elseif (isset($_POST['delete'])) {
-    $delete_user = include 'tables/delete_user.php';
+    $delete_user = include 'tables/delete_users.php';
     if($delete_user($database_pdo, $id_user))
         header('location: user.php');
 }

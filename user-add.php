@@ -13,8 +13,8 @@ if(isset($_POST['save'])) {
     $user_password = $get_password(8);
     $user->set_password($user_password);
 
-    $select_user_exists = include 'tables/select_user_exists.php';
-    $insert_user = include 'tables/insert_user.php';
+    $select_user_exists = include 'tables/select_users_exists.php';
+    $insert_user = include 'tables/insert_users.php';
 
     if($select_user_exists($database_pdo, $user->get_username()))
         $placeholder['message']['error'] = 'Der Benutzername ist bereits vergeben!';

@@ -21,16 +21,16 @@
 </a>
 <?php endif; ?>
 
-<?php foreach ($placeholder['appointment_list'] as $appointment_list) : ?>
+<?php foreach ($placeholder['shiftday_list'] as $shiftday_list) : ?>
 <table>
     <thead>
         <tr>
             <th colspan="2">
                 <h3>
-                    <?php echo $get_weekday($appointment_list->get_appointment()->get_time_from()); ?>,
-                    <?php echo $appointment_list->get_appointment()->get_time_from()->format('d.m.Y'); ?> -
-                    <?php echo ($appointment_list->get_appointment()->get_type() == 0) ? 'Trolley' : 'Infostand'; ?>:
-                    <?php echo $appointment_list->get_appointment()->get_place(); ?>
+                    <?php echo $get_weekday($shiftday_list->get_shiftday()->get_time_from()); ?>,
+                    <?php echo $shiftday_list->get_shiftday()->get_time_from()->format('d.m.Y'); ?> -
+                    <?php echo ($shiftday_list->get_shiftday()->get_type() == 0) ? 'Trolley' : 'Infostand'; ?>:
+                    <?php echo $shiftday_list->get_shiftday()->get_place(); ?>
 
                     <?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>
                         <a href="#" class="button">
@@ -47,15 +47,15 @@
         </tr>
     </tfoot>
     <tbody>
-        <?php foreach ($appointment_list->get_iterator_shift_user_list() as $shift_user_list) : ?>
+        <?php foreach ($shiftday_list->get_iterator_shift_user_list() as $shift_user_list) : ?>
         <tr>
-            <td class="shift_time" id="id_appointment_<?php echo $appointment_list->get_appointment()->get_id(); ?>_id_shift_<?php echo $shift_user_list->get_shift()->get_id_shift(); ?>">
+            <td class="shift_time" id="id_shift_day_<?php echo $shiftday_list->get_shiftday()->get_id_shift_day(); ?>_id_shift_<?php echo $shift_user_list->get_shift()->get_id_shift(); ?>">
                 <?php echo $shift_user_list->get_shift()->get_time_from()->format('H:i'); ?> -
                 <?php echo $shift_user_list->get_shift()->get_time_to()->format('H:i'); ?>
             </td>
             <td>
                 <form method="post">
-                    <input type="hidden" name="id_shift_day" value="<?php echo $shift_user_list->get_shift()->get_id_appointment(); ?>">
+                    <input type="hidden" name="id_shift_day" value="<?php echo $shift_user_list->get_shift()->get_id_shift_day(); ?>">
                     <input type="hidden" name="id_shift" value="<?php echo $shift_user_list->get_shift()->get_id_shift(); ?>">
                     <?php foreach ($shift_user_list->get_iterator_user() as $shift_user) : ?>
 

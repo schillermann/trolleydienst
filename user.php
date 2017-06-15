@@ -1,7 +1,7 @@
 <?php
 require 'includes/init_page.php';
 
-$select_user_list = include 'tables/select_user_list.php';
+$select_user_list = include 'tables/select_users_list.php';
 $user_list = $select_user_list(include 'includes/database_pdo.php');
 
 $placeholder = array();

@@ -14,7 +14,7 @@ if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text']))
     $placeholder['text'] = $_POST['text'];
 
 
-    $select_user_email_list = include 'tables/select_user_email_list.php';
+    $select_user_email_list = include 'tables/select_users_email_list.php';
 
     $placeholder['user_list'] = $select_user_email_list($database_pdo, $placeholder['recipient']);
 
@@ -24,12 +24,10 @@ if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text']))
         $placeholder['message']['error'] = 'E-Mail konnte nicht versendet werden!';
 }
 else {
-    $placeholder = array(
-        'TEAM_NAME' => TEAM_NAME,
-        'CONGREGATION_NAME' => CONGREGATION_NAME,
-        'EMAIL_REPLY_TO_ADDRESS' => EMAIL_REPLY_TO_ADDRESS,
-        'WEBSITE_LINK' => $_SERVER['SERVER_NAME']
-    );
+    $placeholder['TEAM_NAME'] = TEAM_NAME;
+    $placeholder['CONGREGATION_NAME'] = CONGREGATION_NAME;
+    $placeholder['EMAIL_REPLY_TO_ADDRESS'] = EMAIL_REPLY_TO_ADDRESS;
+    $placeholder['WEBSITE_LINK'] = $_SERVER['SERVER_NAME'];
 
     $render_template_static = include 'modules/render_template_static.php';
     $placeholder['text'] = $render_template_static('templates/emails/mail.txt', $placeholder);
