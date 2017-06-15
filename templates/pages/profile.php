@@ -33,19 +33,19 @@
         <fieldset>
             <legend>Kontaktdaten</legend>
             <div>
-                <label for="firstname">Vorname</label>
+                <label for="firstname">Vorname <small>(Pflichtfeld)</small></label>
                 <input id="firstname" type="text" name="firstname" tabindex="1" required value="<?php echo $placeholder['user']->get_firstname(); ?>">
             </div>
             <div>
-                <label for="surname">Nachname</label>
+                <label for="surname">Nachname <small>(Pflichtfeld)</small></label>
                 <input id="surname" type="text" name="surname" tabindex="2" required value="<?php echo $placeholder['user']->get_surname(); ?>">
             </div>
             <div>
-                <label for="email">E-Mail</label>
+                <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
                 <input id="email" type="email" name="email" tabindex="3" required value="<?php echo $placeholder['user']->get_email(); ?>">
             </div>
             <div>
-                <label for="username">Benutzername</label>
+                <label for="username">Benutzername <small>(Pflichtfeld)</small></label>
                 <input id="username" type="text" name="username" tabindex="4" required value="<?php echo $placeholder['user']->get_username(); ?>">
             </div>
             <div>

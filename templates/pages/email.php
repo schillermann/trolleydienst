@@ -39,11 +39,11 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
             </select>
         </div>
         <div>
-            <label for="subject">Betreff</label>
+            <label for="subject">Betreff <small>(Pflichtfeld)</small></label>
             <input id="subject" type="text" name="subject" tabindex="2" required value="<?php echo $placeholder['subject']; ?>">
         </div>
         <div>
-            <label for="text">Text</label>
+            <label for="text">Text <small>(Pflichtfeld)</small></label>
             <textarea id="text" name="text" tabindex="3" rows="20" required><?php echo $placeholder['text'];?></textarea>
         </div>
 

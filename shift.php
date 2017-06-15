@@ -1,57 +1,56 @@
 <?php
 require 'includes/init_page.php';
 
+$placeholder = array();
 $database_pdo = include 'includes/database_pdo.php';
+
+if(isset($_POST['delete_user'])) {
+    $shift_user_remove = include "services/remove_user_from_shift.php";
+
+    if($shift_user_remove($database_pdo, $_SESSION['id_user'], (int)$_POST['id_shift_day'], (int)$_POST['id_shift']))
+        $placeholder['message']['success'] = 'Deine Bewerbung wurde zurück gezogen.';
+    else
+        $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht zurück gezogen werden!';
+}
+elseif (isset($_POST['promote_user'])) {
+    $promote_user_for_shift = include 'services/promote_user_for_shift.php';
+    if($promote_user_for_shift($database_pdo, $_SESSION['id_user'], (int)$_POST['id_shift_day'], (int)$_POST['id_shift']))
+        $placeholder['message']['success'] = 'Deine Bewerbung wurde angenommen.';
+    else
+        $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht angenommen werden!';
+}
+
 
 $stmt_settings_schedule_max_days = $database_pdo->prepare(
     'SELECT FilterTerminTage FROM settings'
 );
 
 $stmt_settings_schedule_max_days->execute();
-$settings = $stmt_settings_schedule_max_days->fetch();
-
-$mTageFilter = (int)$settings['FilterTerminTage'];
+$mTageFilter = (int)$stmt_settings_schedule_max_days->fetchColumn();
 
 $AllowSchichtArt = array(-1);
 
-if ($_SESSION['literature_table'] == 1)
+if ($_SESSION['literature_table'] != Enum\Status::INACTIVE)
     $AllowSchichtArt[] = 0;
-if ($_SESSION['literature_cart'] == 1)
+if ($_SESSION['literature_cart'] != Enum\Status::INACTIVE)
     $AllowSchichtArt[] = 1;
 
-$stmt_schedule = $database_pdo->prepare(
-    'SELECT terminnr AS id_schedule, art AS type, ort AS place,
-    termin_von AS datetime_from,
-    termin_bis AS datetime_to,
-    DATEDIFF(termin_von,curdate()) AS datetime_diff,
-    coalesce(sonderschicht,0) as shift_extra
-    FROM termine
-    WHERE art IN(' . implode(',', $AllowSchichtArt) . ')
-    AND (datediff(curdate(),termin_von) <= :schedule_max_days )
-    ORDER BY termin_von ASC'
-);
+$select_appointment_list = include 'tables/select_appointment_list.php';
+$appointment_list = $select_appointment_list($database_pdo, $mTageFilter, $AllowSchichtArt);
 
-$stmt_schedule->execute(
-    array(':schedule_max_days' => (int)$mTageFilter)
-);
 
-$template_placeholder = array();
-$template_placeholder['schedule_list'] = array();
+$placeholder['appointment_list'] = array();
 
-while ($next_schedule = $stmt_schedule->fetchObject('Models\Schedule')) {
+foreach ($appointment_list as $appointment) {
 
-    $stmt_shifts = $database_pdo->prepare(
-        'SELECT sch.terminnr AS id_schedule, sch.Schichtnr AS id_shift, sch.von AS datetime_from, sch.bis AS datetime_to
-        FROM schichten sch
-        WHERE sch.terminnr = :id_schedule
-        ORDER BY sch.Schichtnr'
-    );
+    $appointment_shift_list = new Models\AppointmentShiftList($appointment);
 
-    $stmt_shifts->execute(
-        array(':id_schedule' => $next_schedule->get_schedule_id())
-    );
+    $select_shift_list = include 'tables/select_shift_list.php';
+    $shift_list = $select_shift_list($database_pdo, $appointment->get_id());
 
-    while ($shift = $stmt_shifts->fetchObject('Models\Shift')) {
+    foreach ($shift_list as $shift) {
+
+        $shift_user_list = new Models\ShiftUserList($shift);
 
         $stmt_users_from_shift = $database_pdo->prepare(
             'SELECT SchTeil.teilnehmernr AS id_user, SchTeil.status AS status,
@@ -60,26 +59,26 @@ while ($next_schedule = $stmt_schedule->fetchObject('Models\Schedule')) {
             FROM schichten_teilnehmer SchTeil
             LEFT OUTER JOIN teilnehmer muser
             ON SchTeil.teilnehmernr = muser.teilnehmernr
-            WHERE SchTeil.terminnr = :id_schedule
+            WHERE SchTeil.terminnr = :id_appointment
             AND SchTeil.schichtnr = :id_shift
             ORDER BY SchTeil.isschichtleiter DESC'
         );
 
         $stmt_users_from_shift->execute(
             array(
-                ':id_schedule' => $shift->get_id_schedule(),
+                ':id_appointment' => $shift->get_id_appointment(),
                 ':id_shift' => $shift->get_id_shift()
             )
         );
 
         while($user_from_shift = $stmt_users_from_shift->fetchObject('Models\ShiftUser'))
-            $shift->add_shift_user($user_from_shift);
+            $shift_user_list->add_user_to_shift($user_from_shift);
 
-        $next_schedule->add_shift($shift);
+        $appointment_shift_list->add_shift_user_list($shift_user_list);
     }
 
-    $template_placeholder['schedule_list'][] = $next_schedule;
+    $placeholder['appointment_list'][] = $appointment_shift_list;
 }
 
 $render_page = include 'includes/render_page.php';
-echo $render_page($template_placeholder);
+echo $render_page($placeholder);

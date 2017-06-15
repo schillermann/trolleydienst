@@ -9,7 +9,7 @@ $id_user = (int)$_GET['id_user'];
 $select_user = include 'tables/select_user.php';
 $user = $select_user($database_pdo, $id_user);
 
-$template_placeholder = array();
+$placeholder = array();
 
 if (isset($_POST['save'])) {
     $user->set_firstname($_POST['firstname']);
@@ -27,9 +27,9 @@ if (isset($_POST['save'])) {
     $user->set_note_admin($_POST['note_admin']);
 
     $update_user = include 'tables/update_user.php';
-    $template_placeholder['update_user'] = $update_user($database_pdo, $user);
+    $placeholder['update_user'] = $update_user($database_pdo, $user);
 
-    if($template_placeholder['update_user'])
+    if($placeholder['update_user'])
         header('location: user.php');
 }
 elseif (isset($_POST['delete'])) {
@@ -38,7 +38,7 @@ elseif (isset($_POST['delete'])) {
         header('location: user.php');
 }
 
-$template_placeholder['user'] = $user;
+$placeholder['user'] = $user;
 
 $render_page = include 'includes/render_page.php';
-echo $render_page($template_placeholder);
+echo $render_page($placeholder);

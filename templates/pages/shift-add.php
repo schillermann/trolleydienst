@@ -1,49 +1,49 @@
 <h2>Neue Schichten</h2>
 <div class="container-center">
-    <form action="index.php?Type=Termine" method="post">
-        <table border="0" cellspacing="0">
-            <colgroup>
-                <col width="150">
-                <col width="150">
-            </colgroup>
-            <tbody><tr>
-                <td>Schichtart:</td>
-                <td>
-                    <select name="Art">
-                        <option value="0">Infostand</option>
-                        <option value="1" selected="">Trolley</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Ort:</td>
-                <td><input type="text" name="ort" size="30"></td>
-            </tr>
-            <tr>
-                <td>Datum:</td>
-                <td><input type="date" name="Datum" size="30"></td>
-            </tr>
-            <tr>
-                <td>von:</td>
-                <td><input type="time" name="von" size="30" value="10:00"></td>
-            </tr>
-            <tr>
-                <td>bis:</td>
-                <td><input type="time" name="bis" size="30" value="18:00"></td>
-            </tr>
-            <tr>
-                <td>Sonderschicht:</td>
-                <td><input type="checkbox" name="Sonderschicht" value="Sonderschicht"></td>
-            </tr>
-            <tr>
-                <td>Stundenanzahl:</td>
-                <td><input type="number" name="Stundenanzahl" size="30" value="1"></td>
-            </tr>
-            <tr>
-                <td>Terminserie bis zum:</td>
-                <td><input type="date" name="Terminserie" size="30"></td>
-            </tr>
-            </tbody></table>
-        <input type="Submit" name="SaveNewDS" value="Speichern">
+    <form method="post">
+        <fieldset>
+            <legend>Schichten</legend>
+            <div>
+                <label for="date_type">Schichtart</label>
+                <select id="date_type" name="date_type" tabindex="1">
+                    <option value="0">Infostand</option>
+                    <option value="1">Trolley</option>
+                </select>
+            </div>
+            <div>
+                <label for="place">Ort <small>(Pflichtfeld)</small></label>
+                <input id="place" type="text" name="place" tabindex="2" required>
+            </div>
+            <div>
+                <label for="date">Ort <small>(Pflichtfeld)</small></label>
+                <input id="date" type="date" name="date" tabindex="3" required>
+            </div>
+            <div>
+                <label for="time_from">Von <small>(Pflichtfeld)</small></label>
+                <input id="time_from" type="time" name="time_from" tabindex="4" required>
+            </div>
+            <div>
+                <label for="time_to">Bis <small>(Pflichtfeld)</small></label>
+                <input id="time_to" type="time" name="time_to" tabindex="5" required>
+            </div>
+            <div>
+                <label for="is_extra_shift">Sonderschicht</label>
+                <input id="is_extra_shift" type="checkbox" name="is_extra_shift" tabindex="6">
+            </div>
+            <div>
+                <label for="shift_hour_number">Stundenanzahl <small>(Pflichtfeld)</small></label>
+                <input id="shift_hour_number" type="number" name="shift_hour_number" tabindex="7" required value="2">
+            </div>
+            <div>
+                <label for="appointment_series_until">Terminserie bis zum</label>
+                <input id="appointment_series_until" type="date" name="appointment_series_until" tabindex="8">
+            </div>
+        </fieldset>
+        <div class="from-button">
+            <button type="submit" name="save" class="active" tabindex="15">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
+            </button>
+            <a href="shift.php" tabindex="16" class="button"><i class="fa fa-ban" aria-hidden="true"></i> abbrechen</a>
+        </div>
     </form>
 </div>

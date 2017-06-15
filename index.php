@@ -10,7 +10,7 @@ if(isset($_GET['logout'])) {
 if(isset($_SESSION) && !empty($_SESSION))
     header('location: shift.php');
 
-$template_placeholder = array();
+$placeholder = array();
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
 
@@ -22,9 +22,9 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     if($check_login($database_pdo, $username, $_POST['password']))
         header('location: shift.php');
     else
-        $template_placeholder['error_message'] = true;
+        $placeholder['error_message'] = true;
 }
 
 $render_page = include 'includes/render_page.php';
-echo $render_page($template_placeholder);
+echo $render_page($placeholder);
 ?>

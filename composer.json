@@ -1,12 +1,11 @@
 {
   "name": "schillermann/trolleydienst",
-  "description": "Plan the public witnessing with table and cart",
-  "authors": [
-    {
-      "name": "Mario Schillermann",
-      "email": "support@trolleydienst.de"
-    }
-  ],
+  "description": "Plan the public witnessing with table and cart very easy.",
+  "support": {
+    "email": "support@trolleydienst.de",
+    "source": "https://github.com/schillermann/trolleydienst",
+    "issues": "https://github.com/schillermann/trolleydienst/issues"
+  },
   "require": {
     "components/font-awesome": "~4.7.0"
   }

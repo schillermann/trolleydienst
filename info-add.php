@@ -1,7 +1,7 @@
 <?php
 require 'includes/init_page.php';
 $database_pdo = include 'includes/database_pdo.php';
-$template_placeholder = array();
+$placeholder = array();
 
 if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
 
@@ -30,7 +30,7 @@ if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
     $file_name_hash .= ".";
     $file_name_hash .= pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
-    $template_placeholder['file_uploaded'] = $upload_file($file_name_hash, 'uploads/', $file_size_max, $file_types_allow);
+    $placeholder['file_uploaded'] = $upload_file($file_name_hash, 'uploads/', $file_size_max, $file_types_allow);
 
     $stmt_insert_file->execute(
         array(
@@ -46,4 +46,4 @@ if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
 }
 
 $render_page = include 'includes/render_page.php';
-echo $render_page($template_placeholder);
+echo $render_page($placeholder);

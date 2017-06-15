@@ -45,10 +45,34 @@ footer {
 
 table {
     width: 100%;
-}
+    margin-top: 20px; }
 
 th {
     text-align: left;
+    padding-left: 14px;
+    background-color: #d5c8e4;
+    color: #604A7B; }
+td {padding: 6px;}
+tr:nth-child(even) {background-color: #f2f2f2;}
+tfoot td {
+    background-color: #d5c8e4;
+    height: 20px;
+}
+dl {
+    margin: 9px 3px 0px 35px; }
+dt {
+    float: left;
+    clear: left;
+    width: 130px;
+    font-weight: bold;
+    color: #604A7B;
+}
+dt::after {
+    content: ":";
+}
+dd {
+    margin: 0 0 0 110px;
+    padding: 0 0 0.5em 0;
 }
 
 /**
@@ -108,6 +132,10 @@ th {
     color: white;
 }
 
+.enable {
+    background-color: #92D050;
+}
+
 /**
  * Messages
  */
@@ -119,12 +147,12 @@ th {
     padding: .5em 1em;
 }
 
-.error {
+.note-box error {
     font-weight: 400;
     color: #CC0000;
 }
 
-.success {
+.note-box .success {
     font-weight: 400;
     color: #1E8402;
 }
@@ -245,7 +273,7 @@ button:hover, .button:hover {
 }
 
 .fa-check {
-    color: #4ACD00;
+    color: #92D050;
 }
 
 .fa-pencil {
@@ -275,4 +303,10 @@ button:hover, .button:hover {
 
 textarea.note {
     height: 80px;
+}
+
+.shift_time {
+    padding-left: 14px;
+    width: 10%;
+    min-width: 100px;
 }
