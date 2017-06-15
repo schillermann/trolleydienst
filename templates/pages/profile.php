@@ -1,15 +1,15 @@
 <h2>Profil</h2>
 <div class="container-center">
 
-    <?php if (isset($placeholder['password_save'])) : ?>
+    <?php if (isset($placeholder['message'])) : ?>
         <div class="note-box">
-            <?php if ($placeholder['password_save']): ?>
+            <?php if (isset($placeholder['message']['success'])): ?>
                 <p class="success">
-                    Dein Passwort wurde geändert.
+                    <?php echo $placeholder['message']['success'];?>
                 </p>
-            <?php else: ?>
+            <?php elseif (isset($placeholder['message']['error'])): ?>
                 <p class="error">
-                    Dein Passwort konnte nicht geändert werden!
+                    <?php echo $placeholder['message']['error'];?>
                 </p>
             <?php endif; ?>
         </div>

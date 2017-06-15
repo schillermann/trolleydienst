@@ -65,7 +65,7 @@ class User {
     }
 
     function set_username(string $username) {
-        $username_filtered = preg_replace( '|[^a-z0-9 _.\-@]|i', '', $username);
+        $username_filtered = filter_var($username, FILTER_VALIDATE_EMAIL);
         if($username_filtered !== null)
             $this->username = $username_filtered;
     }

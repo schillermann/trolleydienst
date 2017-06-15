@@ -1,8 +1,8 @@
 <?php
 return function (\PDO $database_pdo, string $username, string $password): bool {
 
-    $select_user_password = include 'tables/select_users_id_user.php';
-    $id_user = $select_user_password($database_pdo, $username, md5($password));
+    $select_users_id_user_by_username_and_password = include 'tables/select_users_id_user_by_username_and_password.php';
+    $id_user = $select_users_id_user_by_username_and_password($database_pdo, $username, md5($password));
 
     if($id_user === 0)
         return false;

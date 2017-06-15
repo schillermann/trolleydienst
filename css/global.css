@@ -147,7 +147,7 @@ dd {
     padding: .5em 1em;
 }
 
-.note-box error {
+.note-box .error {
     font-weight: 400;
     color: #CC0000;
 }
@@ -310,3 +310,6 @@ textarea.note {
     width: 10%;
     min-width: 100px;
 }
+
+.literature_table th, .literature_table tfoot td {
+    background-color: #FFC000; }

@@ -22,7 +22,7 @@
 <?php endif; ?>
 
 <?php foreach ($placeholder['shiftday_list'] as $shiftday_list) : ?>
-<table>
+<table class="<?php echo ($shiftday_list->get_shiftday()->get_type())? 'literature_table' : 'literature_cart';?>">
     <thead>
         <tr>
             <th colspan="2">

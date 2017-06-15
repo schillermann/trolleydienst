@@ -20,14 +20,21 @@ if(isset($_POST['profile_save'])) {
     $user->set_note_user($_POST['note']);
 
     $update_user = include 'tables/update_users.php';
-    $placeholder['profile_save'] = $update_user($database_pdo, $user);
+    if($update_user($database_pdo, $user))
+        $placeholder['message']['success'] = 'Dein Profil wurde gespeichert.';
+    else
+        $placeholder['message']['error'] = 'Dein Profil konnte nicht gespeichert werden!';
 }
 elseif(isset($_POST['password_save']) && !empty($_POST['password'])) {
-    $placeholder['password_save'] = $_POST['password'] == $_POST['password_repeat'];
 
-    if($placeholder['password_save']) {
+    if($_POST['password'] == $_POST['password_repeat']) {
         $update_user_password = include 'tables/update_users_password.php';
-        $placeholder['password_save'] = $update_user_password($database_pdo, $_SESSION['id_user'], md5($_POST['password']));
+        if($update_user_password($database_pdo, $_SESSION['id_user'], md5($_POST['password'])))
+            $placeholder['message']['success'] = 'Dein Passwort wurde geändert.';
+        else
+            $placeholder['message']['error'] = 'Dein Passwort konnte nicht geändert werden!';
+    } else {
+        $placeholder['message']['error'] = 'Passwörter stimmen nicht überein!';
     }
 }
 

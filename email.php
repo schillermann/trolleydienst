@@ -22,8 +22,7 @@ if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text']))
         $placeholder['message']['success'] = 'E-Mail wurde versendet an:';
     else
         $placeholder['message']['error'] = 'E-Mail konnte nicht versendet werden!';
-}
-else {
+} else {
     $placeholder['TEAM_NAME'] = TEAM_NAME;
     $placeholder['CONGREGATION_NAME'] = CONGREGATION_NAME;
     $placeholder['EMAIL_REPLY_TO_ADDRESS'] = EMAIL_REPLY_TO_ADDRESS;
