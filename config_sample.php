@@ -16,7 +16,21 @@ define('DATABASE_NAME', 'database_name_here');
 define('DATABASE_USER', 'username_here');
 define('DATABASE_PASSWORD', 'password_here');
 
+/**
+ * E-Mail
+ */
 define('EMAIL_FROM_ADDRESS', 'example@adresse');
-define('EMAIL_REPLY_TO_ADDRESS', 'example@adresse');
-define('TEAM_NAME', 'your_team_name_here');
+define('EMAIL_SUPPORT', 'example@adresse');
+
+/**
+ * Labels
+ */
+define('APPLICATION_NAME', 'Öffentliches Zeugnisgeben');
+define('TEAM_NAME', 'Trolley Team');
 define('CONGREGATION_NAME', 'congregation_name_here');
+
+/**
+ * Server settings
+ */
+define('UPLOAD_SIZE_MAX_IN_MEGABYTE', '3');
+ini_set("error_log", 'logs/php_errors.log');

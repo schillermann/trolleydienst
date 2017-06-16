@@ -13,5 +13,5 @@ return function (\DateTime $shift_datetime_from, \DateTime $shift_datetime_to, s
     $email_data = $render_mail('templates/emails/shift_user_remove.txt', $placeholder);
     $header = include 'includes/get_mail_header_plain.php';
 
-    return mail(EMAIL_REPLY_TO_ADDRESS, $email_data['subject'], $email_data['message'], $header);
+    return mail(EMAIL_SUPPORT, $email_data['subject'], $email_data['message'], $header);
 };

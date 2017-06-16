@@ -36,6 +36,20 @@ class Users {
         return ($result === false)? array() : $result;
     }
 
+    static function select_firstname_and_surname_by_id_user(\PDO $connection, int $id_user): array {
+        $stmt = $connection->prepare(
+            'SELECT vorname AS firstname, nachname AS surname
+            FROM teilnehmer
+            WHERE teilnehmernr = :id_user'
+        );
+
+        $stmt->execute(
+            array(':id_user' => $id_user)
+        );
+        $result = $stmt->fetch();
+        return ($result === false)? array() : $result;
+    }
+
     static function select_logindata_by_username_and_password(\PDO $connection, string $username, string $password): array {
         $stmt = $connection->prepare(
             'SELECT teilnehmernr AS id_user, vorname AS firstname, nachname AS surname,

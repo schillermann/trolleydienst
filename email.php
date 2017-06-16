@@ -25,7 +25,7 @@ if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text']))
 } else {
     $placeholder['TEAM_NAME'] = TEAM_NAME;
     $placeholder['CONGREGATION_NAME'] = CONGREGATION_NAME;
-    $placeholder['EMAIL_REPLY_TO_ADDRESS'] = EMAIL_REPLY_TO_ADDRESS;
+    $placeholder['EMAIL_SUPPORT'] = EMAIL_SUPPORT;
     $placeholder['WEBSITE_LINK'] = $_SERVER['SERVER_NAME'];
 
     $render_template_static = include 'modules/render_template_static.php';

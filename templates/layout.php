@@ -2,7 +2,7 @@
 <html lang="de">
     <head>
         <meta charset="utf-8">
-        <title>Trolleydienst - <?php echo CONGREGATION_NAME; ?></title>
+        <title><?php echo APPLICATION_NAME; ?> - <?php echo CONGREGATION_NAME; ?></title>
         <meta name="description" content="Trolleydienst Verwaltung">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="vendor/components/font-awesome/css/font-awesome.min.css">
@@ -17,7 +17,7 @@
         </div>
         <div>
             <header class="wrapper-center">
-                <h1 id="site-name">Trolleydienst <small>- <?php echo CONGREGATION_NAME; ?></small></h1>
+                <h1 id="site-name"><?php echo APPLICATION_NAME; ?> <small>- <?php echo CONGREGATION_NAME; ?></small></h1>
             </header>
         </div>
         <nav>
