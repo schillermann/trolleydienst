@@ -18,7 +18,6 @@ if (isset($_POST['SendMail'])) {
 
     $mText = $_POST['Text'];
     $mText = filter_var($mText, FILTER_SANITIZE_STRING);
-    $mText = nl2br($mText);
     $subject = filter_var($_POST['Betreff'], FILTER_SANITIZE_STRING);
 
     while($receiver = $stmt_user_list_with_status_null->fetch())
