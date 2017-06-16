@@ -2,7 +2,7 @@
 /**
  * return int Id date
  */
-return function(\PDO $database, Models\ShiftDay $shiftday): int {
+return function(\PDO $database, Models\ShiftDay $shiftday): bool {
     $stmt_next_id_shift_day = $database->query(
         'SELECT coalesce(Max(terminnr),0) + 1 FROM termine'
     );
@@ -27,5 +27,5 @@ return function(\PDO $database, Models\ShiftDay $shiftday): int {
         )
     );
 
-    return ($stmt_insert_shifts_days->rowCount() == 1)? $shiftday : -1;
+    return $stmt_insert_shifts_days->rowCount() == 1;
 };

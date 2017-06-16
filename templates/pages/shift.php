@@ -22,14 +22,14 @@
 <?php endif; ?>
 
 <?php foreach ($placeholder['shiftday_list'] as $shiftday_list) : ?>
-<table class="<?php echo ($shiftday_list->get_shiftday()->get_type())? 'literature_table' : 'literature_cart';?>">
+<table class="<?php echo ($shiftday_list->get_shiftday()->get_type())? 'literature_cart' : 'literature_table';?>">
     <thead>
         <tr>
             <th colspan="2">
                 <h3>
                     <?php echo $get_weekday($shiftday_list->get_shiftday()->get_time_from()); ?>,
                     <?php echo $shiftday_list->get_shiftday()->get_time_from()->format('d.m.Y'); ?> -
-                    <?php echo ($shiftday_list->get_shiftday()->get_type() == 0) ? 'Trolley' : 'Infostand'; ?>:
+                    <?php echo ($shiftday_list->get_shiftday()->get_type()) ? 'Trolley' : 'Infostand'; ?>:
                     <?php echo $shiftday_list->get_shiftday()->get_place(); ?>
 
                     <?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>

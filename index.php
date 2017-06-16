@@ -10,14 +10,13 @@ if(isset($_GET['logout'])) {
 if(isset($_SESSION) && !empty($_SESSION))
     header('location: shift.php');
 
+$database_pdo = include 'includes/database_pdo.php';
 $placeholder = array();
 
 if(isset($_POST['username']) && isset($_POST['password'])) {
 
-    $database_pdo = include 'includes/database_pdo.php';
     $check_login = include 'includes/check_login.php';
-
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+    $username = include 'filters/post_username.php';
 
     if($check_login($database_pdo, $username, $_POST['password']))
         header('location: shift.php');

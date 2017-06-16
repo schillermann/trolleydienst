@@ -28,7 +28,9 @@
             </div>
         </fieldset>
         <div class="from-button">
-            <input id="button_submit" type="submit" value="Anmelden" tabindex="4">
+            <button type="submit" name="login" class="active" tabindex="4">
+                <i class="fa fa-sign-in" aria-hidden="true"></i> Anmelden
+            </button>
         </div>
     </form>
 </div>
