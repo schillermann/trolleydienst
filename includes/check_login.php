@@ -1,25 +1,19 @@
 <?php
 return function (\PDO $database_pdo, string $username, string $password): bool {
 
-    $select_users_id_user_by_username_and_password = include 'tables/select_users_id_user_by_username_and_password.php';
-    $id_user = $select_users_id_user_by_username_and_password($database_pdo, $username, md5($password));
+    $user = Tables\Users::select_logindata_by_username_and_password($database_pdo, $username, $password);
 
-    if($id_user === 0)
+    if(empty($user))
         return false;
 
-    $select_users = include 'tables/select_users.php';
-    $user = $select_users($database_pdo, $id_user);
+    $_SESSION['id_user'] = (int)$user['id_user'];
+    $_SESSION['name'] = $user['firstname'] . ' ' . $user['surname'];
+    $_SESSION['email'] = $user['email'];
+    $_SESSION['literature_table'] = Enum\Status::convert_to_enum($user['literature_table']);
+    $_SESSION['literature_cart'] = Enum\Status::convert_to_enum($user['literature_cart']);
+    $_SESSION['role'] = ($user['is_admin']) ? 'admin' : 'user';
 
-    $_SESSION['id_user'] = $user->get_id_user();
-    $_SESSION['name'] = $user->get_firstname() . ' ' . $user->get_surname();
-    $_SESSION['email'] = $user->get_email();
-    $_SESSION['literature_table'] = $user->get_literature_table();
-    $_SESSION['literature_cart'] = $user->get_literature_cart();
-    $_SESSION['role'] = ($user->is_admin()) ? 'admin' : 'user';
-
-    $update_user_logintime = include 'tables/update_users_logintime.php';
-
-    $update_user_logintime($database_pdo, $user->get_id_user());
+    Tables\Users::update_login_time_by_id_user($database_pdo, $_SESSION['id_user']);
 
     return true;
 };

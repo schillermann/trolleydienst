@@ -172,5 +172,5 @@ class User {
             $this->note_admin = $note_admin_filtered;
     }
 
-    protected $id_user, $active, $firstname, $surname, $email, $username, $password, $literature_table, $literature_cart, $admin, $phone, $mobile, $congregation, $language, $shift_max, $note_admin, $note_user;
+    protected $id_user, $active, $firstname, $surname, $email, $username, $password, $literature_table, $literature_cart, $admin, $phone, $mobile, $congregation, $language, $shift_max, $note;
 }
