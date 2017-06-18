@@ -35,49 +35,17 @@ if ($_SESSION['literature_table'] != Enum\Status::INACTIVE)
 if ($_SESSION['literature_cart'] != Enum\Status::INACTIVE)
     $AllowSchichtArt[] = 1;
 
-$select_shifts_days_list = include 'tables/select_shifts_days_list.php';
-$shiftday_list = $select_shifts_days_list($database_pdo, $mTageFilter, $AllowSchichtArt);
+$placeholder['shiftday_list'] = Tables\ShiftsDays::select_all($database_pdo, $mTageFilter, $AllowSchichtArt);
 
+foreach ($placeholder['shiftday_list'] as $shift_day) {
 
-$placeholder['shiftday_list'] = array();
-
-foreach ($shiftday_list as $shiftday) {
-
-    $shiftday_shift_list = new Models\ShiftDayShiftList($shiftday);
-
-    $select_shift_list = include 'tables/select_shifts_list.php';
-    $shift_list = $select_shift_list($database_pdo, $shiftday->get_id_shift_day());
+    $id_shift_day = (int)$shift_day['id_shift_day'];
+    $placeholder['shift_list'][$id_shift_day] = $shift_list = Tables\Shifts::select_all($database_pdo, $id_shift_day);
 
     foreach ($shift_list as $shift) {
-
-        $shift_user_list = new Models\ShiftUserList($shift);
-
-        $stmt_users_from_shift = $database_pdo->prepare(
-            'SELECT SchTeil.teilnehmernr AS id_user, SchTeil.status AS status,
-            SchTeil.isschichtleiter AS shift_supervisor, muser.vorname AS firstname,
-            muser.nachname AS surname, muser.Handy AS mobile
-            FROM schichten_teilnehmer SchTeil
-            LEFT OUTER JOIN teilnehmer muser
-            ON SchTeil.teilnehmernr = muser.teilnehmernr
-            WHERE SchTeil.terminnr = :id_shift_day
-            AND SchTeil.schichtnr = :id_shift
-            ORDER BY SchTeil.isschichtleiter DESC'
-        );
-
-        $stmt_users_from_shift->execute(
-            array(
-                ':id_shift_day' => $shift->get_id_shift_day(),
-                ':id_shift' => $shift->get_id_shift()
-            )
-        );
-
-        while($user_from_shift = $stmt_users_from_shift->fetchObject('Models\ShiftUser'))
-            $shift_user_list->add_user_to_shift($user_from_shift);
-
-        $shiftday_shift_list->add_shift_user_list($shift_user_list);
+        $id_shift = (int)$shift['id_shift'];
+        $placeholder['user_list'][$id_shift_day][$id_shift] = Tables\ShiftUserMaps::select_all($database_pdo, $id_shift_day, $id_shift);
     }
-
-    $placeholder['shiftday_list'][] = $shiftday_shift_list;
 }
 
 $render_page = include 'includes/render_page.php';

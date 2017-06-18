@@ -1,4 +1,23 @@
 <h2>Neue Schichten</h2>
+<?php if (isset($placeholder['message'])) : ?>
+    <div class="note-box">
+        <?php if (isset($placeholder['message']['success'])) : ?>
+            <p class="success">
+                Folgende Schichten wurdne angelegt:
+                <ul>
+                    <?php foreach ($placeholder['message']['success'] as $shiftday): ?>
+                    <li><?php echo $shiftday; ?></li>
+                    <?php endforeach;?>
+                </ul>
+            </p>
+        <?php elseif(isset($placeholder['message']['error'])): ?>
+            <p class="error">
+                <?php echo $placeholder['message']['error']; ?>
+            </p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
 <div class="container-center">
     <form method="post">
         <fieldset>

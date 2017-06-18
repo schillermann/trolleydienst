@@ -1,4 +1,5 @@
 <?php $get_weekday = include 'templates/helpers/get_weekday.php'; ?>
+<?php $convert_datetime = include 'templates/helpers/convert_datetime.php'; ?>
 
 <h2>Schichten</h2>
 <?php if (isset($placeholder['message'])) : ?>
@@ -21,16 +22,16 @@
 </a>
 <?php endif; ?>
 
-<?php foreach ($placeholder['shiftday_list'] as $shiftday_list) : ?>
-<table class="<?php echo ($shiftday_list->get_shiftday()->get_type())? 'literature_cart' : 'literature_table';?>">
+<?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
+<table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?>">
     <thead>
         <tr>
             <th colspan="2">
                 <h3>
-                    <?php echo $get_weekday($shiftday_list->get_shiftday()->get_time_from()); ?>,
-                    <?php echo $shiftday_list->get_shiftday()->get_time_from()->format('d.m.Y'); ?> -
-                    <?php echo ($shiftday_list->get_shiftday()->get_type()) ? 'Trolley' : 'Infostand'; ?>:
-                    <?php echo $shiftday_list->get_shiftday()->get_place(); ?>
+                    <?php echo $get_weekday($shiftday['time_from']); ?>,
+                    <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
+                    <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
+                    <?php echo $shiftday['place']; ?>
 
                     <?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>
                         <a href="#" class="button">
@@ -47,33 +48,41 @@
         </tr>
     </tfoot>
     <tbody>
-        <?php foreach ($shiftday_list->get_iterator_shift_user_list() as $shift_user_list) : ?>
+        <?php $id_shift_day = (int)$shiftday['id_shift_day']; ?>
+        <?php foreach ($placeholder['shift_list'][$id_shift_day] as $shift) : ?>
+
+        <?php
+            $id_shift = (int)$shift['id_shift'];
+            $user_list = $placeholder['user_list'][$id_shift_day][$id_shift];
+        ?>
+
         <tr>
-            <td class="shift_time" id="id_shift_day_<?php echo $shiftday_list->get_shiftday()->get_id_shift_day(); ?>_id_shift_<?php echo $shift_user_list->get_shift()->get_id_shift(); ?>">
-                <?php echo $shift_user_list->get_shift()->get_time_from()->format('H:i'); ?> -
-                <?php echo $shift_user_list->get_shift()->get_time_to()->format('H:i'); ?>
+            <td class="shift_time" id="id_shift_day_<?php echo $id_shift_day; ?>">
+                <?php echo $convert_datetime($shift['time_from']); ?> -
+                <?php echo $convert_datetime($shift['time_to']); ?>
             </td>
             <td>
                 <form method="post">
-                    <input type="hidden" name="id_shift_day" value="<?php echo $shift_user_list->get_shift()->get_id_shift_day(); ?>">
-                    <input type="hidden" name="id_shift" value="<?php echo $shift_user_list->get_shift()->get_id_shift(); ?>">
-                    <?php foreach ($shift_user_list->get_iterator_user() as $shift_user) : ?>
+                    <input type="hidden" name="id_shift_day" value="<?php echo $id_shift_day; ?>">
+                    <input type="hidden" name="id_shift" value="<?php echo $id_shift; ?>">
 
-                        <?php $user_name =  $shift_user->get_firstname() . ' ' . $shift_user->get_surname(); ?>
+                    <?php foreach ($user_list as $user) : ?>
 
-                        <?php if($shift_user->get_id_user() === $_SESSION['id_user'] && $shift_user->get_status() === 0): ?>
+                        <?php $user_name =  $user['firstname'] . ' ' . $user['surname']; ?>
+
+                        <?php if((int)$user['id_user'] === $_SESSION['id_user'] && (int)$user['status'] === 0): ?>
                             <button type="submit" name="delete_user" class="enable">
                                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> <?php echo $user_name; ?>
                             </button>
                         <?php else: ?>
-                            <a href="user-details.php?id_user=<?php echo $shift_user->get_id_user(); ?>" class="button">
-                                <i class="fa fa-phone" aria-hidden="true"></i> <?php echo $user_name; ?>
+                            <a href="user-details.php?id_user=<?php echo $user['id_user']; ?>" class="button">
+                                <i class="fa fa-info" aria-hidden="true"></i> <?php echo $user_name; ?>
                             </a>
                         <?php endif; ?>
 
                     <?php endforeach; ?>
 
-                    <?php if ($shift_user_list->count() < 2) : ?>
+                    <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
 
                     <button type="submit" name="promote_user">
                         <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> bewerben

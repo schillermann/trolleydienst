@@ -25,7 +25,8 @@ if(isset($_POST['save'])) {
     // TODO: Foreach Schleife mit einem Interval wie bei $add_appointment_with_shifts mit der Termin Serie
 
     $add_shiftday_with_shifts = include 'services/add_shiftday_with_shifts.php';
-    $add_shiftday_with_shifts($database_pdo, $shiftday, (int)$_POST['shift_hour_number']);
+    if($add_shiftday_with_shifts($database_pdo, $shiftday, (int)$_POST['shift_hour_number']))
+        $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i') . ' bis ' . $shiftday_to->format('H:i');
 }
 
 $render_page = include 'includes/render_page.php';

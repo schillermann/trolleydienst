@@ -23,11 +23,12 @@ define('EMAIL_FROM_ADDRESS', 'example@adresse');
 define('EMAIL_SUPPORT', 'example@adresse');
 
 /**
- * Labels
+ * General settings
  */
 define('APPLICATION_NAME', 'Öffentliches Zeugnisgeben');
 define('TEAM_NAME', 'Trolley Team');
 define('CONGREGATION_NAME', 'congregation_name_here');
+define('PARTICIPANTS_PER_SHIFT', 2);
 
 /**
  * Server settings
