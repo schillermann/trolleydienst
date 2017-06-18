@@ -3,7 +3,7 @@ namespace Models;
 
 class Shift {
 
-    function __construct(int $id_shift = -1, \DateTime $time_from = null, \DateTime $time_to = null, int $id_shift_day = -1) {
+    function __construct(int $id_shift = -1, int $id_shift_day = -1, \DateTime $time_from = null, \DateTime $time_to = null) {
 
         if($id_shift !== -1)
             $this->id_shift = $id_shift;

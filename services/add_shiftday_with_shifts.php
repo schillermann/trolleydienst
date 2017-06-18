@@ -1,9 +1,7 @@
 <?php
 return function (\PDO $database, Models\ShiftDay $shiftday, int $shift_hour_number): bool {
 
-    $insert_shifts_days = include 'tables/insert_shifts_days.php';
-
-    if(($id_shift_day = $insert_shifts_days($database, $shiftday)) === -1)
+    if(!($id_shift_day = Tables\ShiftsDays::insert($database, $shiftday)))
         return false;
 
     $shiftday_with_new_id = new Models\ShiftDay(
@@ -15,8 +13,6 @@ return function (\PDO $database, Models\ShiftDay $shiftday, int $shift_hour_numb
         $shiftday->is_extra_shift()
     );
 
-    $add_shifts = include 'includes/add_shifts.php';
-    $add_shifts($database, $shiftday_with_new_id, $shift_hour_number);
-
-    return true;
+    $add_shift_list_to_shiftday = include 'includes/add_shift_list_to_shiftday.php';
+    return $add_shift_list_to_shiftday($database, $shiftday_with_new_id, $shift_hour_number);
 };

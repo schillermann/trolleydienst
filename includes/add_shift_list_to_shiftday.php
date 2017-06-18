@@ -13,12 +13,9 @@ return function (PDO $database, Models\ShiftDay $shiftday, int $shift_hour_numbe
         $shiftday_end = clone $shiftday_begin;
         $shiftday_end->add($shiftday_interval);
 
-        $shift = new Models\Shift($id_shift, $shiftday_begin, $shiftday_end, $shiftday->get_id_shift_day());
+        $shift = new Models\Shift($id_shift, $shiftday->get_id_shift_day(), $shiftday_begin, $shiftday_end);
 
-        $update_shift = include 'tables/update_shifts.php';
-        $insert_shift = include 'tables/insert_shifts.php';
-
-        if(!$update_shift($database, $shift) && !$insert_shift($database, $shift))
+        if(!Tables\Shifts::update($database, $shift) && !Tables\Shifts::insert($database, $shift))
             return false;
     }
     return true;
