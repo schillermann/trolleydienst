@@ -31,6 +31,7 @@ header, main {
 }
 
 main {
+    display: block;
     padding: 25px 2.5% 75px 2.5%;
 }
 
