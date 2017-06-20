@@ -8,8 +8,8 @@ return function (\PDO $database, Models\ShiftDay $shiftday, int $shift_hour_numb
         $id_shift_day,
         $shiftday->get_type(),
         $shiftday->get_place(),
-        $shiftday->get_time_from(),
-        $shiftday->get_time_to(),
+        $shiftday->get_datetime_from(),
+        $shiftday->get_datetime_to(),
         $shiftday->is_extra_shift()
     );
 

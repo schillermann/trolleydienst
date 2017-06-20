@@ -1,30 +1,29 @@
 <h2>Neue Schichten</h2>
-<?php if (isset($placeholder['message'])) : ?>
-    <div class="note-box">
-        <?php if (isset($placeholder['message']['success'])) : ?>
-            <p class="success">
-                Folgende Schichten wurdne angelegt:
+<div class="container-center">
+    <?php if (isset($placeholder['message'])) : ?>
+        <div class="note-box">
+            <?php if (isset($placeholder['message']['success'])) : ?>
+                <p class="success">
+                    Folgende Schichten wurden angelegt:
                 <ul>
                     <?php foreach ($placeholder['message']['success'] as $shiftday): ?>
-                    <li><?php echo $shiftday; ?></li>
+                        <li><?php echo $shiftday; ?></li>
                     <?php endforeach;?>
                 </ul>
-            </p>
-        <?php elseif(isset($placeholder['message']['error'])): ?>
-            <p class="error">
-                <?php echo $placeholder['message']['error']; ?>
-            </p>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
-
-<div class="container-center">
+                </p>
+            <?php elseif(isset($placeholder['message']['error'])): ?>
+                <p class="error">
+                    <?php echo $placeholder['message']['error']; ?>
+                </p>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
     <form method="post">
         <fieldset>
             <legend>Schichten</legend>
             <div>
-                <label for="date_type">Schichtart</label>
-                <select id="date_type" name="date_type" tabindex="1">
+                <label for="shift_type">Schichtart</label>
+                <select id="shift_type" name="shift_type" tabindex="1">
                     <option value="0">Infostand</option>
                     <option value="1">Trolley</option>
                 </select>
@@ -34,7 +33,7 @@
                 <input id="place" type="text" name="place" tabindex="2" required>
             </div>
             <div>
-                <label for="date">Ort <small>(Pflichtfeld)</small></label>
+                <label for="date">Datum <small>(Pflichtfeld)</small></label>
                 <input id="date" type="date" name="date" tabindex="3" required>
             </div>
             <div>

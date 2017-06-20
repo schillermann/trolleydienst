@@ -315,3 +315,6 @@ textarea.note {
 
 .literature_table th, .literature_table tfoot td {
     background-color: #FFC000; }
+
+.extra-shift th, .extra-shift tfoot td {
+    background-color: #D99694; }

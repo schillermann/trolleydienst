@@ -5,7 +5,7 @@ return function (PDO $database, Models\ShiftDay $shiftday, int $shift_hour_numbe
         $shift_hour_number = 1;
 
     $shiftday_interval = new DateInterval('PT' . $shift_hour_number . 'H');
-    $shiftday_range = new DatePeriod($shiftday->get_time_from(), $shiftday_interval ,$shiftday->get_time_to());
+    $shiftday_range = new DatePeriod($shiftday->get_datetime_from(), $shiftday_interval ,$shiftday->get_datetime_to());
     $id_shift = 0;
 
     foreach($shiftday_range as $shiftday_begin){

@@ -3,20 +3,12 @@ namespace Models;
 
 class Shift {
 
-    function __construct(int $id_shift = -1, int $id_shift_day = -1, \DateTime $time_from = null, \DateTime $time_to = null) {
+    function __construct(int $id_shift, int $id_shift_day, \DateTime $time_from, \DateTime $time_to) {
 
-        if($id_shift !== -1)
-            $this->id_shift = $id_shift;
-        if($time_from !== null)
-            $this->time_from = $time_from;
-        else
-            $this->time_from = new \DateTime($this->time_from);
-        if($time_to !== null)
-            $this->time_to = $time_to;
-        else
-            $this->time_to = new \DateTime($this->time_to);
-        if($id_shift_day !== -1)
-            $this->id_shift_day = $id_shift_day;
+        $this->id_shift = $id_shift;
+        $this->time_from = $time_from;
+        $this->time_to = $time_to;
+        $this->id_shift_day = $id_shift_day;
     }
 
     function get_id_shift(): int {

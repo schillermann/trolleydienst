@@ -5,28 +5,40 @@ $placeholder = array();
 
 if(isset($_POST['save'])) {
 
-    if ($_POST['shiftday_series_until'] != '')
-        $shiftday_series_until = $filter_date_and_time($_POST['shiftday_series_until']);
+    $date = include 'filters/post_date.php';
 
-    $filter_date_and_time = include 'modules/filter_date_and_time.php';
-    $shiftday_from = $filter_date_and_time($_POST['date'], $_POST['time_from']);
-    $shiftday_to = $filter_date_and_time($_POST['date'], $_POST['time_to']);
+    $merge_date_and_time = include 'modules/merge_date_and_time.php';
+    $shiftday_from = $merge_date_and_time($date, $_POST['time_from']);
+    $shiftday_to = $merge_date_and_time($date, $_POST['time_to']);
+
+    if ($_POST['shiftday_series_until'] != '') {
+        $shiftdays_until = new \DateTime($_POST['shiftday_series_until']);
+        $shiftdays_until->setTime(23,59);
+    } else {
+        $shiftdays_until = clone $shiftday_to;
+    }
+
     $extra_shift = isset($_POST['is_extra_shift']);
 
     $shiftday = new Models\ShiftDay(
         0,
-        (int)$_POST['date_type'],
-        $_POST['place'],
+        (int)$_POST['shift_type'],
+        include 'filters/post_place.php',
         $shiftday_from,
         $shiftday_to,
         $extra_shift
     );
+    $shift_hour_number = (int)$_POST['shift_hour_number'];
 
-    // TODO: Foreach Schleife mit einem Interval wie bei $add_appointment_with_shifts mit der Termin Serie
+    while ($shiftday_from < $shiftdays_until) {
 
-    $add_shiftday_with_shifts = include 'services/add_shiftday_with_shifts.php';
-    if($add_shiftday_with_shifts($database_pdo, $shiftday, (int)$_POST['shift_hour_number']))
-        $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i') . ' bis ' . $shiftday_to->format('H:i');
+        $add_shiftday_with_shifts = include 'services/add_shiftday_with_shifts.php';
+        if($add_shiftday_with_shifts($database_pdo, $shiftday, $shift_hour_number))
+            $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i') . ' bis ' . $shiftday_to->format('H:i');
+
+        $shiftday_from->add(new \DateInterval('P7D'));
+        $shiftday_to->add(new \DateInterval('P7D'));
+    }
 }
 
 $render_page = include 'includes/render_page.php';
