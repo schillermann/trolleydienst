@@ -17,7 +17,7 @@
         </div>
         <div>
             <header class="wrapper-center">
-                <h1 id="site-name"><?php echo APPLICATION_NAME; ?> <small>- <?php echo CONGREGATION_NAME; ?></small></h1>
+                <h1 id="site-name"><?php echo APPLICATION_NAME; ?> <small><?php echo CONGREGATION_NAME; ?></small></h1>
             </header>
         </div>
         <nav>

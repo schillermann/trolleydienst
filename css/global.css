@@ -23,14 +23,12 @@ figure {
 }
 
 header {
+    text-align: center;
     min-height: 50px;
-}
-
-header, main {
-    background-color: #fff;
-}
+    background-color: #604A7B; }
 
 main {
+    background-color: #fff;
     display: block;
     padding: 25px 2.5% 75px 2.5%;
 }
@@ -80,28 +78,21 @@ dd {
  * Header
  **/
 #logo {
-    display: block;
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    width: 80px;
-    height: 80px;
-    background-color: #604A7B;
-}
-
+    display: none; }
 #site-name {
     display: inline-block;
-    margin-left: 98px;
-    color: #615c5a; }
+    margin: 10px;
+    font-size: 20px;
+    color: white; }
 #site-name small {
-    color: #717171;
+    color: white;
     font-weight: initial; }
 /**
  * Navigation
  */
 #main-nav {
     list-style-type: none;
-    margin: 0 0 0 85px;
+    margin: 0px;
     padding: 0;
     min-height: 44px;
     overflow: hidden;
@@ -231,11 +222,11 @@ fieldset {
 }
 
 fieldset div {
-    padding: 9px 3px 0px 35px;
+    padding: 9px 3px 0px 5px;
 }
 
 fieldset div input, fieldset div select {
-    width: 250px;
+    width: 100%;
     display: block;
 }
 
@@ -318,3 +309,30 @@ textarea.note {
 
 .extra-shift th, .extra-shift tfoot td {
     background-color: #D99694; }
+
+@media only screen and (min-width: 770px) {
+    header {
+        text-align: left;
+        background-color: white; }
+    #main-nav {
+        margin: 0 0 0 85px; }
+    #logo {
+        display: block;
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        width: 80px;
+        height: 80px;
+        background-color: #604A7B; }
+    #site-name {
+        margin-left: 98px;
+        color: #615c5a; }
+    #site-name small {
+        color: #717171; }
+}
+@media only screen and (min-width: 360px) {
+    fieldset div {
+        padding: 9px 3px 0px 35px; }
+    fieldset div input, fieldset div select {
+        width: 250px; }
+}
