@@ -290,9 +290,10 @@ button:hover, .button:hover {
     max-width: 650px;
 }
 
+#user-list {
+    overflow-x:auto; }
 #user-list .fa {
-    font-size: 2.6em;
-}
+    font-size: 2em; }
 
 textarea.note {
     height: 80px;
