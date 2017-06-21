@@ -14,12 +14,15 @@ if(isset($_POST['delete_user'])) {
 }
 elseif (isset($_POST['promote_user'])) {
     $promote_user_for_shift = include 'services/promote_user_for_shift.php';
-    if($promote_user_for_shift($database_pdo, $_SESSION['id_user'], (int)$_POST['id_shift_day'], (int)$_POST['id_shift']))
+    if($promote_user_for_shift($database_pdo, (int)$_POST['id_user'], (int)$_POST['id_shift_day'], (int)$_POST['id_shift']))
         $placeholder['message']['success'] = 'Deine Bewerbung wurde angenommen.';
     else
         $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht angenommen werden!';
 }
 
+$user_list = Tables\Users::select_all_without_user($database_pdo, $_SESSION['id_user']);
+$get_user_promote_list = include 'helpers/get_user_promote_list.php';
+$placeholder['user_promote_list'] = $get_user_promote_list($user_list);
 
 $stmt_settings_schedule_max_days = $database_pdo->prepare(
     'SELECT FilterTerminTage FROM settings'

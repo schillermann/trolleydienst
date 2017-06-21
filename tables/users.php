@@ -2,6 +2,21 @@
 namespace Tables;
 
 class Users {
+
+    static function select_all_without_user(\PDO $connection, int $id_user): array {
+        $stmt = $connection->prepare(
+            'SELECT teilnehmernr AS id_user, vorname AS firstname, nachname AS surname, infostand AS literature_table, trolley AS literature_cart
+            FROM teilnehmer
+            WHERE teilnehmernr <> :id_user
+            AND status = 0');
+
+        $stmt->execute(
+            array(':id_user' => $id_user)
+        );
+        $result = $stmt->fetchAll();
+        return ($result === false)? array() : $result;
+    }
+
     static function select_user_by_id_user(\PDO $connection, int $id_user): array {
 
         $stmt = $connection->prepare(

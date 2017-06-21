@@ -84,7 +84,12 @@
                     <?php endforeach; ?>
 
                     <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
-
+                    <?php $user_promote_list = ($shiftday['type'])? $placeholder['user_promote_list']['literature_cart'] : $placeholder['user_promote_list']['literature_table']; ?>
+                    <select name="id_user">
+                        <?php foreach ($user_promote_list as $id_user => $name): ?>
+                        <option value="<?php echo $id_user; ?>"><?php echo $name; ?></option>
+                        <?php endforeach;?>
+                    </select>
                     <button type="submit" name="promote_user">
                         <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> bewerben
                     </button>
