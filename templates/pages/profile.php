@@ -15,20 +15,6 @@
         </div>
     <?php endif; ?>
 
-    <?php if (isset($placeholder['profile_save'])) : ?>
-        <div class="note-box">
-            <?php if ($placeholder['profile_save']): ?>
-                <p class="success">
-                    Dein Profil wurde gespeichert.
-                </p>
-            <?php else: ?>
-                <p class="error">
-                    Dein Profil konnte nicht gespeichert werden!
-                </p>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
-
     <form method="post">
         <fieldset>
             <legend>Kontaktdaten</legend>

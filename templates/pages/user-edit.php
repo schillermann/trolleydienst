@@ -23,18 +23,18 @@
 ?>
 <h2>Teilnehmer bearbeiten</h2>
 <div class="container-center">
-    <?php if (isset($placeholder['update_user'])) : ?>
-    <div class="note-box">
-        <?php if ($placeholder['update_user']): ?>
-            <p class="success">
-                Die Teilnehmer Daten wurde geändert.
-            </p>
-        <?php else: ?>
-            <p class="error">
-                Die Teilnehmer Daten konnten nicht geändert werden!
-            </p>
-        <?php endif; ?>
-    </div>
+    <?php if (isset($placeholder['message'])) : ?>
+        <div class="note-box">
+            <?php if (isset($placeholder['message']['success'])): ?>
+                <p class="success">
+                    <?php echo $placeholder['message']['success'];?>
+                </p>
+            <?php elseif (isset($placeholder['message']['error'])): ?>
+                <p class="error">
+                    <?php echo $placeholder['message']['error'];?>
+                </p>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
     <form method="post">
         <fieldset>
@@ -118,6 +118,25 @@
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
             </button>
 
+        </div>
+    </form>
+    <form method="post">
+        <fieldset>
+            <legend>Passwort</legend>
+            <div>
+                <label for="password">Neues Passwort</label>
+                <input id="password" type="password" name="password" tabindex="18">
+            </div>
+            <div>
+                <label for="password_repeat">Neues Passwort (wiederholen)</label>
+                <input id="password_repeat" type="password" name="password_repeat" tabindex="19">
+            </div>
+
+        </fieldset>
+        <div class="from-button">
+            <button type="submit" name="password_save" class="active" tabindex="20">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> Passwort ändern
+            </button>
         </div>
     </form>
 </div>
