@@ -208,6 +208,10 @@ input[type="checkbox"] {
     width: auto;
 }
 
+select {
+    height: 36px;
+}
+
 legend {
     font-weight: 200;
     padding: 0 10px;
@@ -249,6 +253,7 @@ button, .button {
     background-image: none;
     border: 1px solid rgba(189,183,181,0.5);
     color: black;
+    margin-bottom: 4px;
     background-color: #f2f0ed;
 }
 
@@ -257,6 +262,10 @@ button:hover, .button:hover {
     background-color: #e6e6e6;
     border-color: #adadad;
 }
+
+.promote {
+    background-color: #c5c5c5;
+    color: #4a4a4a; }
 
 /**
  * Icons
@@ -290,7 +299,7 @@ button:hover, .button:hover {
     max-width: 650px;
 }
 
-#user-list {
+#user-list, #shift-list {
     overflow-x:auto; }
 #user-list .fa {
     font-size: 2em; }
@@ -302,7 +311,7 @@ textarea.note {
 .shift_time {
     padding-left: 14px;
     width: 10%;
-    min-width: 100px;
+    min-width: 50px;
 }
 
 .literature_table th, .literature_table tfoot td {

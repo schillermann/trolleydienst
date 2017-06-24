@@ -22,83 +22,86 @@
 </a>
 <?php endif; ?>
 
+<div id="shift-list">
 <?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
-<table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?> <?php if ((int)$shiftday['shift_extra']):?>extra-shift<?php endif;?>">
-    <thead>
-        <tr>
-            <th colspan="2">
-                <h3>
-                    <?php echo $get_weekday($shiftday['time_from']); ?>,
-                    <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
-                    <?php if ((int)$shiftday['shift_extra']):?> Sonderschicht <?php endif;?>
-                    <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
-                    <?php echo $shiftday['place']; ?>
+    <table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?> <?php if ((int)$shiftday['shift_extra']):?>extra-shift<?php endif;?>">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <h3>
+                        <?php echo $get_weekday($shiftday['time_from']); ?>,
+                        <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
+                        <?php if ((int)$shiftday['shift_extra']):?> Sonderschicht <?php endif;?>
+                        <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
+                        <?php echo $shiftday['place']; ?>
 
-                    <?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>
-                        <a href="#" class="button">
-                            <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
-                        </a>
-                    <?php endif; ?>
-                </h3>
-            </th>
-        </tr>
-    </thead>
-    <tfoot>
-        <tr>
-            <td colspan="2"></td>
-        </tr>
-    </tfoot>
-    <tbody>
-        <?php $id_shift_day = (int)$shiftday['id_shift_day']; ?>
-        <?php foreach ($placeholder['shift_list'][$id_shift_day] as $shift) : ?>
-
-        <?php
-            $id_shift = (int)$shift['id_shift'];
-            $user_list = $placeholder['user_list'][$id_shift_day][$id_shift];
-        ?>
-
-        <tr>
-            <td class="shift_time" id="id_shift_day_<?php echo $id_shift_day; ?>">
-                <?php echo $convert_datetime($shift['time_from']); ?> -
-                <?php echo $convert_datetime($shift['time_to']); ?>
-            </td>
-            <td>
-                <form method="post">
-                    <input type="hidden" name="id_shift_day" value="<?php echo $id_shift_day; ?>">
-                    <input type="hidden" name="id_shift" value="<?php echo $id_shift; ?>">
-
-                    <?php foreach ($user_list as $user) : ?>
-
-                        <?php $user_name =  $user['firstname'] . ' ' . $user['surname']; ?>
-
-                        <?php if((int)$user['id_user'] === $_SESSION['id_user'] && (int)$user['status'] === 0): ?>
-                            <button type="submit" name="delete_user" class="enable">
-                                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> <?php echo $user_name; ?>
-                            </button>
-                        <?php else: ?>
-                            <a href="user-details.php?id_user=<?php echo $user['id_user']; ?>" class="button">
-                                <i class="fa fa-info" aria-hidden="true"></i> <?php echo $user_name; ?>
+                        <?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>
+                            <a href="#" class="button">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
                             </a>
                         <?php endif; ?>
+                    </h3>
+                </th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
+        <tbody>
+            <?php $id_shift_day = (int)$shiftday['id_shift_day']; ?>
+            <?php foreach ($placeholder['shift_list'][$id_shift_day] as $shift) : ?>
 
-                    <?php endforeach; ?>
+            <?php
+                $id_shift = (int)$shift['id_shift'];
+                $user_list = $placeholder['user_list'][$id_shift_day][$id_shift];
+            ?>
 
-                    <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
-                    <?php $user_promote_list = ($shiftday['type'])? $placeholder['user_promote_list']['literature_cart'] : $placeholder['user_promote_list']['literature_table']; ?>
-                    <select name="id_user">
-                        <?php foreach ($user_promote_list as $id_user => $name): ?>
-                        <option value="<?php echo $id_user; ?>"><?php echo $name; ?></option>
-                        <?php endforeach;?>
-                    </select>
-                    <button type="submit" name="promote_user">
-                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> bewerben
-                    </button>
+            <tr>
+                <td class="shift_time" id="id_shift_day_<?php echo $id_shift_day; ?>">
+                    <?php echo $convert_datetime($shift['time_from']); ?> -
+                    <?php echo $convert_datetime($shift['time_to']); ?>
+                </td>
+                <td>
+                    <form method="post">
+                        <input type="hidden" name="id_shift_day" value="<?php echo $id_shift_day; ?>">
+                        <input type="hidden" name="id_shift" value="<?php echo $id_shift; ?>">
 
-                    <?php endif; ?>
-                </form>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-<?php endforeach; ?>
+                        <?php foreach ($user_list as $user) : ?>
+
+                            <?php $user_name =  $user['firstname'] . ' ' . $user['surname']; ?>
+
+                            <?php if((int)$user['id_user'] === $_SESSION['id_user'] && (int)$user['status'] === 0): ?>
+                                <button type="submit" name="delete_user" class="enable">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> <?php echo $user_name; ?>
+                                </button>
+                            <?php else: ?>
+                                <a href="user-details.php?id_user=<?php echo $user['id_user']; ?>" class="button">
+                                    <i class="fa fa-info" aria-hidden="true"></i> <?php echo $user_name; ?>
+                                </a>
+                            <?php endif; ?>
+
+                        <?php endforeach; ?>
+
+                        <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
+                        <?php $user_promote_list = ($shiftday['type'])? $placeholder['user_promote_list']['literature_cart'] : $placeholder['user_promote_list']['literature_table']; ?>
+                        <button type="submit" name="promote_user" class="promote">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> bewerben als
+                        </button>
+                        <select name="id_user" class="button promote">
+                            <?php foreach ($user_promote_list as $id_user => $name): ?>
+                            <option value="<?php echo $id_user; ?>"><?php echo $name; ?></option>
+                            <?php endforeach;?>
+                        </select>
+
+
+                        <?php endif; ?>
+                    </form>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php endforeach; ?>
+</div>
