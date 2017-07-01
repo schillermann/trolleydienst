@@ -7,7 +7,7 @@
 /**
  * Database settings
  */
-define('DATABASE_NAME', 'trolleydienst.sqlite');
+define('DATABASE_SQLITE', 'trolleydienst.sqlite');
 
 /**
  * E-Mail

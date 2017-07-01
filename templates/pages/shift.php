@@ -16,7 +16,7 @@
     </div>
 <?php endif; ?>
 
-<?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>
+<?php if($_SESSION['is_admin']): ?>
 <a href="shift-add.php" tabindex="1" class="button active">
     <i class="fa fa-plus" aria-hidden="true"></i> Neue Schichten
 </a>
@@ -35,7 +35,7 @@
                         <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
                         <?php echo $shiftday['place']; ?>
 
-                        <?php if($_SESSION['role'] == Enum\UserRole::ADMIN): ?>
+                        <?php if($_SESSION['is_admin']): ?>
                             <a href="#" class="button">
                                 <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
                             </a>

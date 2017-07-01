@@ -11,7 +11,7 @@ return function (\PDO $database_pdo, string $username, string $password): bool {
     $_SESSION['email'] = $user['email'];
     $_SESSION['is_literature_table'] = (bool)$user['is_literature_table'];
     $_SESSION['is_literature_cart'] = (bool)$user['is_literature_cart'];
-    $_SESSION['role'] = ($user['is_admin']) ? 'admin' : 'user';
+    $_SESSION['is_admin'] = (bool)$user['is_admin'];
 
     Tables\Users::update_login_time($database_pdo, $_SESSION['id_user']);
 

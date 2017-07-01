@@ -10,8 +10,8 @@ class User {
         string $email,
         string $username,
         string $password,
-        bool $is_active = true,
         bool $is_admin = false,
+        bool $is_active = true,
         bool $is_literature_cart = true,
         bool $is_literature_table = true,
         string $phone = null,
@@ -27,8 +27,8 @@ class User {
         $this->email = $email;
         $this->username = $username;
         $this->password = md5($password);
-        $this->is_active = $is_active;
         $this->is_admin = $is_admin;
+        $this->is_active = $is_active;
         $this->is_literature_cart = $is_literature_cart;
         $this->is_literature_table = $is_literature_table;
         $this->phone = $phone;

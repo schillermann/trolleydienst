@@ -1,3 +1,4 @@
+<?php $active_page = include 'templates/helpers/active_page.php'; ?>
 <!DOCTYPE html>
 <html lang="de">
     <head>
@@ -23,16 +24,28 @@
         <nav>
             <div class="wrapper-center">
                 <ul id="main-nav">
-                    <?php foreach ($placeholder['navigation'] as $page): ?>
-                    <li>
-                        <a href="<?php echo $page['link']; ?>" <?php echo (isset($page['active'])) ? 'class="active"' : ''; ?>>
-                            <?php echo $page['name']; ?>
-                        </a>
-                    </li>
-                    <?php endforeach; ?>
                     <?php if(!empty($_SESSION)) : ?>
-                    <li style="float:right"><a href="/?logout">Abmelden</a></li>
-                    <?php endif; ?>
+                    <li>
+                        <a href="shift.php" class="<?php echo $active_page('shift.php');?>">Trolley</a>
+                    </li>
+                    <li>
+                        <a href="info.php" class="<?php echo $active_page('info.php');?>">Infos</a>
+                    </li>
+                    <li>
+                        <a href="profile.php" class="<?php echo $active_page('profile.php');?>">Profil</a>
+                    </li>
+                    <?php if($_SESSION['is_admin']) : ?>
+                    <li>
+                        <a href="user.php" class="<?php echo $active_page('user.php');?>">Teilnehmer</a>
+                    </li>
+                    <li>
+                        <a href="email.php" class="<?php echo $active_page('email.php');?>">E-Mail</a>
+                    </li>
+                    <?php endif;?>
+                    <li style="float:right">
+                        <a href="/?logout">Abmelden</a>
+                    </li>
+                    <?php endif;?>
                 </ul>
             </div>
         </nav>
