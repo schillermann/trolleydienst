@@ -11,8 +11,8 @@ class ShiftUser {
         return $this->firstname;
     }
 
-    function get_surname(): string {
-        return $this->surname;
+    function get_lastname(): string {
+        return $this->lastname;
     }
 
     function get_mobile(): string {
@@ -23,5 +23,5 @@ class ShiftUser {
         return $this->status;
     }
 
-    protected $id_user, $status, $shift_supervisor, $firstname, $surname, $mobile;
+    protected $id_user, $status, $shift_supervisor, $firstname, $lastname, $mobile;
 }

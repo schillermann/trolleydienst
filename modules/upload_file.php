@@ -15,8 +15,8 @@ return function (string $file_name, string $file_target_path, int $file_size_max
         if(mkdir($file_target_path))
             return false;
 
-    if(!move_uploaded_file($_FILES['file']["tmp_name"], $file_target_path . $file_name))
-        return false;
+    if(move_uploaded_file($_FILES['file']["tmp_name"], $file_target_path . $file_name))
+        return true;
 
-    return true;
+    return false;
 };

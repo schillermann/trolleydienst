@@ -23,8 +23,8 @@
                 <input id="firstname" type="text" name="firstname" tabindex="1" required value="<?php echo $placeholder['profile']['firstname']; ?>">
             </div>
             <div>
-                <label for="surname">Nachname <small>(Pflichtfeld)</small></label>
-                <input id="surname" type="text" name="surname" tabindex="2" required value="<?php echo $placeholder['profile']['surname']; ?>">
+                <label for="lastname">Nachname <small>(Pflichtfeld)</small></label>
+                <input id="lastname" type="text" name="lastname" tabindex="2" required value="<?php echo $placeholder['profile']['lastname']; ?>">
             </div>
             <div>
                 <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
@@ -49,10 +49,6 @@
             <div>
                 <label for="language">Sprache</label>
                 <input id="language" type="text" name="language" tabindex="8" value="<?php echo $placeholder['profile']['language']; ?>">
-            </div>
-            <div>
-                <label for="shift_max">Max Stunden/Tag</label>
-                <input id="shift_max" type="number" name="shift_max" tabindex="9" value="<?php echo (int)$placeholder['profile']['shift_max']; ?>">
             </div>
             <div>
                 <label for="note_user">Bemerkung</label>

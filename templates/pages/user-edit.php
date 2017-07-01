@@ -1,26 +1,3 @@
-<?php
-    $literature_table_inactive = '';
-    $literature_table_active = '';
-    $literature_table_training = '';
-
-    if($placeholder['user']->get_literature_table() == \Enum\Status::ACTIVE)
-        $literature_table_active = 'selected';
-    elseif ($placeholder['user']->get_literature_table() == \Enum\Status::TRAINING)
-        $literature_table_training = 'selected';
-    else
-        $literature_table_inactive = 'selected';
-
-    $literature_cart_inactive = '';
-    $literature_cart_active = '';
-    $literature_cart_training = '';
-
-    if($placeholder['user']->get_literature_cart() == \Enum\Status::ACTIVE)
-        $literature_cart_active = 'selected';
-    elseif ($placeholder['user']->get_literature_cart() == \Enum\Status::TRAINING)
-        $literature_cart_training = 'selected';
-    else
-        $literature_cart_inactive = 'selected';
-?>
 <h2>Teilnehmer bearbeiten</h2>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
@@ -40,74 +17,63 @@
         <fieldset>
             <legend>Teilnehmer</legend>
             <div>
-                <label for="firstname">Vorname <small>(Pflichtfeld)</small></label>
-                <input id="firstname" type="text" name="firstname" tabindex="1" required value="<?php echo $placeholder['user']->get_firstname();?>">
+                <label for="is_active">Aktiv</label>
+                <input id="is_active" type="checkbox" name="is_active" tabindex="1" <?php if ($placeholder['user']['is_active']):?>checked<?php endif;?>>
             </div>
             <div>
-                <label for="surname">Nachname <small>(Pflichtfeld)</small></label>
-                <input id="surname" type="text" name="surname" tabindex="2" required value="<?php echo $placeholder['user']->get_surname();?>">
+                <label for="is_literature_table">Infostand</label>
+                <input id="is_literature_table" type="checkbox" name="is_literature_table" tabindex="2" <?php if ($placeholder['user']['is_literature_table']):?>checked<?php endif;?>>
+            </div>
+            <div>
+                <label for="is_literature_cart">Trolley</label>
+                <input id="is_literature_cart" type="checkbox" name="is_literature_cart" tabindex="3" <?php if ($placeholder['user']['is_literature_cart']):?>checked<?php endif;?>>
+            </div>
+            <div>
+                <label for="is_admin">Admin-Rechte</label>
+                <input id="is_admin" type="checkbox" name="is_admin" tabindex="4" <?php if ($placeholder['user']['is_admin']):?>checked<?php endif;?>>
+            </div>
+            <div>
+                <label for="firstname">Vorname <small>(Pflichtfeld)</small></label>
+                <input id="firstname" type="text" name="firstname" tabindex="5" required value="<?php echo $placeholder['user']['firstname'];?>">
+            </div>
+            <div>
+                <label for="lastname">Nachname <small>(Pflichtfeld)</small></label>
+                <input id="lastname" type="text" name="lastname" tabindex="6" required value="<?php echo $placeholder['user']['lastname'];?>">
             </div>
             <div>
                 <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
-                <input id="email" type="text" name="email" tabindex="3" required value="<?php echo $placeholder['user']->get_email();?>">
+                <input id="email" type="text" name="email" tabindex="7" required value="<?php echo $placeholder['user']['email'];?>">
             </div>
             <div>
                 <label for="username">Benutzername <small>(Pflichtfeld)</small></label>
-                <input id="username" type="text" name="username" tabindex="4" required value="<?php echo $placeholder['user']->get_username();?>">
+                <input id="username" type="text" name="username" tabindex="8" required value="<?php echo $placeholder['user']['username'];?>">
             </div>
             <div>
                 <label for="mobile">Handynr</label>
-                <input id="mobile" type="text" name="mobile" tabindex="5" value="<?php echo $placeholder['user']->get_mobile();?>">
+                <input id="mobile" type="text" name="mobile" tabindex="9" value="<?php echo $placeholder['user']['mobile'];?>">
             </div>
             <div>
                 <label for="phone">Telefonnr</label>
-                <input id="phone" type="text" name="phone" tabindex="6" value="<?php echo $placeholder['user']->get_phone();?>">
+                <input id="phone" type="text" name="phone" tabindex="10" value="<?php echo $placeholder['user']['phone'];?>">
             </div>
             <div>
                 <label for="congregation">Versammlung</label>
-                <input id="congregation" type="text" name="congregation" tabindex="7" value="<?php echo $placeholder['user']->get_congregation();?>">
+                <input id="congregation" type="text" name="congregation" tabindex="11" value="<?php echo $placeholder['user']['congregation'];?>">
             </div>
             <div>
                 <label for="language">Sprache</label>
-                <input id="language" type="text" name="language" tabindex="8" value="<?php echo $placeholder['user']->get_language();?>">
+                <input id="language" type="text" name="language" tabindex="12" value="<?php echo $placeholder['user']['language'];?>">
             </div>
             <div>
-                <label for="active">Aktiv</label>
-                <input id="active" type="checkbox" name="active" tabindex="9" <?php echo ($placeholder['user']->is_active()) ? 'checked' : '';?>>
+                <label for="note">Admin Bemerkung</label>
+                <textarea id="note" name="note" class="note" tabindex="13"><?php echo $placeholder['user']['note_admin'];?></textarea>
             </div>
-            <div>
-                <label for="literature_table">Infostand</label>
-                <select name="literature_table" tabindex="10">
-                    <option value="<?php echo \Enum\Status::INACTIVE;?>" <?php echo $literature_table_inactive;?>>inaktiv</option>
-                    <option value="<?php echo \Enum\Status::ACTIVE;?>" <?php echo $literature_table_active;?>>aktiv</option>
-                    <option value="<?php echo \Enum\Status::TRAINING;?>" <?php echo $literature_table_training;?>>Schulung</option>
-                </select>
-            </div>
-            <div>
-                <label for="literature_cart">Trolley</label>
-                <select name="literature_cart" tabindex="11">
-                    <option value="<?php echo \Enum\Status::INACTIVE;?>" <?php echo $literature_cart_inactive;?>>inaktiv</option>
-                    <option value="<?php echo \Enum\Status::ACTIVE;?>" <?php echo $literature_cart_active;?>>aktiv</option>
-                    <option value="<?php echo \Enum\Status::TRAINING;?>" <?php echo $literature_cart_training;?>>Schulung</option>
-                </select>
-            </div>
-            <div>
-                <label for="admin">Admin-Rechte</label>
-                <input id="admin" type="checkbox" name="admin" tabindex="12" <?php echo ($placeholder['user']->is_admin()) ? 'checked' : '';?>>
-            </div>
-            <div>
-                <label for="note_admin">Admin Bemerkung</label>
-                <textarea id="note_admin" name="note_admin" class="note" tabindex="13"><?php echo $placeholder['user']->get_note_admin();?></textarea>
-            </div>
-
             <div>
                 <label for="note_user">Teilnehmer Bemerkung</label>
-                <textarea id="note_user" name="note_user" class="note" tabindex="14" disabled><?php echo $placeholder['user']->get_note_user();?></textarea>
+                <textarea id="note_user" name="note_user" class="note" tabindex="14" disabled><?php echo $placeholder['user']['note_user'];?></textarea>
             </div>
-
         </fieldset>
         <div class="from-button">
-
             <button type="submit" name="save" class="active" tabindex="15">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
@@ -117,7 +83,6 @@
             <button type="submit" name="delete" class="warning" tabindex="17">
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
             </button>
-
         </div>
     </form>
     <form method="post">

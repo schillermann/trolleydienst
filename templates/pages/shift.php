@@ -22,16 +22,16 @@
 </a>
 <?php endif; ?>
 
-<div id="shift-list">
+<div class="table-container">
 <?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
-    <table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?> <?php if ((int)$shiftday['shift_extra']):?>extra-shift<?php endif;?>">
+    <table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?> <?php if ((int)$shiftday['extra_shift']):?>extra-shift<?php endif;?>">
         <thead>
             <tr>
                 <th colspan="2">
                     <h3>
                         <?php echo $get_weekday($shiftday['time_from']); ?>,
                         <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
-                        <?php if ((int)$shiftday['shift_extra']):?> Sonderschicht <?php endif;?>
+                        <?php if ((int)$shiftday['extra_shift']):?> Sonderschicht <?php endif;?>
                         <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
                         <?php echo $shiftday['place']; ?>
 
@@ -67,12 +67,12 @@
                     <form method="post">
                         <input type="hidden" name="id_shift_day" value="<?php echo $id_shift_day; ?>">
                         <input type="hidden" name="id_shift" value="<?php echo $id_shift; ?>">
-
+                        <?php $has_user_promoted = false;?>
                         <?php foreach ($user_list as $user) : ?>
+                            <?php $has_user_promoted = (int)$user['id_user'] === $_SESSION['id_user'];?>
+                            <?php $user_name =  $user['firstname'] . ' ' . $user['lastname']; ?>
 
-                            <?php $user_name =  $user['firstname'] . ' ' . $user['surname']; ?>
-
-                            <?php if((int)$user['id_user'] === $_SESSION['id_user'] && (int)$user['status'] === 0): ?>
+                            <?php if($has_user_promoted): ?>
                                 <button type="submit" name="delete_user" class="enable">
                                     <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> <?php echo $user_name; ?>
                                 </button>
@@ -91,7 +91,10 @@
                         </button>
                         <select name="id_user" class="button promote">
                             <?php foreach ($user_promote_list as $id_user => $name): ?>
-                            <option value="<?php echo $id_user; ?>"><?php echo $name; ?></option>
+                                <?php if($has_user_promoted && (int)$id_user === $_SESSION['id_user']) continue; ?>
+                                <option value="<?php echo $id_user; ?>">
+                                    <?php echo $name; ?>
+                                </option>
                             <?php endforeach;?>
                         </select>
 

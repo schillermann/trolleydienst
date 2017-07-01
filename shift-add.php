@@ -34,7 +34,7 @@ if(isset($_POST['save'])) {
 
         $add_shiftday_with_shifts = include 'services/add_shiftday_with_shifts.php';
         if($add_shiftday_with_shifts($database_pdo, $shiftday, $shift_hour_number))
-            $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i') . ' bis ' . $shiftday_to->format('H:i');
+            $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i') . ' - ' . $shiftday_to->format('H:i');
 
         $shiftday_from->add(new \DateInterval('P7D'));
         $shiftday_to->add(new \DateInterval('P7D'));

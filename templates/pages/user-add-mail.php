@@ -9,16 +9,16 @@
 <div class="container-center">
     <div class="note-box">
         <p class="success">
-            Login Daten wurden an <b><?php echo $placeholder['user']->get_email(); ?></b> gesendet.
+            Login Daten wurden an <b><?php echo $placeholder['email']; ?></b> gesendet.
         </p>
         <table>
             <tr>
                 <td>Benutzername</td>
-                <td><?php echo $placeholder['user']->get_username(); ?></td>
+                <td><?php echo $placeholder['username']; ?></td>
             </tr>
             <tr>
                 <td>Passwort</td>
-                <td><?php echo $placeholder['user']->get_password(); ?></td>
+                <td><?php echo $placeholder['password']; ?></td>
             </tr>
         </table>
     </div>

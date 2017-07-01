@@ -13,10 +13,7 @@ if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text']))
     $placeholder['subject'] = $_POST['subject'];
     $placeholder['text'] = $_POST['text'];
 
-
-    $select_user_email_list = include 'tables/select_users_email_list.php';
-
-    $placeholder['user_list'] = $select_user_email_list($database_pdo, $placeholder['recipient']);
+    $placeholder['user_list'] = Tables\Users::select_all_email($database_pdo, $placeholder['recipient']);
 
     if(true)
         $placeholder['message']['success'] = 'E-Mail wurde versendet an:';

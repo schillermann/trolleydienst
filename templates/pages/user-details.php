@@ -1,7 +1,7 @@
 <h2>Teilnehmer Kontaktdaten</h2>
 <div class="container-center">
     <fieldset>
-        <legend><?php echo $placeholder['user']->get_firstname(); ?> <?php echo $placeholder['user']->get_surname(); ?></legend>
+        <legend><?php echo $placeholder['user']->get_firstname(); ?> <?php echo $placeholder['user']->get_lastname(); ?></legend>
         <dl>
             <dt>E-Mail</dt>
             <dd><a href="mailto:<?php echo $placeholder['user']->get_email();?>?subject=Trolleydienst"><?php echo $placeholder['user']->get_email(); ?></a></dd>

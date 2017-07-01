@@ -1,7 +1,7 @@
 <?php
 return  array(
     array(
-        'name' => 'Schichten',
+        'name' => 'Trolley',
         'link' => 'shift.php',
         'role' => Enum\UserRole::USER . ','. Enum\UserRole::ADMIN
     ),

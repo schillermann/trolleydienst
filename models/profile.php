@@ -5,19 +5,18 @@ class Profile {
     /**
      * Profile constructor.
      * @param int $id_user
-     * @param array $data With keys: firstname, surname, email, username, phone, mobile, congregation, language, shift_max, note_user
+     * @param array $data With keys: firstname, lastname, email, username, phone, mobile, congregation, language, note_user
      */
     function __construct(int $id_user, array $data) {
         $this->id_user = $id_user;
         $this->firstname = (isset($data['firstname']))? $data['firstname'] : '';
-        $this->surname = (isset($data['surname']))? $data['surname'] : '';
+        $this->lastname = (isset($data['lastname']))? $data['lastname'] : '';
         $this->email = (isset($data['email']))? $data['email'] : '';
         $this->username = (isset($data['username']))? $data['username'] : '';
         $this->phone = (isset($data['phone']))? $data['phone'] : '';
         $this->mobile = (isset($data['mobile']))? $data['mobile'] : '';
         $this->congregation = (isset($data['congregation']))? $data['congregation'] : '';
         $this->language = (isset($data['language']))? $data['language'] : '';
-        $this->shift_max = (isset($data['shift_max']))? (int)$data['shift_max'] : 0;
         $this->note_user = (isset($data['note_user']))? $data['note_user'] : '';
     }
 
@@ -29,8 +28,8 @@ class Profile {
         return $this->firstname;
     }
 
-    function get_surname(): string {
-        return $this->surname;
+    function get_lastname(): string {
+        return $this->lastname;
     }
 
     function get_email(): string {
@@ -57,13 +56,9 @@ class Profile {
         return $this->language;
     }
 
-    function get_shift_max(): int {
-        return $this->shift_max;
-    }
-
     function get_note_user(): string {
         return $this->note_user;
     }
 
-    protected $id_user, $firstname, $surname, $email, $username, $phone, $mobile, $congregation, $language, $shift_max, $note_user;
+    protected $id_user, $firstname, $lastname, $email, $username, $phone, $mobile, $congregation, $language, $note_user;
 }

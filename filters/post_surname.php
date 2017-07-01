@@ -1,1 +1,0 @@
-<?php return filter_input(INPUT_POST, 'surname', FILTER_SANITIZE_STRING);

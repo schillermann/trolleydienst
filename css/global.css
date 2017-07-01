@@ -115,6 +115,9 @@ dd {
     background-color: #111;
 }
 
+.table-container {
+    overflow-x:auto; }
+
 .active {
     background-color: #604A7B;
     color: white;
@@ -299,8 +302,6 @@ button:hover, .button:hover {
     max-width: 650px;
 }
 
-#user-list, #shift-list {
-    overflow-x:auto; }
 #user-list .fa {
     font-size: 2em; }
 

@@ -3,174 +3,106 @@ namespace Models;
 
 class User {
 
-    function __construct() {
-        $this->id_user = (int)$this->id_user;
-        $this->active = !(bool)$this->active;
-        $this->literature_table = \Enum\Status::convert_to_enum((int)$this->literature_table);
-        $this->literature_cart = \Enum\Status::convert_to_enum((int)$this->literature_cart);
-        $this->admin = (bool)$this->admin;
-        $this->shift_max = (int)$this->shift_max;
-        $this->phone = (empty($this->phone)) ? '' : $this->phone;
-        $this->mobile = (empty($this->mobile)) ? '' : $this->mobile;
-        $this->congregation = (empty($this->congregation)) ? '' : $this->congregation;
-        $this->language = (empty($this->language)) ? '' : $this->language;
-        $this->note_user = (empty($this->note_user)) ? '' : $this->note_user;
-        $this->note_admin = (empty($this->note_admin)) ? '' : $this->note_admin;
+    function __construct(
+        int $id_user,
+        string $firstname,
+        string $lastname,
+        string $email,
+        string $username,
+        string $password,
+        bool $is_active = true,
+        bool $is_admin = false,
+        bool $is_literature_cart = true,
+        bool $is_literature_table = true,
+        string $phone = null,
+        string $mobile = null,
+        string $congregation = null,
+        string $language = null,
+        string $note_admin = null,
+        string $note_user = null
+    ) {
+        $this->id_user = $id_user;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->email = $email;
+        $this->username = $username;
+        $this->password = md5($password);
+        $this->is_active = $is_active;
+        $this->is_admin = $is_admin;
+        $this->is_literature_cart = $is_literature_cart;
+        $this->is_literature_table = $is_literature_table;
+        $this->phone = $phone;
+        $this->mobile = $mobile;
+        $this->congregation = $congregation;
+        $this->language = $language;
+        $this->note_admin = $note_admin;
+        $this->note_user = $note_user;
     }
 
     function get_id_user(): int {
         return $this->id_user;
     }
 
-    function is_active(): bool {
-        return $this->active;
-    }
-
-    function set_active(bool $enabled) {
-        $this->active = $enabled;
-    }
-
     function get_firstname(): string {
         return $this->firstname;
     }
 
-    function set_firstname(string $firstname) {
-        $firstname_filtered = filter_var($firstname, FILTER_SANITIZE_STRING);
-        if($firstname_filtered !== false)
-            $this->firstname = $firstname_filtered;
-    }
-
-    function get_surname(): string {
-        return $this->surname;
-    }
-
-    function set_surname(string $surname) {
-        $surname_filtered = filter_var($surname, FILTER_SANITIZE_STRING);
-        if($surname_filtered !== false)
-            $this->surname = $surname_filtered;
+    function get_lastname(): string {
+        return $this->lastname;
     }
 
     function get_email(): string {
         return $this->email;
     }
 
-    function set_email(string $email) {
-        $email_filtered = filter_var($email, FILTER_VALIDATE_EMAIL);
-        if($email_filtered !== false || empty($email))
-            $this->email = $email_filtered;
-    }
-
     function get_username(): string {
         return $this->username;
-    }
-
-    function set_username(string $username) {
-        $username_filtered = filter_var($username, FILTER_VALIDATE_EMAIL);
-        if($username_filtered !== null)
-            $this->username = $username_filtered;
     }
 
     function get_password(): string {
         return $this->password;
     }
 
-    function set_password(string $password) {
-        $this->password = $password;
+    function is_active(): bool {
+        return $this->is_active;
     }
 
-    function get_literature_table(): string {
-        return $this->literature_table;
+    function is_literature_table(): bool {
+        return $this->is_literature_table;
     }
 
-    function set_literature_table(string $status) {
-        if(\Enum\Status::is_valid($status))
-            $this->literature_table = $status;
-    }
-
-    function get_literature_cart(): string {
-        return $this->literature_cart;
-    }
-
-    function set_literature_cart(string $status) {
-        if(\Enum\Status::is_valid($status))
-            $this->literature_cart = $status;
+    function is_literature_cart(): bool {
+        return $this->is_literature_cart;
     }
 
     function is_admin(): bool {
-        return $this->admin;
-    }
-
-    function set_admin(bool $enabled) {
-        $this->admin = $enabled;
+        return $this->is_admin;
     }
 
     function get_phone(): string {
         return $this->phone;
     }
 
-    function set_phone(string $phone) {
-        $phone_filtered = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
-        if($phone_filtered !== false)
-            $this->phone = $phone_filtered;
-    }
-
     function get_mobile(): string {
         return $this->mobile;
-    }
-
-    function set_mobile(string $mobile) {
-        $mobile_filtered = filter_var($mobile, FILTER_SANITIZE_NUMBER_INT);
-        if($mobile_filtered !== false)
-            $this->mobile = $mobile_filtered;
     }
 
     function get_congregation(): string {
         return $this->congregation;
     }
 
-    function set_congregation(string $congregation) {
-        $congregation_filtered = filter_var($congregation, FILTER_SANITIZE_STRING);
-        if($congregation_filtered !== false)
-            $this->congregation = $congregation_filtered;
-    }
-
     function get_language(): string {
         return $this->language;
-    }
-
-    function set_language(string $language) {
-        $language_filtered = filter_var($language, FILTER_SANITIZE_STRING);
-        if($language_filtered !== false)
-            $this->language = $language_filtered;
-    }
-
-    function get_shift_max(): int {
-        return $this->shift_max;
-    }
-
-    function set_shift_max(int $shift_max) {
-        $this->shift_max = $shift_max;
     }
 
     function get_note_user(): string {
         return $this->note_user;
     }
 
-    function set_note_user(string $note_user) {
-        $note_user_filtered = filter_var($note_user, FILTER_SANITIZE_STRING);
-        if($note_user_filtered !== false)
-            $this->note_user = $note_user_filtered;
-    }
-
     function get_note_admin(): string {
         return $this->note_admin;
     }
 
-    function set_note_admin(string $note_admin) {
-        $note_admin_filtered = filter_var($note_admin, FILTER_SANITIZE_STRING);
-        if($note_admin_filtered !== false)
-            $this->note_admin = $note_admin_filtered;
-    }
-
-    protected $id_user, $active, $firstname, $surname, $email, $username, $password, $literature_table, $literature_cart, $admin, $phone, $mobile, $congregation, $language, $shift_max, $note;
+    protected $id_user, $firstname, $lastname, $email, $username, $password, $is_admin, $is_active, $phone, $mobile;
+    protected $congregation, $language, $note_user, $note_admin, $is_literature_cart, $is_literature_table;
 }

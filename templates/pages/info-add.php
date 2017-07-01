@@ -1,17 +1,17 @@
 <h2>Info hochladen</h2>
 <div class="container-center">
-    <?php if (isset($placeholder['file_uploaded'])) : ?>
-    <div class="note-box">
-        <?php if ($placeholder['file_uploaded']): ?>
-            <p class="success">
-                Die Datei wurde hochgeladen.
-            </p>
-        <?php else: ?>
-        <p class="error">
-            Die Datei konnte nicht hochgeladen werden!
-        </p>
-        <?php endif; ?>
-    </div>
+    <?php if (isset($placeholder['message'])) : ?>
+        <div class="note-box">
+            <?php if (isset($placeholder['message']['success'])) : ?>
+                <p class="success">
+                    <?php echo $placeholder['message']['success']; ?>
+                </p>
+            <?php elseif(isset($placeholder['message']['error'])): ?>
+                <p class="error">
+                    <?php echo $placeholder['message']['error']; ?>
+                </p>
+            <?php endif; ?>
+        </div>
     <?php endif; ?>
 
     <form method="post" enctype="multipart/form-data">
@@ -19,13 +19,13 @@
             <legend>Info</legend>
             <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
             <div>
-                <label for="file_label">Bezeichnung</label>
-                <input id="file_label" type="text" name="file_label" tabindex="1">
+                <label for="info_label">Bezeichnung</label>
+                <input id="info_label" type="text" name="info_label" tabindex="1">
             </div>
 
             <div>
-                <label for="file_type">Typ</label>
-                <select id="file_type" name="file_type" tabindex="2">
+                <label for="info_type">Typ</label>
+                <select id="info_type" name="info_type" tabindex="2">
                     <option value="-1">Anleitung</option>
                     <option value="0" selected="">Özi</option>
                     <option value="1">Trolley</option>

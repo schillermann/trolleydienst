@@ -11,74 +11,66 @@
         <fieldset>
             <legend>Teilnehmer</legend>
             <div>
-                <label for="firstname">Vorname <small>(Pflichtfeld)</small></label>
-                <input id="firstname" type="text" name="firstname" tabindex="1" required value="<?php echo $placeholder['user']->get_firstname(); ?>">
-            </div>
-            <div>
-                <label for="surname">Nachname <small>(Pflichtfeld)</small></label>
-                <input id="surname" type="text" name="surname" tabindex="2" required value="<?php echo $placeholder['user']->get_surname(); ?>">
-            </div>
-            <div>
-                <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
-                <input id="email" type="text" name="email" tabindex="3" required value="<?php echo $placeholder['user']->get_email(); ?>">
-            </div>
-            <div>
-                <label for="username">Benutzername <small>(Pflichtfeld)</small></label>
-                <input id="username" type="text" name="username" tabindex="4" required value="<?php echo $placeholder['user']->get_username(); ?>">
-            </div>
-            <div>
-                <label for="mobile">Handynr</label>
-                <input id="mobile" type="text" name="mobile" tabindex="5" value="<?php echo $placeholder['user']->get_mobile(); ?>">
-            </div>
-            <div>
-                <label for="phone">Telefonnr</label>
-                <input id="phone" type="text" name="phone" tabindex="6" value="<?php echo $placeholder['user']->get_phone(); ?>">
-            </div>
-            <div>
-                <label for="congregation">Versammlung</label>
-                <input id="congregation" type="text" name="congregation" tabindex="7" value="<?php echo $placeholder['user']->get_congregation(); ?>">
-            </div>
-            <div>
-                <label for="language">Sprache</label>
-                <input id="language" type="text" name="language" tabindex="8" value="<?php echo $placeholder['user']->get_language(); ?>">
-            </div>
-            <div>
                 <label for="is_active">Aktiv</label>
-                <input id="is_active" type="checkbox" name="is_active" tabindex="9" <?php if ($placeholder['user']->is_active()): ?> checked <?php endif; ?>>
+                <input id="is_active" type="checkbox" name="is_active" tabindex="1" <?php if (isset($_POST['is_active'])):?>checked<?php endif;?>>
             </div>
             <div>
-                <?php $literature_table = $placeholder['user']->get_literature_table(); ?>
-                <label for="literature_table">Infostand</label>
-                <select id="literature_table" name="literature_table" tabindex="10">
-                    <option value="<?php echo Enum\Status::INACTIVE;?>" <?php if ($literature_table == 'inactive'): ?> selected <?php endif;?>>inaktiv</option>
-                    <option value="<?php echo Enum\Status::ACTIVE;?>" <?php if ($literature_table == 'active'): ?> selected <?php endif;?>>aktiv</option>
-                    <option value="<?php echo Enum\Status::TRAINING;?>" <?php if ($literature_table == 'training'): ?> selected <?php endif;?>>Schulung</option>
-                </select>
+                <label for="is_literature_table">Infostand</label>
+                <input id="is_literature_table" type="checkbox" name="is_literature_table" tabindex="2" <?php if (isset($_POST['is_literature_table'])):?>checked<?php endif;?>>
             </div>
             <div>
-                <?php $literature_cart = $placeholder['user']->get_literature_cart(); ?>
-                <label for="literature_cart">Trolley</label>
-                <select id="literature_cart" name="literature_cart" tabindex="11">
-                    <option value="<?php echo Enum\Status::INACTIVE;?>" <?php if ($literature_cart == 'inactive'): ?> selected <?php endif;?>>inaktiv</option>
-                    <option value="<?php echo Enum\Status::ACTIVE;?>" <?php if ($literature_cart == 'active'): ?> selected <?php endif;?>>aktiv</option>
-                    <option value="<?php echo Enum\Status::TRAINING;?>" <?php if ($literature_cart == 'training'): ?> 'selected <?php endif;?>>Schulung</option>
-                </select>
+                <label for="is_literature_cart">Trolley</label>
+                <input id="is_literature_cart" type="checkbox" name="is_literature_cart" tabindex="3" <?php if (isset($_POST['is_literature_cart'])):?>checked<?php endif;?>>
             </div>
             <div>
                 <label for="is_admin">Admin-Rechte</label>
-                <input id="is_admin" type="checkbox" name="is_admin" tabindex="12" <?php if ($placeholder['user']->is_admin()): ?> checked <?php endif; ?>>
+                <input id="is_admin" type="checkbox" name="is_admin" tabindex="4" <?php if (isset($_POST['is_admin'])):?>checked<?php endif;?>>
             </div>
             <div>
-                <label for="note_admin">Admin Bemerkung</label>
-                <textarea id="note_admin" name="note_admin" class="note" tabindex="13"><?php echo $placeholder['user']->get_note_admin();?></textarea>
+                <label for="firstname">Vorname <small>(Pflichtfeld)</small></label>
+                <input id="firstname" type="text" name="firstname" tabindex="5" required value="<?php echo (isset($_POST['firstname']))? $_POST['firstname'] : '';?>">
+            </div>
+            <div>
+                <label for="lastname">Nachname <small>(Pflichtfeld)</small></label>
+                <input id="lastname" type="text" name="lastname" tabindex="6" required value="<?php echo (isset($_POST['lastname']))? $_POST['lastname'] : '';?>">
+            </div>
+            <div>
+                <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
+                <input id="email" type="text" name="email" tabindex="7" required value="<?php echo (isset($_POST['email']))? $_POST['email'] : '';?>">
+            </div>
+            <div>
+                <label for="username">Benutzername <small>(Pflichtfeld)</small></label>
+                <input id="username" type="text" name="username" tabindex="8" required value="<?php echo (isset($_POST['username']))? $_POST['username'] : '';?>">
+            </div>
+            <div>
+                <label for="mobile">Handynr</label>
+                <input id="mobile" type="text" name="mobile" tabindex="9" value="<?php echo (isset($_POST['mobile']))? $_POST['mobile'] : '';?>">
+            </div>
+            <div>
+                <label for="phone">Telefonnr</label>
+                <input id="phone" type="text" name="phone" tabindex="10" value="<?php echo (isset($_POST['phone']))? $_POST['phone'] : '';?>">
+            </div>
+            <div>
+                <label for="congregation">Versammlung</label>
+                <input id="congregation" type="text" name="congregation" tabindex="11" value="<?php echo (isset($_POST['congregation']))? $_POST['congregation'] : '';?>">
+            </div>
+            <div>
+                <label for="language">Sprache</label>
+                <input id="language" type="text" name="language" tabindex="12" value="<?php echo (isset($_POST['language']))? $_POST['language'] : '';?>">
+            </div>
+            <div>
+                <label for="note">Admin Bemerkung</label>
+                <textarea id="note" name="note" class="note" tabindex="13"><?php echo (isset($_POST['note']))? $_POST['note'] : '';?></textarea>
             </div>
 
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="save" class="active" tabindex="15">
+            <button type="submit" name="save" class="active" tabindex="14">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <a href="user.php" tabindex="16" class="button"><i class="fa fa-ban" aria-hidden="true"></i> abbrechen</a>
+            <a href="user.php" tabindex="15" class="button">
+                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
+            </a>
         </div>
     </form>
 </div>

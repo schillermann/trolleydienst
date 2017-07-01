@@ -9,7 +9,7 @@
         </button>
     </div>
 </form>
-<div id="user-list">
+<div class="table-container">
     <table>
         <tr>
             <th>Vorname</th>
@@ -24,15 +24,15 @@
         </tr>
         <?php foreach ($placeholder['user_list'] as $user) : ?>
         <tr>
-            <td><?php echo $user->get_firstname();?></td>
-            <td><?php echo $user->get_surname();?></td>
-            <td><?php echo $user->get_email();?></td>
-            <td><?php echo $user->get_username();?></td>
-            <td><i class="fa <?php echo ($user->is_active()) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><i class="fa <?php echo ($user->get_literature_table() != \Enum\Status::INACTIVE) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><i class="fa <?php echo ($user->get_literature_cart() != \Enum\Status::INACTIVE) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><i class="fa <?php echo ($user->is_admin()) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><a class="button" href="user-edit.php?id_user=<?php echo $user->get_id_user();?>"><i class="fa fa-pencil fa-6" aria-hidden="true"></i></a></td>
+            <td><?php echo $user['firstname'];?></td>
+            <td><?php echo $user['lastname'];?></td>
+            <td><?php echo $user['email'];?></td>
+            <td><?php echo $user['username'];?></td>
+            <td><i class="fa <?php echo ($user['is_active']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
+            <td><i class="fa <?php echo ($user['is_literature_table']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
+            <td><i class="fa <?php echo ($user['is_literature_cart']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
+            <td><i class="fa <?php echo ($user['is_admin']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
+            <td><a class="button" href="user-edit.php?id_user=<?php echo $user['id_user'];?>"><i class="fa fa-pencil fa-6" aria-hidden="true"></i></a></td>
         </tr>
         <?php endforeach; ?>
     </table>

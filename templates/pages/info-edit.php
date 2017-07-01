@@ -1,4 +1,4 @@
-<?php $file_name = $placeholder['info_file']->get_file_name(); ?>
+<?php $file_name = $placeholder['info']['file_name']; ?>
 <h2>Info hochladen</h2>
     <div class="container-center">
     <?php if (isset($placeholder['update_info_success'])) : ?>
@@ -28,16 +28,16 @@
             <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
             <div>
                 <label for="file_label">Bezeichnung</label>
-                <input id="file_label" type="text" name="file_label" tabindex="1" value="<?php echo $placeholder['info_file']->get_file_label(); ?>">
+                <input id="file_label" type="text" name="file_label" tabindex="1" value="<?php echo $placeholder['info']['label']; ?>">
             </div>
             <div>
                 <label for="file_type">Typ</label>
-                <?php $file_type = $placeholder['info_file']->get_file_type(); ?>
+                <?php $type = $placeholder['info']['type']; ?>
                 <select name="file_type" tabindex="2">
-                    <option value="-1" <?php echo ($file_type ==  -1) ? 'selected' : ''; ?>>Anleitung</option>
-                    <option value="0" <?php echo ($file_type ==  0) ? 'selected' : ''; ?>>Özi</option>
-                    <option value="1" <?php echo ($file_type ==  1) ? 'selected' : ''; ?>>Trolley</option>
-                    <option value="2" <?php echo ($file_type ==  2) ? 'selected' : ''; ?>>Infostand</option>
+                    <option value="-1" <?php echo ($type ==  -1) ? 'selected' : ''; ?>>Anleitung</option>
+                    <option value="0" <?php echo ($type ==  0) ? 'selected' : ''; ?>>Özi</option>
+                    <option value="1" <?php echo ($type ==  1) ? 'selected' : ''; ?>>Trolley</option>
+                    <option value="2" <?php echo ($type ==  2) ? 'selected' : ''; ?>>Infostand</option>
                 </select>
             </div>
 
