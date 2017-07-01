@@ -1,21 +1,21 @@
 <?php
 namespace Tables;
 
-class Shifts extends Table {
+class Shifts {
 
     const TABLE_NAME = 'shifts';
 
-    static function init(\PDO $connection): bool {
+    static function create_table(\PDO $connection): bool {
 
         $sql =
-            'CREATE TABLE IF NOT EXISTS `' . self::TABLE_NAME . '` (
-            `id_shift` :primary_key,
-            `id_shift_day` int NOT NULL,
-            `time_from` datetime NOT NULL,
-            `time_to` datetime NOT NULL
+            'CREATE TABLE `' . self::TABLE_NAME . '` (
+            `id_shift` INTEGER PRIMARY KEY AUTOINCREMENT,
+            `id_shift_day` INTEGER NOT NULL,
+            `time_from` TEXT NOT NULL,
+            `time_to` TEXT NOT NULL
             )';
 
-        return parent::create_table($connection, $sql);
+        return ($connection->exec($sql) === false)? false : true;
     }
 
     static function update(\PDO $connection, \Models\Shift $shift): bool {

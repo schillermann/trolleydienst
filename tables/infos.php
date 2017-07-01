@@ -1,21 +1,22 @@
 <?php
 namespace Tables;
 
-class Infos extends Table {
+class Infos {
 
     const TABLE_NAME = 'infos';
 
-    static function init(\PDO $connection): bool
+    static function create_table(\PDO $connection): bool
     {
         $sql =
-            'CREATE TABLE IF NOT EXISTS `' . self::TABLE_NAME . '` (
-            `id_info` :primary_key,
-            `label` varchar(128) NOT NULL,
-            `type` int(1) NOT NULL,
-            `file_name` varchar(80) NOT NULL,
-            `file_hash` varchar(80) NOT NULL
+            'CREATE TABLE `' . self::TABLE_NAME . '` (
+            `id_info` INTEGER PRIMARY KEY AUTOINCREMENT,
+            `label` TEXT NOT NULL,
+            `type` INTEGER NOT NULL,
+            `file_name` TEXT NOT NULL,
+            `file_hash` TEXT NOT NULL
             )';
-        return parent::create_table($connection, $sql);
+
+        return ($connection->exec($sql) === false)? false : true;
     }
 
     static function select_all(\PDO $connection): array {

@@ -1,7 +1,7 @@
 <?php
 namespace Tables;
 
-class Users extends Table {
+class Users {
 
     const TABLE_NAME = 'users';
     
@@ -9,29 +9,29 @@ class Users extends Table {
         return ($connection->exec("SELECT 1 FROM " . self::TABLE_NAME) === false)? false : true;
     }
 
-    static function init(\PDO $connection): bool {
+    static function create_table(\PDO $connection): bool {
 
         $sql =
-            'CREATE TABLE IF NOT EXISTS `' . self::TABLE_NAME . '` (
-            `id_user` :primary_key,
-            `firstname` char(32) NOT NULL,
-            `lastname` char(32) NOT NULL,
-            `email` char(64) NOT NULL,
-            `username` char(65) NOT NULL,
-            `password` char(32) NOT NULL,
-            `is_active` tinyint(1) DEFAULT 1,
-            `is_admin` tinyint(1) DEFAULT 0,
-            `is_literature_cart` int(11) DEFAULT 1,
-            `is_literature_table` int(11) DEFAULT 1,
-            `phone` char(20) DEFAULT NULL,
-            `mobile` char(20) DEFAULT NULL,
-            `congregation` char(32) DEFAULT NULL,
-            `language` char(32) DEFAULT NULL,
-            `note_user` tinytext NULL,
-            `note_admin` tinytext NULL,
-            `last_login` datetime DEFAULT NULL)';
+            'CREATE TABLE `' . self::TABLE_NAME . '` (
+            `id_user` INTEGER PRIMARY KEY AUTOINCREMENT,
+            `firstname` TEXT NOT NULL,
+            `lastname` TEXT NOT NULL,
+            `email` TEXT NOT NULL,
+            `username` TEXT NOT NULL,
+            `password` TEXT NOT NULL,
+            `is_active` INTEGER DEFAULT 1,
+            `is_admin` INTEGER DEFAULT 0,
+            `is_literature_cart` INTEGER DEFAULT 1,
+            `is_literature_table` INTEGER DEFAULT 1,
+            `phone` TEXT DEFAULT NULL,
+            `mobile` TEXT DEFAULT NULL,
+            `congregation` TEXT DEFAULT NULL,
+            `language` TEXT DEFAULT NULL,
+            `note_user` TEXT NULL,
+            `note_admin` TEXT NULL,
+            `last_login` TEXT DEFAULT NULL)';
 
-        return parent::create_table($connection, $sql);
+        return ($connection->exec($sql) === false)? false : true;
     }
 
     static function is_username(\PDO $connection, string $username): bool {

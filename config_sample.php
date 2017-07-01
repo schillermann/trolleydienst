@@ -2,19 +2,12 @@
 /**
  * This is an example file.
  * Copy this file to "config.php" and fill in the values.
- *
- * This file contains the following configurations:
- *
- * * MySQL settings
  */
 
 /**
- * MySQL settings
+ * Database settings
  */
-define('DATABASE_HOST', 'localhost');
-define('DATABASE_NAME', 'database_name_here');
-define('DATABASE_USER', 'username_here');
-define('DATABASE_PASSWORD', 'password_here');
+define('DATABASE_NAME', 'trolleydienst.sqlite');
 
 /**
  * E-Mail
@@ -34,4 +27,3 @@ define('PARTICIPANTS_PER_SHIFT', 2);
  * Server settings
  */
 define('UPLOAD_SIZE_MAX_IN_MEGABYTE', '3');
-ini_set("error_log", 'logs/php_errors.log');

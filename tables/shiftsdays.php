@@ -1,21 +1,20 @@
 <?php
 namespace Tables;
 
-class ShiftsDays extends Table {
+class ShiftsDays {
 
     const TABLE_NAME = 'shifts_days';
 
-    static function init(\PDO $connection): bool {
+    static function create_table(\PDO $connection): bool {
         $sql =
-            'CREATE TABLE IF NOT EXISTS `' . self::TABLE_NAME . '` (
-            `id_shift_day` :primary_key,
-            `place` varchar(16) NOT NULL,
-            `time_from` datetime NOT NULL,
-            `time_to` datetime NOT NULL,
-            `type` tinyint(1) DEFAULT 1,
-            `extra_shift` tinyint(1) DEFAULT 0)';
+            'CREATE TABLE `' . self::TABLE_NAME . '` (
+            `id_shift_day` INTEGER PRIMARY KEY AUTOINCREMENT,
+            `place` TEXT NOT NULL,
+            `time_from` TEXT NOT NULL,
+            `time_to` TEXT NOT NULL,
+            `type` INTEGER DEFAULT 1)';
 
-        return parent::create_table($connection, $sql);
+        return ($connection->exec($sql) === false)? false : true;
     }
 
     static function select_all(\PDO $connection, int $days_max, array $types): array {

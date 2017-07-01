@@ -1,21 +1,21 @@
 <?php
 namespace Tables;
 
-class ShiftUserMaps extends Table {
+class ShiftUserMaps {
 
     const TABLE_NAME = 'shift_user_maps';
 
-    static function init(\PDO $connection): bool {
+    static function create_table(\PDO $connection): bool {
 
         $sql =
-            'CREATE TABLE IF NOT EXISTS `' . self::TABLE_NAME . '` (
-            `id_shift_day` int NOT NULL,
-            `id_shift` int NOT NULL,
-            `id_user` int NOT NULL,
+            'CREATE TABLE `' . self::TABLE_NAME . '` (
+            `id_shift_day` INTEGER NOT NULL,
+            `id_shift` INTEGER NOT NULL,
+            `id_user` INTEGER NOT NULL,
             PRIMARY KEY (id_shift_day, id_shift, id_user)
             )';
 
-        return parent::create_table($connection, $sql);
+        return ($connection->exec($sql) === false)? false : true;
     }
 
     static function select_all(\PDO $connection, int $id_shift_day, int $id_shift): array {
