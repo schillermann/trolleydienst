@@ -24,7 +24,6 @@ class Database {
             ShiftsDays::create_table($connection) &&
             Shifts::create_table($connection) &&
             ShiftUserMaps::create_table($connection) &&
-            Infos::create_table($connection) &&
-            Settings::create_table($connection);
+            Infos::create_table($connection);
     }
 }
