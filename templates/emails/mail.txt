@@ -9,5 +9,5 @@ TEAM_NAME
 Öffentliches Zeugnisgeben CONGREGATION_NAME
 
 Kontakt:
- E-Mail: EMAIL_SUPPORT
+ E-Mail: EMAIL_ADDRESS_REPLY
  Webseite: WEBSITE_LINK
