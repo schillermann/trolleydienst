@@ -9,8 +9,7 @@ return function (\PDO $database, Models\ShiftDay $shiftday, int $shift_hour_numb
         $shiftday->get_type(),
         $shiftday->get_place(),
         $shiftday->get_datetime_from(),
-        $shiftday->get_datetime_to(),
-        $shiftday->is_extra_shift()
+        $shiftday->get_datetime_to()
     );
 
     $add_shift_list_to_shiftday = include 'includes/add_shift_list_to_shiftday.php';

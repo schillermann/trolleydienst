@@ -1,6 +1,6 @@
 <?php
 require 'includes/init_page.php';
-$database_pdo = include 'includes/database_pdo.php';
+$database_pdo = Tables\Database::get_connection();
 $placeholder = array();
 
 if(isset($_POST['save'])) {
@@ -18,15 +18,12 @@ if(isset($_POST['save'])) {
         $shiftdays_until = clone $shiftday_to;
     }
 
-    $extra_shift = isset($_POST['is_extra_shift']);
-
     $shiftday = new Models\ShiftDay(
         0,
         (int)$_POST['shift_type'],
         include 'filters/post_place.php',
         $shiftday_from,
-        $shiftday_to,
-        $extra_shift
+        $shiftday_to
     );
     $shift_hour_number = (int)$_POST['shift_hour_number'];
 

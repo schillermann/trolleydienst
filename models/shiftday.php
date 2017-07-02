@@ -3,14 +3,13 @@ namespace Models;
 
 class ShiftDay {
 
-    function __construct(int $id_shift_day, int $type, string $place, \DateTime $datetime_from , \DateTime $datetime_to, bool $is_extra_shift) {
+    function __construct(int $id_shift_day, int $type, string $place, \DateTime $datetime_from , \DateTime $datetime_to) {
 
         $this->id_shift_day = $id_shift_day;
         $this->type = $type;
         $this->datetime_from = $datetime_from;
         $this->datetime_to = $datetime_to;
         $this->place = $place;
-        $this->is_extra_shift = $is_extra_shift;
     }
 
     function get_id_shift_day(): int {
@@ -33,9 +32,5 @@ class ShiftDay {
         return $this->datetime_to;
     }
 
-    function is_extra_shift(): bool {
-        return $this->is_extra_shift;
-    }
-
-    protected $id_shift_day, $type, $place, $datetime_from, $datetime_to, $is_extra_shift;
+    protected $id_shift_day, $type, $place, $datetime_from, $datetime_to;
 }

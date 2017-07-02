@@ -14,12 +14,12 @@ class User {
         bool $is_active = true,
         bool $is_literature_cart = true,
         bool $is_literature_table = true,
-        string $phone = null,
-        string $mobile = null,
-        string $congregation = null,
-        string $language = null,
-        string $note_admin = null,
-        string $note_user = null
+        string $phone = '',
+        string $mobile = '',
+        string $congregation = '',
+        string $language = '',
+        string $note_admin = '',
+        string $note_user = ''
     ) {
         $this->id_user = $id_user;
         $this->firstname = $firstname;

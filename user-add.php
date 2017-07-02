@@ -1,6 +1,6 @@
 <?php
 require 'includes/init_page.php';
-$database_pdo = include 'includes/database_pdo.php';
+$database_pdo = Tables\Database::get_connection();
 $render_page = include 'includes/render_page.php';
 
 $page_file = '';

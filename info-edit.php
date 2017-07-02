@@ -4,7 +4,7 @@ if(!isset($_GET['id_info']))
 
 require 'includes/init_page.php';
 
-$database_pdo = include 'includes/database_pdo.php';
+$database_pdo = Tables\Database::get_connection();
 $placeholder = array();
 $id_info = (int)$_GET['id_info'];
 

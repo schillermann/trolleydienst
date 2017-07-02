@@ -3,7 +3,7 @@ if(!isset($_GET['id_user']))
     header('location: shift.php');
 
 require 'includes/init_page.php';
-$database_pdo = include 'includes/database_pdo.php';
+$database_pdo = Tables\Database::get_connection();
 
 $id_user = (int)$_GET['id_user'];
 $select_user = include 'tables/select_users.php';

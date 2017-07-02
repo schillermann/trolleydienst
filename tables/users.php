@@ -280,7 +280,7 @@ class Users {
                 ':lastname' => $user->get_lastname(),
                 ':email' => $user->get_email(),
                 ':username' => $user->get_username(),
-                ':password' => md5($user->get_password()),
+                ':password' => $user->get_password(),
                 ':is_admin' => (int)$user->is_admin(),
                 ':is_active' => (int)$user->is_active(),
                 ':is_literature_table' => (int)$user->is_literature_table(),

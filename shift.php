@@ -1,8 +1,9 @@
 <?php
+define('PARTICIPANTS_PER_SHIFT', 3);
 require 'includes/init_page.php';
 
 $placeholder = array();
-$database_pdo = include 'includes/database_pdo.php';
+$database_pdo = Tables\Database::get_connection();
 
 if(isset($_POST['delete_user'])) {
 

@@ -24,14 +24,13 @@
 
 <div class="table-container">
 <?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
-    <table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?> <?php if ((int)$shiftday['extra_shift']):?>extra-shift<?php endif;?>">
+    <table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?>">
         <thead>
             <tr>
                 <th colspan="2">
                     <h3>
                         <?php echo $get_weekday($shiftday['time_from']); ?>,
                         <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
-                        <?php if ((int)$shiftday['extra_shift']):?> Sonderschicht <?php endif;?>
                         <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
                         <?php echo $shiftday['place']; ?>
 

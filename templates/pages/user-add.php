@@ -74,3 +74,4 @@
         </div>
     </form>
 </div>
+<script type="text/javascript" src="js/insert_username.js"></script>

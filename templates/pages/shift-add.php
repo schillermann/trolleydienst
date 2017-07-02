@@ -45,10 +45,6 @@
                 <input id="time_to" type="time" name="time_to" tabindex="5" required>
             </div>
             <div>
-                <label for="is_extra_shift">Sonderschicht</label>
-                <input id="is_extra_shift" type="checkbox" name="is_extra_shift" tabindex="6">
-            </div>
-            <div>
                 <label for="shift_hour_number">Stundenanzahl <small>(Pflichtfeld)</small></label>
                 <input id="shift_hour_number" type="number" name="shift_hour_number" tabindex="7" required value="2">
             </div>

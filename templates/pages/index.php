@@ -21,11 +21,13 @@
             <div id="divForgotLink" class="login">
                 <a href="/password-forgot.php" class="xsmall">Benutzernamen oder Kennwort vergessen?</a>
             </div>
+            <!--
             <div>
                 <label>
                     <input type="checkbox" tabindex="3" name="remember">&nbsp;Meinen Benutzernamen speichern
                 </label>
             </div>
+            -->
         </fieldset>
         <div class="from-button">
             <button type="submit" name="login" class="active" tabindex="4">

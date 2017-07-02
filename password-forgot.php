@@ -1,6 +1,6 @@
 <?php
 spl_autoload_register();
-$database_pdo = include 'includes/database_pdo.php';
+$database_pdo = Tables\Database::get_connection();
 $placeholder = array();
 
 if(isset($_POST['password_reset'])) {

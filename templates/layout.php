@@ -26,20 +26,20 @@
                 <ul id="main-nav">
                     <?php if(!empty($_SESSION)) : ?>
                     <li>
-                        <a href="shift.php" class="<?php echo $active_page('shift.php');?>">Trolley</a>
+                        <a href="shift.php" class="<?php $active_page('shift.php');?>">Trolley</a>
                     </li>
                     <li>
-                        <a href="info.php" class="<?php echo $active_page('info.php');?>">Infos</a>
+                        <a href="info.php" class="<?php $active_page('info.php');?>">Infos</a>
                     </li>
                     <li>
-                        <a href="profile.php" class="<?php echo $active_page('profile.php');?>">Profil</a>
+                        <a href="profile.php" class="<?php $active_page('profile.php');?>">Profil</a>
                     </li>
                     <?php if($_SESSION['is_admin']) : ?>
                     <li>
-                        <a href="user.php" class="<?php echo $active_page('user.php');?>">Teilnehmer</a>
+                        <a href="user.php" class="<?php $active_page('user.php');?>">Teilnehmer</a>
                     </li>
                     <li>
-                        <a href="email.php" class="<?php echo $active_page('email.php');?>">E-Mail</a>
+                        <a href="email.php" class="<?php $active_page('email.php');?>">E-Mail</a>
                     </li>
                     <?php endif;?>
                     <li style="float:right">
