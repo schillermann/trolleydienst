@@ -21,8 +21,6 @@ if (isset($_POST['save'])) {
         '',
         include 'filters/post_is_admin.php',
         include 'filters/post_is_active.php',
-        include 'filters/post_is_literature_cart.php',
-        include 'filters/post_is_literature_table.php',
         include 'filters/post_phone.php',
         include 'filters/post_mobile.php',
         include 'filters/post_congregation.php',
@@ -30,9 +28,10 @@ if (isset($_POST['save'])) {
         include 'filters/post_note.php'
     );
 
-    if(Tables\Users::update_user($database_pdo, $user))
-        $placeholder['message']['success'] = 'Die Teilnehmer Daten wurde geändert.';
-    else
+    if(Tables\Users::update_user($database_pdo, $user)) {
+        header('location: user.php');
+        return;
+    } else
         $placeholder['message']['error'] = 'Die Teilnehmer Daten konnten nicht geändert werden!';
 } elseif (isset($_POST['delete'])) {
     if(Tables\Users::delete($database_pdo, $id_user)) {

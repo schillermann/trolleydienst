@@ -62,6 +62,14 @@
                     <input type="radio" name="color_hex" value="#ffc000">
                     Gelb
                 </label>
+                <label class="color-picker" style="background-color: #a2f5fd">
+                    <input type="radio" name="color_hex" value="#a2f5fd">
+                    Blau
+                </label>
+                <label class="color-picker" style="background-color: #aff96b">
+                    <input type="radio" name="color_hex" value="#aff96b">
+                    Grün
+                </label>
                 <label class="color-picker" style="background-color: #d99694">
                     <input type="radio" name="color_hex" value="#d99694">
                     Rot

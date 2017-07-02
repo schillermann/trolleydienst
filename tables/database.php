@@ -2,7 +2,7 @@
 namespace Tables;
 
 class Database {
-    const FILENAME = 'trolleydienst.sqlite';
+    const FILENAME = 'database.sqlite';
 
     static function get_connection(): \PDO {
         try {

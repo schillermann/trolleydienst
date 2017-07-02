@@ -63,7 +63,8 @@ class Users {
             'SELECT id_user, firstname, lastname
             FROM ' . self::TABLE_NAME . '
             WHERE id_user <> :id_user
-            AND is_active = 1');
+            AND is_active = 1
+            ORDER BY firstname');
 
         $stmt->execute(
             array(':id_user' => $id_user)

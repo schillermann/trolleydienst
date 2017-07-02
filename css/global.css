@@ -55,9 +55,9 @@ tfoot td {
     height: 20px;
 }
 dl {
-    margin: 9px 3px 0px 35px; }
+    margin: 0px; }
 dt {
-    float: left;
+    float: none;
     clear: left;
     width: 130px;
     font-weight: bold;
@@ -67,9 +67,8 @@ dt::after {
     content: ":";
 }
 dd {
-    margin: 0 0 0 110px;
-    padding: 0 0 0.5em 0;
-}
+    margin: 0 0 0 10px;
+    padding: 0 0 0.5em 0; }
 
 /**
  * Header
@@ -345,6 +344,12 @@ textarea.note {
         color: #717171; }
 }
 @media only screen and (min-width: 360px) {
+    dl {
+        margin: 9px 3px 0px 35px; }
+    dd {
+        margin: 0 0 0 110px; }
+    dt {
+        float: left; }
     fieldset div {
         padding: 9px 3px 0px 35px; }
     fieldset div input, fieldset div select {
