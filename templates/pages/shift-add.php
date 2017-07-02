@@ -52,6 +52,21 @@
                 <label for="shiftday_series_until">Terminserie bis zum</label>
                 <input id="shiftday_series_until" type="date" name="shiftday_series_until" tabindex="8">
             </div>
+            <div>
+                <label>Farbe</label>
+                <label class="color-picker" style="background-color: #d5c8e4">
+                    <input type="radio" name="color_hex" value="#d5c8e4" checked>
+                    Violett
+                </label>
+                <label class="color-picker" style="background-color: #ffc000">
+                    <input type="radio" name="color_hex" value="#ffc000">
+                    Gelb
+                </label>
+                <label class="color-picker" style="background-color: #d99694">
+                    <input type="radio" name="color_hex" value="#d99694">
+                    Rot
+                </label>
+            </div>
         </fieldset>
         <div class="from-button">
             <button type="submit" name="save" class="active" tabindex="15">

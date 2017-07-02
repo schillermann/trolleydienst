@@ -1,6 +1,8 @@
 <?php
-if(!isset($_GET['id_user']))
+if(!isset($_GET['id_user'])) {
     header('location: user.php');
+    return;
+}
 
 require 'includes/init_page.php';
 $database_pdo = Tables\Database::get_connection();
@@ -33,8 +35,10 @@ if (isset($_POST['save'])) {
     else
         $placeholder['message']['error'] = 'Die Teilnehmer Daten konnten nicht geändert werden!';
 } elseif (isset($_POST['delete'])) {
-    if(Tables\Users::delete($database_pdo, $id_user))
+    if(Tables\Users::delete($database_pdo, $id_user)) {
         header('location: user.php');
+        return;
+    }
 } elseif(isset($_POST['password_save']) && !empty($_POST['password'])) {
 
     if($_POST['password'] == $_POST['password_repeat'])

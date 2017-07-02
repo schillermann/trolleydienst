@@ -23,7 +23,8 @@ if(isset($_POST['save'])) {
         (int)$_POST['shift_type'],
         include 'filters/post_place.php',
         $shiftday_from,
-        $shiftday_to
+        $shiftday_to,
+        include 'filters/post_color_hex.php'
     );
     $shift_hour_number = (int)$_POST['shift_hour_number'];
 

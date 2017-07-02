@@ -12,8 +12,6 @@ class User {
         string $password,
         bool $is_admin = false,
         bool $is_active = true,
-        bool $is_literature_cart = true,
-        bool $is_literature_table = true,
         string $phone = '',
         string $mobile = '',
         string $congregation = '',
@@ -29,8 +27,6 @@ class User {
         $this->password = md5($password);
         $this->is_admin = $is_admin;
         $this->is_active = $is_active;
-        $this->is_literature_cart = $is_literature_cart;
-        $this->is_literature_table = $is_literature_table;
         $this->phone = $phone;
         $this->mobile = $mobile;
         $this->congregation = $congregation;
@@ -67,14 +63,6 @@ class User {
         return $this->is_active;
     }
 
-    function is_literature_table(): bool {
-        return $this->is_literature_table;
-    }
-
-    function is_literature_cart(): bool {
-        return $this->is_literature_cart;
-    }
-
     function is_admin(): bool {
         return $this->is_admin;
     }
@@ -104,5 +92,5 @@ class User {
     }
 
     protected $id_user, $firstname, $lastname, $email, $username, $password, $is_admin, $is_active, $phone, $mobile;
-    protected $congregation, $language, $note_user, $note_admin, $is_literature_cart, $is_literature_table;
+    protected $congregation, $language, $note_user, $note_admin;
 }

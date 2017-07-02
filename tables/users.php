@@ -4,10 +4,6 @@ namespace Tables;
 class Users {
 
     const TABLE_NAME = 'users';
-    
-    static function is_table(\PDO $connection) {
-        return ($connection->exec("SELECT 1 FROM " . self::TABLE_NAME) === false)? false : true;
-    }
 
     static function create_table(\PDO $connection): bool {
 
@@ -21,8 +17,6 @@ class Users {
             `password` TEXT NOT NULL,
             `is_active` INTEGER DEFAULT 1,
             `is_admin` INTEGER DEFAULT 0,
-            `is_literature_cart` INTEGER DEFAULT 1,
-            `is_literature_table` INTEGER DEFAULT 1,
             `phone` TEXT DEFAULT NULL,
             `mobile` TEXT DEFAULT NULL,
             `congregation` TEXT DEFAULT NULL,
@@ -47,8 +41,7 @@ class Users {
 
     static function select_all(\PDO $connection): array {
         $stmt = $connection->query(
-            'SELECT id_user, firstname, lastname, email,
-            username, is_admin, is_active, is_literature_table, is_literature_cart 
+            'SELECT id_user, firstname, lastname, email, username, is_admin, is_active 
             FROM users'
         );
         $result = $stmt->fetchAll();
@@ -56,18 +49,9 @@ class Users {
     }
 
     static function select_all_email(\PDO $connection, string $recipient): array {
-        $literature_table = 'AND literature_table = 1';
-        $literature_cart = 'AND literature_cart = 1';
-
-        if($recipient == \Enum\Recipient::LITERATURE_TABLE)
-            $literature_cart = '';
-        elseif ($recipient == \Enum\Recipient::LITERATURE_CART)
-            $literature_table = '';
 
         $stmt = $connection->query(
-            'SELECT firstname, lastname, email FROM users WHERE is_active = 1 ' .
-            $literature_table .
-            $literature_cart
+            'SELECT firstname, lastname, email FROM users WHERE is_active = 1 '
         );
 
         $result = $stmt->fetchAll();
@@ -76,7 +60,7 @@ class Users {
 
     static function select_all_without_user(\PDO $connection, int $id_user): array {
         $stmt = $connection->prepare(
-            'SELECT id_user, firstname, lastname, is_literature_table, is_literature_cart
+            'SELECT id_user, firstname, lastname
             FROM ' . self::TABLE_NAME . '
             WHERE id_user <> :id_user
             AND is_active = 1');
@@ -91,8 +75,8 @@ class Users {
     static function select_user(\PDO $connection, int $id_user): array {
 
         $stmt = $connection->prepare(
-            'SELECT firstname, lastname, email, username, is_active, is_admin, is_literature_table,
-            is_literature_cart, phone, mobile, congregation, language, note_admin, note_user
+            'SELECT firstname, lastname, email, username, is_active, is_admin,
+            phone, mobile, congregation, language, note_admin, note_user
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
         );
@@ -154,8 +138,7 @@ class Users {
 
     static function select_logindata(\PDO $connection, string $username, string $password): array {
         $stmt = $connection->prepare(
-            'SELECT id_user, firstname, lastname,
-            email, is_literature_table, is_literature_cart, is_admin
+            'SELECT id_user, firstname, lastname, email, is_admin
             FROM ' . self::TABLE_NAME . '
             WHERE is_active = 1
             AND username = :username
@@ -216,8 +199,7 @@ class Users {
         $stmt = $connection->prepare(
             'UPDATE users
         SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
-        is_active = :is_active, is_admin = :is_admin, is_literature_table = :is_literature_table,
-        is_literature_cart = :is_literature_cart, phone = :phone, mobile = :mobile,
+        is_active = :is_active, is_admin = :is_admin, phone = :phone, mobile = :mobile,
         congregation = :congregation, language = :language, note_admin = :note_admin
         WHERE id_user = :id_user'
         );
@@ -230,8 +212,6 @@ class Users {
                 ':username' => $user->get_username(),
                 ':is_active' => (int)$user->is_active(),
                 ':is_admin' => (int)$user->is_admin(),
-                ':is_literature_table' => (int)$user->is_literature_table(),
-                ':is_literature_cart' => (int)$user->is_literature_cart(),
                 ':phone' => $user->get_phone(),
                 ':mobile' => $user->get_mobile(),
                 ':congregation' => $user->get_congregation(),
@@ -265,12 +245,12 @@ class Users {
         $stmt = $connection->prepare(
             'INSERT INTO users
             (
-                firstname, lastname, email, username, password, is_admin, is_active, is_literature_table,
-                is_literature_cart, phone, mobile, congregation, language, note_admin
+                firstname, lastname, email, username, password, is_admin,
+                is_active, phone, mobile, congregation, language, note_admin
             )
             VALUES (
-                :firstname, :lastname, :email, :username, :password, :is_admin, :is_active, :is_literature_table,
-                :is_literature_cart, :phone, :mobile, :congregation, :language, :note_admin
+                :firstname, :lastname, :email, :username, :password, :is_admin,
+                :is_active, :phone, :mobile, :congregation, :language, :note_admin
             )'
         );
 
@@ -283,8 +263,6 @@ class Users {
                 ':password' => $user->get_password(),
                 ':is_admin' => (int)$user->is_admin(),
                 ':is_active' => (int)$user->is_active(),
-                ':is_literature_table' => (int)$user->is_literature_table(),
-                ':is_literature_cart' => (int)$user->is_literature_cart(),
                 ':phone' => $user->get_phone(),
                 ':mobile' => $user->get_mobile(),
                 ':congregation' => $user->get_congregation(),

@@ -1,6 +1,8 @@
 <?php
-if(!isset($_GET['id_user']))
+if(!isset($_GET['id_user'])) {
     header('location: shift.php');
+    return;
+}
 
 require 'includes/init_page.php';
 $database_pdo = Tables\Database::get_connection();

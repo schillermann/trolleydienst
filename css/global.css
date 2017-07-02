@@ -48,13 +48,10 @@ table {
 
 th {
     text-align: left;
-    padding-left: 14px;
-    background-color: #d5c8e4;
-    color: #604A7B; }
+    padding-left: 14px; }
 td {padding: 6px;}
 tr:nth-child(even) {background-color: #f2f2f2;}
 tfoot td {
-    background-color: #d5c8e4;
     height: 20px;
 }
 dl {
@@ -235,6 +232,12 @@ fieldset div {
 fieldset div input, fieldset div select {
     width: 100%;
     display: block;
+}
+
+.color-picker {
+    display: block;
+    width: 250px;
+    font-weight: bold;
 }
 
 .from-button {

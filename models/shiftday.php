@@ -3,21 +3,29 @@ namespace Models;
 
 class ShiftDay {
 
-    function __construct(int $id_shift_day, int $type, string $place, \DateTime $datetime_from , \DateTime $datetime_to) {
+    function __construct(
+        int $id_shift_day,
+        int $id_shift_day_type,
+        string $place,
+        \DateTime $datetime_from,
+        \DateTime $datetime_to,
+        string $color_hex
+    ) {
 
         $this->id_shift_day = $id_shift_day;
-        $this->type = $type;
+        $this->id_shift_day_type = $id_shift_day_type;
         $this->datetime_from = $datetime_from;
         $this->datetime_to = $datetime_to;
         $this->place = $place;
+        $this->color_hex = $color_hex;
     }
 
     function get_id_shift_day(): int {
         return $this->id_shift_day;
     }
 
-    function get_type(): int {
-        return $this->type;
+    function get_id_shift_day_type(): int {
+        return $this->id_shift_day_type;
     }
 
     function get_place(): string {
@@ -32,5 +40,9 @@ class ShiftDay {
         return $this->datetime_to;
     }
 
-    protected $id_shift_day, $type, $place, $datetime_from, $datetime_to;
+    function get_color_hex(): string {
+        return $this->color_hex;
+    }
+
+    protected $id_shift_day, $id_shift_day_type, $place, $datetime_from, $datetime_to, $color_hex;
 }

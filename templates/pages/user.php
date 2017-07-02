@@ -17,8 +17,6 @@
             <th>E-Mail</th>
             <th>Benutzername</th>
             <th>Aktiv</th>
-            <th>Infostand</th>
-            <th>Trolley</th>
             <th>Admin</th>
             <th></th>
         </tr>
@@ -29,8 +27,6 @@
             <td><?php echo $user['email'];?></td>
             <td><?php echo $user['username'];?></td>
             <td><i class="fa <?php echo ($user['is_active']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><i class="fa <?php echo ($user['is_literature_table']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><i class="fa <?php echo ($user['is_literature_cart']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
             <td><i class="fa <?php echo ($user['is_admin']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
             <td><a class="button" href="user-edit.php?id_user=<?php echo $user['id_user'];?>"><i class="fa fa-pencil fa-6" aria-hidden="true"></i></a></td>
         </tr>

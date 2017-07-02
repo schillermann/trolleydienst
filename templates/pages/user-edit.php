@@ -21,14 +21,6 @@
                 <input id="is_active" type="checkbox" name="is_active" tabindex="1" <?php if ($placeholder['user']['is_active']):?>checked<?php endif;?>>
             </div>
             <div>
-                <label for="is_literature_table">Infostand</label>
-                <input id="is_literature_table" type="checkbox" name="is_literature_table" tabindex="2" <?php if ($placeholder['user']['is_literature_table']):?>checked<?php endif;?>>
-            </div>
-            <div>
-                <label for="is_literature_cart">Trolley</label>
-                <input id="is_literature_cart" type="checkbox" name="is_literature_cart" tabindex="3" <?php if ($placeholder['user']['is_literature_cart']):?>checked<?php endif;?>>
-            </div>
-            <div>
                 <label for="is_admin">Admin-Rechte</label>
                 <input id="is_admin" type="checkbox" name="is_admin" tabindex="4" <?php if ($placeholder['user']['is_admin']):?>checked<?php endif;?>>
             </div>

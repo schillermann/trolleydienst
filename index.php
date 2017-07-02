@@ -28,8 +28,10 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
     $username = include 'filters/post_username.php';
     $database_pdo = Tables\Database::get_connection();
 
-    if($check_login($database_pdo, $username, $_POST['password']))
+    if($check_login($database_pdo, $username, $_POST['password'])) {
         header('location: shift.php');
+        return;
+    }
     else
         $placeholder['error_message'] = true;
 }

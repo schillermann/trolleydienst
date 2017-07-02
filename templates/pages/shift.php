@@ -24,14 +24,13 @@
 
 <div class="table-container">
 <?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
-    <table class="<?php echo ($shiftday['type'])? 'literature_cart' : 'literature_table';?>">
+    <table>
         <thead>
             <tr>
-                <th colspan="2">
+                <th colspan="2" style="background-color: <?php echo $shiftday['color_hex'];?>">
                     <h3>
                         <?php echo $get_weekday($shiftday['time_from']); ?>,
                         <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
-                        <?php echo ($shiftday['type']) ? 'Trolley' : 'Infostand'; ?>:
                         <?php echo $shiftday['place']; ?>
 
                         <?php if($_SESSION['is_admin']): ?>
@@ -45,7 +44,7 @@
         </thead>
         <tfoot>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="2" style="background-color: <?php echo $shiftday['color_hex'];?>"></td>
             </tr>
         </tfoot>
         <tbody>
@@ -84,20 +83,17 @@
                         <?php endforeach; ?>
 
                         <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
-                        <?php $user_promote_list = ($shiftday['type'])? $placeholder['user_promote_list']['literature_cart'] : $placeholder['user_promote_list']['literature_table']; ?>
                         <button type="submit" name="promote_user" class="promote">
                             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> bewerben als
                         </button>
                         <select name="id_user" class="button promote">
-                            <?php foreach ($user_promote_list as $id_user => $name): ?>
+                            <?php foreach ($placeholder['user_promote_list'] as $id_user => $name): ?>
                                 <?php if($has_user_promoted && (int)$id_user === $_SESSION['id_user']) continue; ?>
                                 <option value="<?php echo $id_user; ?>">
                                     <?php echo $name; ?>
                                 </option>
                             <?php endforeach;?>
                         </select>
-
-
                         <?php endif; ?>
                     </form>
                 </td>

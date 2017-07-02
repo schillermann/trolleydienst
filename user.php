@@ -1,7 +1,7 @@
 <?php
 require 'includes/init_page.php';
 
-$user_list = Tables\Users::select_all(include 'includes/database_pdo.php');
+$user_list = Tables\Users::select_all(Tables\Database::get_connection());
 
 $placeholder = array();
 $placeholder['user_list'] = $user_list;

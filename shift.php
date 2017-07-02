@@ -24,16 +24,7 @@ $user_list = Tables\Users::select_all_without_user($database_pdo, $_SESSION['id_
 $get_user_promote_list = include 'helpers/get_user_promote_list.php';
 $placeholder['user_promote_list'] = $get_user_promote_list($user_list);
 
-$mTageFilter = 0;
-
-$AllowSchichtArt = array(-1);
-
-if ($_SESSION['is_literature_table'])
-    $AllowSchichtArt[] = 0;
-if ($_SESSION['is_literature_cart'])
-    $AllowSchichtArt[] = 1;
-
-$placeholder['shiftday_list'] = Tables\ShiftsDays::select_all($database_pdo, $mTageFilter, $AllowSchichtArt);
+$placeholder['shiftday_list'] = Tables\ShiftsDays::select_all($database_pdo);
 
 foreach ($placeholder['shiftday_list'] as $shift_day) {
 

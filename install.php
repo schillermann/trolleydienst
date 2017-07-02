@@ -5,8 +5,11 @@ define('REQUIRE_INPUT_FIELDS', 9);
 
 spl_autoload_register();
 
-if(Tables\Database::exists_database())
+if(Tables\Database::exists_database()) {
     header('location: /');
+    return;
+}
+
 
 $placeholder = array();
 
@@ -36,7 +39,8 @@ if(isset($_POST['install'])) {
             'EMAIL_ADDRESS_REPLY' => $input_list['email_address_reply'],
             'CONGREGATION_NAME' => $input_list['congregation_name'],
             'APPLICATION_NAME' => $input_list['application_name'],
-            'TEAM_NAME' => $input_list['team_name']
+            'TEAM_NAME' => $input_list['team_name'],
+            'UPLOAD_SIZE_MAX_IN_MEGABYTE' => 5
         );
 
         if(
@@ -45,6 +49,7 @@ if(isset($_POST['install'])) {
             $write_config_file($config)
         ) {
             header('location: /');
+            return;
         }
 
         $placeholder['message']['error'] = 'Bei der Installation ist ein Fehler aufgetreten!';
