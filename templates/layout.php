@@ -26,7 +26,7 @@
                 <ul id="main-nav">
                     <?php if(!empty($_SESSION)) : ?>
                     <li>
-                        <a href="shift.php" class="<?php $active_page('shift.php');?>">Trolley</a>
+                        <a href="shift.php?id_shift_type=1" class="<?php $active_page('shift.php');?>">Trolley</a>
                     </li>
                     <li>
                         <a href="info.php" class="<?php $active_page('info.php');?>">Infos</a>
@@ -35,6 +35,9 @@
                         <a href="profile.php" class="<?php $active_page('profile.php');?>">Profil</a>
                     </li>
                     <?php if($_SESSION['is_admin']) : ?>
+                    <li>
+                        <a href="shift-type.php" class="<?php $active_page('shift-type.php');?>">Schichttyp</a>
+                    </li>
                     <li>
                         <a href="user.php" class="<?php $active_page('user.php');?>">Teilnehmer</a>
                     </li>

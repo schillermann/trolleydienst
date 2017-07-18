@@ -1,4 +1,5 @@
 <h2>Neuer Teilnehmer</h2>
+<a href="user.php" tabindex="12" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message']['error'])) : ?>
     <div class="note-box">
@@ -55,9 +56,6 @@
             <button type="submit" name="save" class="active" tabindex="11">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <a href="user.php" tabindex="12" class="button">
-                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
-            </a>
         </div>
     </form>
 </div>

@@ -30,7 +30,7 @@ class Users {
 
     static function is_username(\PDO $connection, string $username): bool {
         $stmt = $connection->prepare(
-            'SELECT username FROM users WHERE username = :username'
+            'SELECT username FROM ' . self::TABLE_NAME . ' WHERE username = :username'
         );
 
         $stmt->execute(
@@ -42,7 +42,7 @@ class Users {
     static function select_all(\PDO $connection): array {
         $stmt = $connection->query(
             'SELECT id_user, firstname, lastname, email, username, is_admin, is_active 
-            FROM users'
+            FROM ' . self::TABLE_NAME
         );
         $result = $stmt->fetchAll();
         return ($result === false)? array() : $result;
@@ -51,7 +51,7 @@ class Users {
     static function select_all_email(\PDO $connection, string $recipient): array {
 
         $stmt = $connection->query(
-            'SELECT firstname, lastname, email FROM users WHERE is_active = 1 '
+            'SELECT firstname, lastname, email FROM ' . self::TABLE_NAME . ' WHERE is_active = 1 '
         );
 
         $result = $stmt->fetchAll();
@@ -92,7 +92,7 @@ class Users {
     static function select_id_user(\PDO $connection, string $username, string $email): int {
         $stmt = $connection->prepare(
             'SELECT id_user
-        FROM users
+        FROM ' . self::TABLE_NAME . '
         WHERE username = :username
         AND email = :email'
         );
@@ -198,11 +198,11 @@ class Users {
 
     static function update_user(\PDO $connection, \Models\User $user): bool {
         $stmt = $connection->prepare(
-            'UPDATE users
-        SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
-        is_active = :is_active, is_admin = :is_admin, phone = :phone, mobile = :mobile,
-        congregation = :congregation, language = :language, note_admin = :note_admin
-        WHERE id_user = :id_user'
+            'UPDATE ' . self::TABLE_NAME . '
+            SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
+            is_active = :is_active, is_admin = :is_admin, phone = :phone, mobile = :mobile,
+            congregation = :congregation, language = :language, note_admin = :note_admin
+            WHERE id_user = :id_user'
         );
 
         $stmt->execute(
@@ -244,7 +244,7 @@ class Users {
     static function insert(\PDO $connection, \Models\User $user): bool {
 
         $stmt = $connection->prepare(
-            'INSERT INTO users
+            'INSERT INTO ' . self::TABLE_NAME . '
             (
                 firstname, lastname, email, username, password, is_admin,
                 is_active, phone, mobile, congregation, language, note_admin
@@ -276,7 +276,7 @@ class Users {
 
     static function delete(\PDO $connection, int $id_user): bool {
         $stmt = $connection->prepare(
-            'DELETE FROM users WHERE id_user = :id_user'
+            'DELETE FROM ' . self::TABLE_NAME . ' WHERE id_user = :id_user'
         );
 
         return $stmt->execute(

@@ -6,74 +6,19 @@
 </a>
 <?php endif; ?>
 <section>
-    <h2><?php echo CONGREGATION_NAME; ?><small> - Infos rund um die Website</small></h2>
-
-    <?php foreach ($placeholder['file_list'] as $file) : ?>
-    <?php if((int)$file['type'] !== -1) continue; ?>
-    <figure>
-        <a target="_blank" href="uploads/<?php echo $file['file_hash']; ?>">
-            <img src="<?php echo $parse_file_preview_url('uploads/' . $file['file_hash']); ?>" width="100%">
-        </a>
-        <figcaption>
-            <p><?php echo $file['label']; ?></p>
-            <?php if ($_SESSION['is_admin']) : ?>
-            <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button">bearbeiten</a>
-            <?php endif; ?>
-        </figcaption>
-    </figure>
-    <?php endforeach; ?>
-</section>
-
-<section>
-    <h2>ÖZi<small> - Die News vom öffentlichen Zeugnisgeben</small></h2>
-    <?php foreach ($placeholder['file_list'] as $file) : ?>
-    <?php if((int)$file['type'] !== 0) continue; ?>
-    <figure>
-        <a target="_blank" href="uploads/<?php echo $file['file_hash']; ?>">
-            <img src="<?php echo $parse_file_preview_url('uploads/' . $file['file_hash']); ?>" width="100%">
-        </a>
-        <figcaption>
-            <p><?php echo $file['label']; ?></p>
-            <?php if ($_SESSION['is_admin']) : ?>
-            <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button">bearbeiten</a>
-            <?php endif; ?>
-        </figcaption>
-    </figure>
-    <?php endforeach; ?>
-</section>
-
-<section>
-    <h2>Trolley<small> - Alle Infos, Merkblätter und Gebiete</small></h2>
+    <h3>Trolley<small> - Alle Infos, Merkblätter und Gebiete</small></h3>
+    <ul class="info-list">
     <?php foreach ($placeholder['file_list'] as $file) : ?>
     <?php if((int)$file['type'] !== 1) continue; ?>
-    <figure>
+    <li>
         <a target="_blank" href="uploads/<?php echo $file['file_hash']; ?>">
-            <img src="<?php echo $parse_file_preview_url('uploads/' . $file['file_hash']); ?>" width="100%">
-        </a>
-        <figcaption>
-            <p><?php echo $file['label']; ?></p>
+            <img src="<?php echo $parse_file_preview_url('uploads/' . $file['file_hash']); ?>">
+            <h4><?php echo $file['label']; ?></h4>
             <?php if ($_SESSION['is_admin']) : ?>
-            <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button">bearbeiten</a>
+                <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button">bearbeiten</a>
             <?php endif; ?>
-        </figcaption>
-    </figure>
+        </a>
+    </li>
     <?php endforeach; ?>
-</section>
-
-<section>
-    <h2>Infostand<small> - Alle Infos, Merkblätter und Gebiete</small></h2>
-    <?php foreach ($placeholder['file_list'] as $file) : ?>
-    <?php if((int)$file['type'] !== 2) continue; ?>
-        <figure>
-            <a target="_blank" href="uploads/<?php echo $file['file_hash']; ?>">
-                <img src="<?php echo $parse_file_preview_url('uploads/' . $file['file_hash']); ?>" width="100%">
-            </a>
-            <figcaption>
-                <p><?php echo $file['label']; ?></p>
-                <?php if ($_SESSION['is_admin']) : ?>
-                <a href="#<?php echo $file['id_info']; ?>" class="button">bearbeiten</a>
-                <?php endif; ?>
-            </figcaption>
-        </figure>
-    <?php endforeach; ?>
+    </ul>
 </section>

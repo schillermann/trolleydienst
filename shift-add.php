@@ -1,4 +1,9 @@
 <?php
+if(!isset($_GET['id_shift_type'])) {
+    header('location: info.php');
+    return;
+}
+
 require 'includes/init_page.php';
 $database_pdo = Tables\Database::get_connection();
 $placeholder = array();
@@ -38,6 +43,9 @@ if(isset($_POST['save'])) {
         $shiftday_to->add(new \DateInterval('P7D'));
     }
 }
+
+$placeholder['id_shift_type'] = (int)$_GET['id_shift_type'];
+$placeholder['shift_types'] = Tables\ShiftTypes::select_all($database_pdo);
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

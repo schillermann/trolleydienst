@@ -15,13 +15,6 @@ h2 {
     border-bottom: solid 1px #604A7B;
 }
 
-figure {
-    display: inline-block;
-    text-align: center;
-    width: 100px;
-    max-height: 200px;
-}
-
 header {
     text-align: center;
     min-height: 50px;
@@ -268,9 +261,8 @@ button:hover, .button:hover {
     border-color: #adadad;
 }
 
-.promote {
-    background-color: #c5c5c5;
-    color: #4a4a4a; }
+.promoted {
+    background-color: #d5c8e4; }
 
 /**
  * Icons
@@ -291,6 +283,24 @@ button:hover, .button:hover {
 /**
  * Content
  */
+
+.info-list {
+    list-style: none;
+    text-align: center;
+    padding: 0px;
+}
+.info-list li {
+    width: 200px;
+    margin: 10px;
+    display: inline-block; }
+.info-list img {
+    max-width: 200px;
+    max-height: 100px; }
+.info-list h4 {
+    padding: 6px;
+    color: #5F497A; }
+.info-list a {
+    text-decoration: none; }
 
 .wrapper-center {
     width: auto;

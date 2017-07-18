@@ -1,4 +1,5 @@
 <h2>Info hochladen</h2>
+<a href="info.php" tabindex="5" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div class="note-box">

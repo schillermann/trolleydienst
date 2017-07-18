@@ -23,6 +23,7 @@ class Database {
             Users::create_table($connection) &&
             ShiftsDays::create_table($connection) &&
             Shifts::create_table($connection) &&
+            ShiftTypes::create_table($connection) &&
             ShiftUserMaps::create_table($connection) &&
             Infos::create_table($connection);
     }

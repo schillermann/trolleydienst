@@ -1,3 +1,4 @@
+<h2>Teilnehmer Liste</h2>
 <form method="post">
     <div class="from-button">
         <a href="user-add.php" tabindex="1" class="button active">
@@ -18,7 +19,7 @@
             <th>Benutzername</th>
             <th>Aktiv</th>
             <th>Admin</th>
-            <th></th>
+            <th>Bearbeiten</th>
         </tr>
         <?php foreach ($placeholder['user_list'] as $user) : ?>
         <tr>

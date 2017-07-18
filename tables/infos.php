@@ -80,9 +80,9 @@ class Infos {
 
         return $stmt->execute(
             array(
-                ':file_label' => $label,
-                ':file_type' => $type,
-                ':id_file' => $id_info
+                ':label' => $label,
+                ':type' => $type,
+                ':id_info' => $id_info
             )
         );
     }

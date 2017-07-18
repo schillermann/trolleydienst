@@ -1,5 +1,11 @@
 <?php
 define('PARTICIPANTS_PER_SHIFT', 3);
+
+if(!isset($_GET['id_shift_type'])) {
+    header('location: info.php');
+    return;
+}
+$id_shift_type = (int)$_GET['id_shift_type'];
 require 'includes/init_page.php';
 
 $placeholder = array();
@@ -24,7 +30,7 @@ $user_list = Tables\Users::select_all_without_user($database_pdo, $_SESSION['id_
 $get_user_promote_list = include 'helpers/get_user_promote_list.php';
 $placeholder['user_promote_list'] = $get_user_promote_list($user_list);
 
-$placeholder['shiftday_list'] = Tables\ShiftsDays::select_all($database_pdo);
+$placeholder['shiftday_list'] = Tables\ShiftsDays::select_all($database_pdo, $id_shift_type);
 
 foreach ($placeholder['shiftday_list'] as $shift_day) {
 
@@ -36,6 +42,8 @@ foreach ($placeholder['shiftday_list'] as $shift_day) {
         $placeholder['user_list'][$id_shift_day][$id_shift] = Tables\ShiftUserMaps::select_all($database_pdo, $id_shift_day, $id_shift);
     }
 }
+
+$placeholder['id_shift_type'] = $id_shift_type;
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

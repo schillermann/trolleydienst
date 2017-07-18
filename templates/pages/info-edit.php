@@ -27,13 +27,13 @@
             <legend>Info</legend>
             <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
             <div>
-                <label for="file_label">Bezeichnung</label>
-                <input id="file_label" type="text" name="file_label" tabindex="1" value="<?php echo $placeholder['info']['label']; ?>">
+                <label for="info_label">Bezeichnung</label>
+                <input id="info_label" type="text" name="info_label" tabindex="1" value="<?php echo $placeholder['info']['label']; ?>">
             </div>
             <div>
-                <label for="file_type">Typ</label>
+                <label for="info_type">Typ</label>
                 <?php $type = $placeholder['info']['type']; ?>
-                <select name="file_type" tabindex="2">
+                <select name="info_type" tabindex="2">
                     <option value="-1" <?php echo ($type ==  -1) ? 'selected' : ''; ?>>Anleitung</option>
                     <option value="0" <?php echo ($type ==  0) ? 'selected' : ''; ?>>Özi</option>
                     <option value="1" <?php echo ($type ==  1) ? 'selected' : ''; ?>>Trolley</option>

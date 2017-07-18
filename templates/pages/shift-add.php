@@ -1,4 +1,7 @@
 <h2>Neue Schichten</h2>
+<a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="16" class="button">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i> zurück
+</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div class="note-box">
@@ -24,8 +27,9 @@
             <div>
                 <label for="shift_type">Schichtart</label>
                 <select id="shift_type" name="shift_type" tabindex="1">
-                    <option value="0">Infostand</option>
-                    <option value="1">Trolley</option>
+                    <?php foreach ($placeholder['shift_types'] as $shift_type) : ?>
+                    <option value="<?php echo $shift_type['id_shift_type']; ?>"><?php echo $shift_type['name']; ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div>

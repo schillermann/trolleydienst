@@ -17,7 +17,7 @@
 <?php endif; ?>
 
 <?php if($_SESSION['is_admin']): ?>
-<a href="shift-add.php" tabindex="1" class="button active">
+<a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
     <i class="fa fa-plus" aria-hidden="true"></i> Neue Schichten
 </a>
 <?php endif; ?>
@@ -35,7 +35,7 @@
 
                         <?php if($_SESSION['is_admin']): ?>
                             <a href="#" class="button">
-                                <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
                             </a>
                         <?php endif; ?>
                     </h3>
@@ -72,10 +72,10 @@
 
                             <?php if($has_user_promoted): ?>
                                 <button type="submit" name="delete_user" class="enable">
-                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i> <?php echo $user_name; ?>
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <?php echo $user_name; ?>
                                 </button>
                             <?php else: ?>
-                                <a href="user-details.php?id_user=<?php echo $user['id_user']; ?>" class="button">
+                                <a href="user-details.php?id_user=<?php echo $user['id_user']; ?>" class="button promoted">
                                     <i class="fa fa-info" aria-hidden="true"></i> <?php echo $user_name; ?>
                                 </a>
                             <?php endif; ?>
@@ -83,8 +83,8 @@
                         <?php endforeach; ?>
 
                         <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
-                        <button type="submit" name="promote_user" class="promote">
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> bewerben als
+                        <button type="submit" name="promote_user">
+                            <i class="fa fa-plus" aria-hidden="true"></i> bewerben als
                         </button>
                         <select name="id_user" class="button promote">
                             <?php foreach ($placeholder['user_promote_list'] as $id_user => $name): ?>
