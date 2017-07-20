@@ -25,7 +25,7 @@ if(isset($_POST['save'])) {
 
     $shiftday = new Models\ShiftDay(
         0,
-        (int)$_POST['shift_type'],
+        (int)$_GET['id_shift_type'],
         include 'filters/post_place.php',
         $shiftday_from,
         $shiftday_to,
@@ -45,7 +45,6 @@ if(isset($_POST['save'])) {
 }
 
 $placeholder['id_shift_type'] = (int)$_GET['id_shift_type'];
-$placeholder['shift_types'] = Tables\ShiftTypes::select_all($database_pdo);
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

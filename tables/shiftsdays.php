@@ -23,7 +23,7 @@ class ShiftsDays {
         $stmt = $connection->prepare(
             'SELECT id_shift_day, place, time_from, time_to, color_hex
             FROM ' . self::TABLE_NAME . '
-            WHERE time_from >= datetime("now")
+            WHERE time_to >= datetime("now")
             AND id_shift_type = :id_shift_type
             ORDER BY time_from ASC'
         );

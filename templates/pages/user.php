@@ -19,7 +19,7 @@
             <th>Benutzername</th>
             <th>Aktiv</th>
             <th>Admin</th>
-            <th>Bearbeiten</th>
+            <th>Aktion</th>
         </tr>
         <?php foreach ($placeholder['user_list'] as $user) : ?>
         <tr>
@@ -29,7 +29,7 @@
             <td><?php echo $user['username'];?></td>
             <td><i class="fa <?php echo ($user['is_active']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
             <td><i class="fa <?php echo ($user['is_admin']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
-            <td><a class="button" href="user-edit.php?id_user=<?php echo $user['id_user'];?>"><i class="fa fa-pencil fa-6" aria-hidden="true"></i></a></td>
+            <td><a class="button" href="user-edit.php?id_user=<?php echo $user['id_user'];?>"><i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten</a></td>
         </tr>
         <?php endforeach; ?>
     </table>

@@ -24,6 +24,7 @@
 
 <div class="table-container">
 <?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
+    <?php $id_shift_day = (int)$shiftday['id_shift_day']; ?>
     <table>
         <thead>
             <tr>
@@ -34,8 +35,8 @@
                         <?php echo $shiftday['place']; ?>
 
                         <?php if($_SESSION['is_admin']): ?>
-                            <a href="#" class="button">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            <a href="shift-edit.php?id_shift_day=<?php echo $id_shift_day;?>" class="button">
+                                <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
                             </a>
                         <?php endif; ?>
                     </h3>
@@ -48,7 +49,6 @@
             </tr>
         </tfoot>
         <tbody>
-            <?php $id_shift_day = (int)$shiftday['id_shift_day']; ?>
             <?php foreach ($placeholder['shift_list'][$id_shift_day] as $shift) : ?>
 
             <?php

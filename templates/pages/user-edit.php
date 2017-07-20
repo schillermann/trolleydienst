@@ -1,4 +1,5 @@
 <h2>Teilnehmer bearbeiten</h2>
+<a href="user.php" tabindex="20" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div class="note-box">
@@ -69,10 +70,7 @@
             <button type="submit" name="save" class="active" tabindex="15">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
             </button>
-            <a href="user.php" class="button" tabindex="16">
-                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
-            </a>
-            <button type="submit" name="delete" class="warning" tabindex="17">
+            <button type="submit" name="delete" class="warning" tabindex="16">
                 <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
             </button>
         </div>
@@ -82,16 +80,16 @@
             <legend>Passwort</legend>
             <div>
                 <label for="password">Neues Passwort</label>
-                <input id="password" type="password" name="password" tabindex="18">
+                <input id="password" type="password" name="password" tabindex="17">
             </div>
             <div>
                 <label for="password_repeat">Neues Passwort (wiederholen)</label>
-                <input id="password_repeat" type="password" name="password_repeat" tabindex="19">
+                <input id="password_repeat" type="password" name="password_repeat" tabindex="18">
             </div>
 
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="password_save" class="active" tabindex="20">
+            <button type="submit" name="password_save" class="active" tabindex="19">
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> Passwort ändern
             </button>
         </div>

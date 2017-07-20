@@ -25,14 +25,6 @@
         <fieldset>
             <legend>Schichten</legend>
             <div>
-                <label for="shift_type">Schichtart</label>
-                <select id="shift_type" name="shift_type" tabindex="1">
-                    <?php foreach ($placeholder['shift_types'] as $shift_type) : ?>
-                    <option value="<?php echo $shift_type['id_shift_type']; ?>"><?php echo $shift_type['name']; ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div>
                 <label for="place">Ort <small>(Pflichtfeld)</small></label>
                 <input id="place" type="text" name="place" tabindex="2" required>
             </div>

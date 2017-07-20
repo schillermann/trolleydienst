@@ -1,15 +1,18 @@
 <?php
 define('PARTICIPANTS_PER_SHIFT', 3);
+require 'includes/init_page.php';
+$database_pdo = Tables\Database::get_connection();
 
 if(!isset($_GET['id_shift_type'])) {
-    header('location: info.php');
+    $id_shift_type = Tables\ShiftTypes::select_first_id_shift_type($database_pdo);
+    if($id_shift_type)
+        header('location: shift.php?id_shift_type=' . $id_shift_type);
+    else
+        header('location: info.php');
     return;
 }
 $id_shift_type = (int)$_GET['id_shift_type'];
-require 'includes/init_page.php';
-
 $placeholder = array();
-$database_pdo = Tables\Database::get_connection();
 
 if(isset($_POST['delete_user'])) {
 

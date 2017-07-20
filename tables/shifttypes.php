@@ -30,6 +30,18 @@ class ShiftTypes {
         return ($result)? $result : array();
     }
 
+    static function select_first_id_shift_type(\PDO $connection) {
+        $stmt = $connection->prepare(
+            'SELECT id_shift_type
+          FROM ' . self::TABLE_NAME . ' LIMIT 1'
+        );
+
+        $stmt->execute();
+
+        $result = $stmt->fetchColumn();
+        return ($result)? $result : 0;
+    }
+
     static function select_all(\PDO $connection): array {
         $stmt = $connection->prepare(
             'SELECT id_shift_type, name, user_per_shift_max FROM ' . self::TABLE_NAME
