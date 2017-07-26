@@ -1,5 +1,6 @@
 <?php
 spl_autoload_register();
+include 'config.php';
 $database_pdo = Tables\Database::get_connection();
 $placeholder = array();
 

@@ -18,6 +18,19 @@ class ShiftsDays {
         return ($connection->exec($sql) === false)? false : true;
     }
 
+    static function select_place(\PDO $connection, int $id_shift_day): string {
+        $stmt = $connection->prepare(
+            'SELECT place
+            FROM ' . self::TABLE_NAME . '
+            WHERE id_shift_day = :id_shift_day'
+        );
+
+        $stmt->execute(array(':id_shift_day' => $id_shift_day));
+
+        $result = $stmt->fetchColumn();
+        return ($result)? $result : '';
+    }
+
     static function select_all(\PDO $connection, int $id_shift_type): array {
 
         $stmt = $connection->prepare(
@@ -56,5 +69,20 @@ class ShiftsDays {
             )
         );
         return (int)$connection->lastInsertId();
+    }
+
+    static function update(\PDO $connection, int $id_shift_day, string $place): bool {
+        $stmt = $connection->prepare(
+            'UPDATE ' . self::TABLE_NAME . '
+            SET place = :place
+            WHERE id_shift_day = :id_shift_day'
+        );
+
+        return $stmt->execute(
+            array(
+                ':place' => $place,
+                ':id_shift_day' => $id_shift_day
+            )
+        );
     }
 }

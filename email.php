@@ -1,8 +1,6 @@
 <?php
-require 'includes/init_page.php';
-$database_pdo = Tables\Database::get_connection();
+$placeholder = require 'includes/init_page.php';
 
-$placeholder = array();
 $placeholder['recipient'] = '';
 $placeholder['subject'] = '';
 $placeholder['text'] = '';

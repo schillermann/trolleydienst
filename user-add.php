@@ -1,10 +1,8 @@
 <?php
-require 'includes/init_page.php';
-$database_pdo = Tables\Database::get_connection();
+$placeholder = require 'includes/init_page.php';
 $render_page = include 'includes/render_page.php';
 
 $page_file = '';
-$placeholder = array();
 
 if(isset($_POST['save'])) {
 

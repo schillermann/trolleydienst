@@ -2,6 +2,11 @@
 <?php $convert_datetime = include 'templates/helpers/convert_datetime.php'; ?>
 
 <h2>Schichten</h2>
+<div class="note-box">
+    <p>
+        <a target="_blank" href="https://wol.jw.org/de/wol/d/r10/lp-x/202015126">Das Predigen mit Trolleys und Infostand — wie?</a>
+    </p>
+</div>
 <?php if (isset($placeholder['message'])) : ?>
     <div class="note-box">
         <?php if (isset($placeholder['message']['success'])) : ?>
@@ -82,7 +87,7 @@
 
                         <?php endforeach; ?>
 
-                        <?php if (count($user_list) < PARTICIPANTS_PER_SHIFT) : ?>
+                        <?php if (count($user_list) < $placeholder['user_per_shift_max']) : ?>
                         <button type="submit" name="promote_user">
                             <i class="fa fa-plus" aria-hidden="true"></i> bewerben als
                         </button>

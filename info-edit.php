@@ -4,10 +4,7 @@ if(!isset($_GET['id_info'])) {
     return;
 }
 
-require 'includes/init_page.php';
-
-$database_pdo = Tables\Database::get_connection();
-$placeholder = array();
+$placeholder = require 'includes/init_page.php';
 $id_info = (int)$_GET['id_info'];
 
 if(isset($_POST['delete'])) {

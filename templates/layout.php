@@ -25,15 +25,21 @@
             <div class="wrapper-center">
                 <ul id="main-nav">
                     <?php if(!empty($_SESSION)) : ?>
+                    <?php foreach ($placeholder['shift_types'] as $shift_type): ?>
                     <li>
-                        <a href="shift.php?id_shift_type=1" class="<?php $active_page('shift.php');?>">Trolley</a>
+                        <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $active_page('shift.php', 'id_shift_type=' . $shift_type['id_shift_type']);?>"><?php echo $shift_type['name'];?></a>
                     </li>
+                    <?php endforeach;?>
                     <li>
                         <a href="info.php" class="<?php $active_page('info.php');?>">Infos</a>
                     </li>
                     <li>
                         <a href="profile.php" class="<?php $active_page('profile.php');?>">Profil</a>
                     </li>
+                        <!--
+                    <li>
+                        <a href="report.php" class="<?php $active_page('report.php');?>">Bericht</a>
+                    </li>-->
                     <?php if($_SESSION['is_admin']) : ?>
                     <li>
                         <a href="shift-type.php" class="<?php $active_page('shift-type.php');?>">Schichttyp</a>
@@ -54,7 +60,7 @@
         </nav>
         <div class="wrapper-center">
             <main>
-                <?php echo $placeholder['content']; ?>
+                <?php echo $placeholder['template']; ?>
             </main>
             <footer>
                 <div class="wrapper-center">

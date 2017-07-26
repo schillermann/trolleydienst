@@ -19,7 +19,7 @@
             <legend>Teilnehmer</legend>
             <div>
                 <label for="place">Ort <small>(Pflichtfeld)</small></label>
-                <input id="place" type="text" name="place" tabindex="1" required value="">
+                <input id="place" type="text" name="place" tabindex="1" required value="<?php echo $placeholder['place'];?>">
             </div>
         </fieldset>
         <div class="from-button">

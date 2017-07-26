@@ -4,12 +4,8 @@ if(!isset($_GET['id_user'])) {
     return;
 }
 
-require 'includes/init_page.php';
-$database_pdo = Tables\Database::get_connection();
-
+$placeholder = require 'includes/init_page.php';
 $id_user = (int)$_GET['id_user'];
-
-$placeholder = array();
 
 if (isset($_POST['save'])) {
     $user = new Models\User(

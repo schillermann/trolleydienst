@@ -3,12 +3,8 @@ if(!isset($_GET['id_shift_type'])) {
     header('location: shift-type.php');
     return;
 }
-require 'includes/init_page.php';
-
+$placeholder = require 'includes/init_page.php';
 $id_shift_type = (int)$_GET['id_shift_type'];
-
-$database_pdo = Tables\Database::get_connection();
-$placeholder = array();
 
 if (isset($_POST['save'])) {
     $name = include 'filters/post_name.php';

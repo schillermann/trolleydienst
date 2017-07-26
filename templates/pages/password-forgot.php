@@ -1,4 +1,5 @@
 <h2>Passwort vergessen</h2>
+<a href="index.php" tabindex="4" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
 
     <?php if (isset($placeholder['message'])) : ?>
@@ -46,7 +47,6 @@
             <button type="submit" name="password_reset" class="active" tabindex="3">
                 <i class="fa fa-undo" aria-hidden="true"></i> Neues Passwort anfordern
             </button>
-            <a href="user.php" tabindex="4" class="button"><i class="fa fa-ban" aria-hidden="true"></i> abbrechen</a>
         </div>
     </form>
 </div>

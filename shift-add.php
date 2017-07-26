@@ -4,9 +4,7 @@ if(!isset($_GET['id_shift_type'])) {
     return;
 }
 
-require 'includes/init_page.php';
-$database_pdo = Tables\Database::get_connection();
-$placeholder = array();
+$placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['save'])) {
 

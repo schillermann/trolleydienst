@@ -1,7 +1,5 @@
 <?php
-require 'includes/init_page.php';
-$database_pdo = Tables\Database::get_connection();
-$placeholder = array();
+$placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['profile_save'])) {
 

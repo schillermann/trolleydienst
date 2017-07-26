@@ -1,8 +1,7 @@
 <?php
 $placeholder = require 'includes/init_page.php';
+$placeholder['user_list'] = Tables\Users::select_all(Tables\Database::get_connection());
 
-$user_list = Tables\Users::select_all($database_pdo);
-$placeholder['user_list'] = $user_list;
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);
