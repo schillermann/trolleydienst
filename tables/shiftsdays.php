@@ -12,7 +12,8 @@ class ShiftsDays {
             `id_shift_type` INTEGER NOT NULL,
             `place` TEXT NOT NULL,
             `time_from` TEXT NOT NULL,
-            `time_to` TEXT NOT NULL,
+            `number` INTEGER DEFAULT 1,
+            `hours_per_shift` INTEGER DEFAULT 1,
             `color_hex` TEXT DEFAULT "#d5c8e4")';
 
         return ($connection->exec($sql) === false)? false : true;
@@ -34,7 +35,7 @@ class ShiftsDays {
     static function select_all(\PDO $connection, int $id_shift_type): array {
 
         $stmt = $connection->prepare(
-            'SELECT id_shift_day, place, time_from, time_to, color_hex
+            'SELECT id_shift_day, place, time_from, number, hours_per_shift, color_hex
             FROM ' . self::TABLE_NAME . '
             WHERE time_to >= datetime("now")
             AND id_shift_type = :id_shift_type
@@ -55,8 +56,9 @@ class ShiftsDays {
     static function insert(\PDO $connection, \Models\ShiftDay $shift_day): int {
 
         $stmt = $connection->prepare(
-            'INSERT INTO ' . self::TABLE_NAME . ' (id_shift_type, place, time_from, time_to, color_hex)
-		    VALUES (:id_shift_type, :place, :date_from, :date_to, :color_hex)'
+            'INSERT INTO ' . self::TABLE_NAME . '
+            (id_shift_type, place, time_from, number, hours_per_shift, color_hex)
+		    VALUES (:id_shift_type, :place, :date_from, :number, :hours_per_shift, :color_hex)'
         );
 
         $stmt->execute(
@@ -64,7 +66,8 @@ class ShiftsDays {
                 ':id_shift_type' => $shift_day->get_id_shift_type(),
                 ':place' => $shift_day->get_place(),
                 ':date_from' => $shift_day->get_datetime_from()->format('Y-m-d H:i:s'),
-                ':date_to' => $shift_day->get_datetime_to()->format('Y-m-d H:i:s'),
+                ':number' => $shift_day->get_number(),
+                ':hours_per_shift' => $shift_day->get_hours_per_shift(),
                 ':color_hex' => $shift_day->get_color_hex()
             )
         );

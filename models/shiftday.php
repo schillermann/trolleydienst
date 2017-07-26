@@ -8,15 +8,16 @@ class ShiftDay {
         int $id_shift_type,
         string $place,
         \DateTime $datetime_from,
-        \DateTime $datetime_to,
+        int $number,
+        float $hours_per_shift,
         string $color_hex
     ) {
-
         $this->id_shift_day = $id_shift_day;
         $this->id_shift_type = $id_shift_type;
-        $this->datetime_from = $datetime_from;
-        $this->datetime_to = $datetime_to;
         $this->place = $place;
+        $this->datetime_from = $datetime_from;
+        $this->number = $number;
+        $this->hours_per_shift = $hours_per_shift;
         $this->color_hex = $color_hex;
     }
 
@@ -36,13 +37,17 @@ class ShiftDay {
         return $this->datetime_from;
     }
 
-    function get_datetime_to(): \DateTime {
-        return $this->datetime_to;
+    function get_number(): int {
+        return $this->number;
+    }
+
+    function get_hours_per_shift(): float {
+        return $this->hours_per_shift;
     }
 
     function get_color_hex(): string {
         return $this->color_hex;
     }
 
-    protected $id_shift_day, $id_shift_type, $place, $datetime_from, $datetime_to, $color_hex;
+    protected $id_shift_day, $id_shift_type, $place, $datetime_from, $number, $hours_per_shift, $color_hex;
 }

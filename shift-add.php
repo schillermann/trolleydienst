@@ -12,13 +12,12 @@ if(isset($_POST['save'])) {
 
     $merge_date_and_time = include 'modules/merge_date_and_time.php';
     $shiftday_from = $merge_date_and_time($date, $_POST['time_from']);
-    $shiftday_to = $merge_date_and_time($date, $_POST['time_to']);
 
     if ($_POST['shiftday_series_until'] != '') {
         $shiftdays_until = new \DateTime($_POST['shiftday_series_until']);
         $shiftdays_until->setTime(23,59);
     } else {
-        $shiftdays_until = clone $shiftday_to;
+        $shiftdays_until = clone $shiftday_from;
     }
 
     $shiftday = new Models\ShiftDay(
@@ -26,19 +25,19 @@ if(isset($_POST['save'])) {
         (int)$_GET['id_shift_type'],
         include 'filters/post_place.php',
         $shiftday_from,
-        $shiftday_to,
+        (int)$_POST['number'],
+        (float)$_POST['hours_per_shift'],
         include 'filters/post_color_hex.php'
     );
-    $shift_hour_number = (int)$_POST['shift_hour_number'];
 
-    while ($shiftday_from < $shiftdays_until) {
+    while ($shiftday_from <= $shiftdays_until) {
 
-        $add_shiftday_with_shifts = include 'services/add_shiftday_with_shifts.php';
-        if($add_shiftday_with_shifts($database_pdo, $shiftday, $shift_hour_number))
-            $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i') . ' - ' . $shiftday_to->format('H:i');
+        if(Tables\ShiftsDays::insert($database_pdo, $shiftday))
+            $placeholder['message']['success'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i');
+        else
+            $placeholder['message']['error'][] = $shiftday_from->format('d.m.Y') . ' ' . $shiftday_from->format('H:i');
 
         $shiftday_from->add(new \DateInterval('P7D'));
-        $shiftday_to->add(new \DateInterval('P7D'));
     }
 }
 
