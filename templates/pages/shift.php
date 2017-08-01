@@ -1,6 +1,3 @@
-<?php $get_weekday = include 'templates/helpers/get_weekday.php'; ?>
-<?php $convert_datetime = include 'templates/helpers/convert_datetime.php'; ?>
-
 <h2>Schichten</h2>
 <div class="note-box">
     <p>
@@ -28,19 +25,18 @@
 <?php endif; ?>
 
 <div class="table-container">
-<?php foreach ($placeholder['shiftday_list'] as $shiftday) : ?>
-    <?php $id_shift_day = (int)$shiftday['id_shift_day']; ?>
-    <table>
+<?php foreach ($placeholder['shift_day'] as $id_shift => $shift_list) : ?>
+    <table id="id_shift_<?php echo $id_shift; ?>">
         <thead>
             <tr>
-                <th colspan="2" style="background-color: <?php echo $shiftday['color_hex'];?>">
+                <th colspan="2" style="background-color: <?php echo $shift_list['color_hex'];?>">
                     <h3>
-                        <?php echo $get_weekday($shiftday['time_from']); ?>,
-                        <?php echo $convert_datetime($shiftday['time_from'], 'd.m.Y'); ?> -
-                        <?php echo $shiftday['place']; ?>
+                        <?php echo $shift_list['day']; ?>,
+                        <?php echo $shift_list['date']; ?> -
+                        <?php echo $shift_list['place']; ?>
 
                         <?php if($_SESSION['is_admin']): ?>
-                            <a href="shift-edit.php?id_shift_day=<?php echo $id_shift_day;?>" class="button">
+                            <a href="shift-edit.php?id_shift=<?php echo $id_shift;?>" class="button">
                                 <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
                             </a>
                         <?php endif; ?>
@@ -53,35 +49,29 @@
                 <td colspan="2" style="background-color: <?php echo $shiftday['color_hex'];?>"></td>
             </tr>
         </tfoot>
+        <?php $position = 1; ?>
         <tbody>
-            <?php foreach ($placeholder['shift_list'][$id_shift_day] as $shift) : ?>
-
-            <?php
-                $id_shift = (int)$shift['id_shift'];
-                $user_list = $placeholder['user_list'][$id_shift_day][$id_shift];
-            ?>
+            <?php foreach ($shift_list['shifts'] as $shift_time => $user_list) : ?>
 
             <tr>
-                <td class="shift_time" id="id_shift_day_<?php echo $id_shift_day; ?>">
-                    <?php echo $convert_datetime($shift['time_from']); ?> -
-                    <?php echo $convert_datetime($shift['time_to']); ?>
+                <td class="shift_time">
+                    <?php echo $shift_time;?>
                 </td>
                 <td>
-                    <form method="post">
-                        <input type="hidden" name="id_shift_day" value="<?php echo $id_shift_day; ?>">
+                    <form method="post" action="#id_shift_<?php echo $id_shift; ?>">
                         <input type="hidden" name="id_shift" value="<?php echo $id_shift; ?>">
+                        <input type="hidden" name="position" value="<?php echo $position++; ?>">
                         <?php $has_user_promoted = false;?>
-                        <?php foreach ($user_list as $user) : ?>
-                            <?php $has_user_promoted = (int)$user['id_user'] === $_SESSION['id_user'];?>
-                            <?php $user_name =  $user['firstname'] . ' ' . $user['lastname']; ?>
+                        <?php foreach ($user_list as $id_user => $name) : ?>
+                            <?php $has_user_promoted = $id_user === $_SESSION['id_user'];?>
 
                             <?php if($has_user_promoted): ?>
                                 <button type="submit" name="delete_user" class="enable">
-                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <?php echo $user_name; ?>
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <?php echo $name; ?>
                                 </button>
                             <?php else: ?>
-                                <a href="user-details.php?id_user=<?php echo $user['id_user']; ?>" class="button promoted">
-                                    <i class="fa fa-info" aria-hidden="true"></i> <?php echo $user_name; ?>
+                                <a href="user-details.php?id_shift_type=<?php echo (int)$_GET['id_shift_type'];?>&id_user=<?php echo $id_user; ?>" class="button promoted">
+                                    <i class="fa fa-info" aria-hidden="true"></i> <?php echo $name; ?>
                                 </a>
                             <?php endif; ?>
 
@@ -94,9 +84,7 @@
                         <select name="id_user" class="button promote">
                             <?php foreach ($placeholder['user_promote_list'] as $id_user => $name): ?>
                                 <?php if($has_user_promoted && (int)$id_user === $_SESSION['id_user']) continue; ?>
-                                <option value="<?php echo $id_user; ?>">
-                                    <?php echo $name; ?>
-                                </option>
+                                <option value="<?php echo $id_user; ?>"><?php echo $name; ?></option>
                             <?php endforeach;?>
                         </select>
                         <?php endif; ?>

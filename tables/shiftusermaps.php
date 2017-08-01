@@ -18,61 +18,57 @@ class ShiftUserMaps {
         return ($connection->exec($sql) === false)? false : true;
     }
 
-    static function select_all(\PDO $connection, int $id_shift_day, int $id_shift): array {
+    static function select_all(\PDO $connection, int $id_shift): array {
         $stmt = $connection->prepare(
-            'SELECT SchTeil.id_user, muser.firstname,
-            muser.lastname, muser.mobile
-            FROM ' . self::TABLE_NAME . ' SchTeil
-            LEFT OUTER JOIN users muser
-            ON SchTeil.id_user = muser.id_user
-            WHERE SchTeil.id_shift_day = :id_shift_day
-            AND SchTeil.id_shift = :id_shift'
+            'SELECT position, users.id_user, firstname, lastname
+            FROM ' . self::TABLE_NAME . '
+            LEFT JOIN users
+            ON ' . self::TABLE_NAME . '.id_user = users.id_user
+            WHERE id_shift = :id_shift
+            ORDER BY position'
         );
 
         $stmt->execute(
-            array(
-                ':id_shift_day' => $id_shift_day,
-                ':id_shift' => $id_shift
-            )
+            array(':id_shift' => $id_shift)
         );
 
         $result = $stmt->fetchAll();
         return ($result)? $result : array();
     }
 
-    static function insert (\PDO $connection, int $id_user, int $id_shift_day, int $id_shift): bool {
+    static function insert (\PDO $connection, int $id_shift, int $id_user, int $position): bool {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (id_shift_day, id_shift, id_user)
-            VALUES (:id_shift_day, :id_shift, :id_user)'
+            (id_shift, id_user, position)
+            VALUES (:id_shift, :id_user, :position)'
         );
 
         $stmt->execute(
             array(
-                ':id_shift_day' => $id_shift_day,
                 ':id_shift' => $id_shift,
-                ':id_user' => $id_user
+                ':id_user' => $id_user,
+                ':position' => $position
             )
         );
 
         return $stmt->rowCount() == 1;
     }
 
-    static function delete(\PDO $connection, int $id_user, int $id_shift_day, int $id_shift): bool {
+    static function delete(\PDO $connection, int $id_shift, int $id_user, int $position): bool {
 
         $stmt = $connection->prepare(
             'DELETE FROM ' . self::TABLE_NAME . ' 
-            WHERE id_shift_day = :id_shift_day
-            AND id_shift = :id_shift
-            AND id_user = :id_user'
+            WHERE id_shift = :id_shift
+            AND id_user = :id_user
+            AND position = :position'
         );
 
         $stmt->execute(
             array(
-                ':id_shift_day' => $id_shift_day,
                 ':id_shift' => $id_shift,
-                ':id_user' => $id_user
+                ':id_user' => $id_user,
+                ':position' => $position
             )
         );
 
