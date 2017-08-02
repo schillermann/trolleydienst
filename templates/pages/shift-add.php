@@ -30,12 +30,12 @@
         <fieldset>
             <legend>Schichten</legend>
             <div>
-                <label for="place">Ort <small>(Pflichtfeld)</small></label>
-                <input id="place" type="text" name="place" tabindex="1" required>
+                <label for="route">Route <small>(Pflichtfeld)</small></label>
+                <input id="route" type="text" name="route" tabindex="1" required maxlength="10" placeholder="Wie heißt die Route?">
             </div>
             <div>
-                <label for="date">Datum <small>(Pflichtfeld)</small></label>
-                <input id="date" type="date" name="date" tabindex="2" required>
+                <label for="date_from">Datum <small>(Pflichtfeld)</small></label>
+                <input id="date_from" type="date" name="date_from" tabindex="2" required>
             </div>
             <div>
                 <label for="time_from">Von <small>(Pflichtfeld)</small></label>
@@ -60,7 +60,7 @@
             </div>
             <div>
                 <label for="color_hex">Farbe</label>
-                <input id="color_hex" type="color" name="color_hex" value="#d5c8e4">
+                <input id="color_hex" type="color" name="color_hex" value="#d5c8e4" maxlength="7" required>
             </div>
         </fieldset>
         <div class="from-button">
@@ -70,21 +70,4 @@
         </div>
     </form>
 </div>
-<script>
-    const timeFrom = document.getElementById("time_from");
-    const timeTo = document.getElementById("time_to");
-    const number = document.getElementById("number");
-    const hoursPerShift = document.getElementById("hours_per_shift");
-
-    function calculateShiftTimeTo() {
-        const timeRangeInMinutes = number.value * (hoursPerShift.value * 60);
-        const timeFromSplit = timeFrom.value.split(":");
-
-        const dateFrom = new Date();
-        dateFrom.setHours(timeFromSplit[0]);
-        dateFrom.setMinutes(timeFromSplit[1]);
-
-        const dateTo = new Date(dateFrom.getTime() + timeRangeInMinutes * 60000);
-        timeTo.value = dateTo.getHours() + ":" + ("0" + dateTo.getMinutes()).substr(-2);
-    }
-</script>
+<script type="text/javascript" src="js/calculate_shift_datetime_to.js"></script>

@@ -33,10 +33,10 @@
                     <h3>
                         <?php echo $shift_list['day']; ?>,
                         <?php echo $shift_list['date']; ?> -
-                        <?php echo $shift_list['place']; ?>
+                        <?php echo $shift_list['route']; ?>
 
                         <?php if($_SESSION['is_admin']): ?>
-                            <a href="shift-edit.php?id_shift=<?php echo $id_shift;?>" class="button">
+                            <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
                                 <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
                             </a>
                         <?php endif; ?>

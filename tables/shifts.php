@@ -10,7 +10,7 @@ class Shifts {
             'CREATE TABLE `' . self::TABLE_NAME . '` (
             `id_shift` INTEGER PRIMARY KEY AUTOINCREMENT,
             `id_shift_type` INTEGER NOT NULL,
-            `place` TEXT NOT NULL,
+            `route` TEXT NOT NULL,
             `datetime_from` TEXT NOT NULL,
             `number` INTEGER DEFAULT 1,
             `minutes_per_shift` INTEGER DEFAULT 60,
@@ -19,23 +19,23 @@ class Shifts {
         return ($connection->exec($sql) === false)? false : true;
     }
 
-    static function select_place(\PDO $connection, int $id_shift): string {
+    static function select(\PDO $connection, int $id_shift): array {
         $stmt = $connection->prepare(
-            'SELECT place
+            'SELECT route, datetime_from, number, minutes_per_shift, color_hex
             FROM ' . self::TABLE_NAME . '
             WHERE id_shift = :id_shift'
         );
 
         $stmt->execute(array(':id_shift' => $id_shift));
 
-        $result = $stmt->fetchColumn();
-        return ($result)? $result : '';
+        $result = $stmt->fetch();
+        return ($result === false)? array() : $result;
     }
 
     static function select_all(\PDO $connection, int $id_shift_type): array {
 
         $stmt = $connection->prepare(
-            'SELECT id_shift, place, datetime_from, number, minutes_per_shift, color_hex
+            'SELECT id_shift, route, datetime_from, number, minutes_per_shift, color_hex
             FROM ' . self::TABLE_NAME . '
             WHERE DATE(datetime_from) >= DATE("now")
             AND id_shift_type = :id_shift_type
@@ -57,14 +57,14 @@ class Shifts {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (id_shift_type, place, datetime_from, number, minutes_per_shift, color_hex)
-		    VALUES (:id_shift_type, :place, :date_from, :number, :minutes_per_shift, :color_hex)'
+            (id_shift_type, route, datetime_from, number, minutes_per_shift, color_hex)
+		    VALUES (:id_shift_type, :route, :date_from, :number, :minutes_per_shift, :color_hex)'
         );
 
         $stmt->execute(
             array(
                 ':id_shift_type' => $shift->get_id_shift_type(),
-                ':place' => $shift->get_place(),
+                ':route' => $shift->get_route(),
                 ':date_from' => $shift->get_datetime_from()->format('Y-m-d H:i:s'),
                 ':number' => $shift->get_number(),
                 ':minutes_per_shift' => $shift->get_minutes_per_shift(),
@@ -74,17 +74,20 @@ class Shifts {
         return (int)$connection->lastInsertId();
     }
 
-    static function update(\PDO $connection, int $id_shift, string $place): bool {
+    static function update(\PDO $connection, \Models\Shift $shift): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET place = :place
+            SET route = :route, datetime_from = :datetime_from, minutes_per_shift = :minutes_per_shift, color_hex = :color_hex
             WHERE id_shift = :id_shift'
         );
 
         return $stmt->execute(
             array(
-                ':place' => $place,
-                ':id_shift' => $id_shift
+                ':route' => $shift->get_route(),
+                ':datetime_from' => $shift->get_datetime_from()->format('Y-m-d H:i:s'),
+                ':minutes_per_shift' => $shift->get_minutes_per_shift(),
+                ':color_hex' => $shift->get_color_hex(),
+                ':id_shift' => $shift->get_id_shift()
             )
         );
     }

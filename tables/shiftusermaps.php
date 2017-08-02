@@ -9,9 +9,9 @@ class ShiftUserMaps {
 
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `id_shift_day` INTEGER NOT NULL,
             `id_shift` INTEGER NOT NULL,
             `id_user` INTEGER NOT NULL,
+            `position` INTEGER DEFAULT 1,
             PRIMARY KEY (id_shift_day, id_shift, id_user)
             )';
 

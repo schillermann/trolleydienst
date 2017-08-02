@@ -8,10 +8,10 @@ $placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['save'])) {
 
-    $date = include 'filters/post_date.php';
+    $date_from = include 'filters/post_date_from.php';
 
     $merge_date_and_time = include 'modules/merge_date_and_time.php';
-    $shift_datetime_from = $merge_date_and_time($date, $_POST['time_from']);
+    $shift_datetime_from = $merge_date_and_time($date_from, $_POST['time_from']);
 
     if ($_POST['shiftday_series_until'] != '') {
         $shift_datetime_until = new \DateTime($_POST['shiftday_series_until']);
@@ -23,7 +23,7 @@ if(isset($_POST['save'])) {
     $shift = new Models\Shift(
         0,
         (int)$_GET['id_shift_type'],
-        include 'filters/post_place.php',
+        include 'filters/post_route.php',
         $shift_datetime_from,
         (int)$_POST['number'],
         $_POST['hours_per_shift'] * 60,

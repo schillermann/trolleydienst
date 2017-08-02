@@ -11,7 +11,7 @@
         $shift_day_list[$id_shift] = array(
             'date' => $shift_datetime_from->format('d.m.Y'),
             'day' => $get_weekday($shift_datetime_from),
-            'place' => $shift_day['place'],
+            'route' => $shift_day['route'],
             'color_hex' => $shift_day['color_hex'],
             'shifts' => array()
         );
