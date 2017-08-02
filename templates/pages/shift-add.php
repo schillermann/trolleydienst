@@ -59,27 +59,8 @@
                 <input id="shiftday_series_until" type="date" name="shiftday_series_until" tabindex="6">
             </div>
             <div>
-                <label>Farbe</label>
-                <label class="color-picker" style="background-color: #d5c8e4">
-                    <input type="radio" name="color_hex" value="#d5c8e4" tabindex="7" checked>
-                    Violett
-                </label>
-                <label class="color-picker" style="background-color: #ffc000">
-                    <input type="radio" name="color_hex" value="#ffc000" tabindex="8">
-                    Gelb
-                </label>
-                <label class="color-picker" style="background-color: #a2f5fd">
-                    <input type="radio" name="color_hex" value="#a2f5fd" tabindex="9">
-                    Blau
-                </label>
-                <label class="color-picker" style="background-color: #aff96b">
-                    <input type="radio" name="color_hex" value="#aff96b" tabindex="10">
-                    Grün
-                </label>
-                <label class="color-picker" style="background-color: #d99694">
-                    <input type="radio" name="color_hex" value="#d99694" tabindex="11">
-                    Rot
-                </label>
+                <label for="color_hex">Farbe</label>
+                <input id="color_hex" type="color" name="color_hex" value="#d5c8e4">
             </div>
         </fieldset>
         <div class="from-button">

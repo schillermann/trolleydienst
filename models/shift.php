@@ -3,29 +3,51 @@ namespace Models;
 
 class Shift {
 
-    function __construct(int $id_shift, int $id_shift_day, \DateTime $time_from, \DateTime $time_to) {
-
+    function __construct(
+        int $id_shift,
+        int $id_shift_type,
+        string $place,
+        \DateTime $datetime_from,
+        int $number,
+        int $minutes_per_shift,
+        string $color_hex
+    ) {
         $this->id_shift = $id_shift;
-        $this->time_from = $time_from;
-        $this->time_to = $time_to;
-        $this->id_shift_day = $id_shift_day;
+        $this->id_shift_type = $id_shift_type;
+        $this->place = $place;
+        $this->datetime_from = $datetime_from;
+        $this->number = $number;
+        $this->minutes_per_shift = $minutes_per_shift;
+        $this->color_hex = $color_hex;
     }
 
     function get_id_shift(): int {
         return $this->id_shift;
     }
 
-    function get_id_shift_day(): int {
-        return $this->id_shift_day;
+    function get_id_shift_type(): int {
+        return $this->id_shift_type;
     }
 
-    function get_time_from(): \DateTime {
-        return $this->time_from;
+    function get_place(): string {
+        return $this->place;
     }
 
-    function get_time_to(): \DateTime {
-        return $this->time_to;
+    function get_datetime_from(): \DateTime {
+        return $this->datetime_from;
     }
 
-    protected $id_shift, $id_shift_day, $time_from, $time_to;
+    function get_number(): int {
+        return $this->number;
+    }
+
+    function get_minutes_per_shift(): float {
+        return $this->minutes_per_shift;
+    }
+
+    function get_color_hex(): string {
+        return $this->color_hex;
+    }
+
+    protected $id_shift, $id_shift_type, $place, $datetime_from, $number, $minutes_per_shift, $color_hex;
 }

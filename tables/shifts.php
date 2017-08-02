@@ -50,10 +50,10 @@ class Shifts {
 
     /**
      * @param \PDO $connection
-     * @param \Models\ShiftDay $shift_day
+     * @param \Models\Shift $shift
      * @return int Shiftday ID
      */
-    static function insert(\PDO $connection, \Models\ShiftDay $shift_day): int {
+    static function insert(\PDO $connection, \Models\Shift $shift): int {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
@@ -63,12 +63,12 @@ class Shifts {
 
         $stmt->execute(
             array(
-                ':id_shift_type' => $shift_day->get_id_shift_type(),
-                ':place' => $shift_day->get_place(),
-                ':date_from' => $shift_day->get_datetime_from()->format('Y-m-d H:i:s'),
-                ':number' => $shift_day->get_number(),
-                ':minutes_per_shift' => $shift_day->get_minutes_per_shift(),
-                ':color_hex' => $shift_day->get_color_hex()
+                ':id_shift_type' => $shift->get_id_shift_type(),
+                ':place' => $shift->get_place(),
+                ':date_from' => $shift->get_datetime_from()->format('Y-m-d H:i:s'),
+                ':number' => $shift->get_number(),
+                ':minutes_per_shift' => $shift->get_minutes_per_shift(),
+                ':color_hex' => $shift->get_color_hex()
             )
         );
         return (int)$connection->lastInsertId();
