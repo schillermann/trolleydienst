@@ -63,6 +63,25 @@ dd {
     margin: 0 0 0 10px;
     padding: 0 0 0.5em 0; }
 
+.fade-in {
+    opacity: 1;
+    animation-name: fadeInOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s; }
+.fade-out {
+    opacity: 0;
+    z-index: -1 !important;
+    animation-name: fadeOutOpacity;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s; }
+@keyframes fadeInOpacity {
+    0% { opacity: 0; }
+    100% { opacity: 1; } }
+@keyframes fadeOutOpacity {
+    0% { opacity: 1; }
+    100% { opacity: 0; } }
 /**
  * Header
  **/
@@ -124,20 +143,30 @@ dd {
 /**
  * Messages
  */
-
-.note-box {
-    border: 1px dotted rgba(189,183,181,0.5);
+.info-box {
+    border: 1px dotted #dbd7d4;
     background-color: #faf8f5;
     margin: 1em 0;
     padding: .5em 1em;
+    animation: opac 0.8s;
 }
 
-.note-box .error {
+#note-box {
+    border: 1px dotted #dbd7d4;
+    background-color: #faf8f5;
+    padding: .5em 1em;
+    position: fixed;
+    top: 6px;
+    z-index: 1;
+    box-shadow: 0 0 5px 3px rgba(0,0,0,.05);
+}
+
+#note-box .error {
     font-weight: 400;
     color: #CC0000;
 }
 
-.note-box .success {
+#note-box .success {
     font-weight: 400;
     color: #1E8402;
 }

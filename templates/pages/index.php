@@ -1,6 +1,6 @@
 <div class="container-center">
     <?php if (isset($placeholder['error_message'])) : ?>
-        <div class="note-box">
+        <div id="note-box">
             <p class="error">
                 Anmeldung ist fehlgeschlagen!
             </p>

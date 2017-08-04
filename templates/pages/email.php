@@ -5,7 +5,7 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
 ?>
 <h2>Mail-Versand</h2>
 <?php if (isset($placeholder['message'])) : ?>
-    <div class="note-box">
+    <div id="note-box">
         <?php if (isset($placeholder['message']['success'])): ?>
         <p class="success">
             <?php echo $placeholder['message']['success']; ?>

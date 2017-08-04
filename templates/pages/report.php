@@ -1,7 +1,7 @@
 <h2>Bericht abgeben</h2>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
-        <div class="note-box">
+        <div id="note-box">
             <?php if (isset($placeholder['message']['success'])): ?>
                 <p class="success">
                     <?php echo $placeholder['message']['success'];?>

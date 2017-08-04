@@ -1,27 +1,23 @@
 <?php $file_name = $placeholder['info']['file_name']; ?>
 <h2>Info hochladen</h2>
     <div class="container-center">
-    <?php if (isset($placeholder['update_info_success'])) : ?>
-        <div class="note-box">
-            <?php if ($placeholder['update_info_success']): ?>
-                <p class="success">
-                    Die Datei <?php echo $file_name; ?> wurde geändert.
-                </p>
-            <?php else: ?>
-            <p class="error">
-                Die Datei <?php echo $file_name; ?> konnte nicht geändert werden!
-            </p>
-            <?php endif; ?>
-        </div>
-    <?php elseif (isset($placeholder['delete_info_success'])): ?>
-        <div class="note-box">
-            <?php if (!$placeholder['delete_info_success']): ?>
-                <p class="error">
-                    Die Datei <?php echo $file_name; ?> konnte nicht gelöscht werden!
-                </p>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
+        <?php if (isset($placeholder['message'])) : ?>
+            <div id="note-box" class="fade-in">
+                <?php if (isset($placeholder['message']['success'])) : ?>
+                    <p class="success">
+                        <?php echo $placeholder['message']['success']; ?>
+                    </p>
+                    <button type="button" onclick="closeNoteBox()">
+                        <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                    </button>
+                <?php elseif(isset($placeholder['message']['error'])): ?>
+                    <p class="error">
+                        <?php echo $placeholder['message']['error']; ?>
+                    </p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
     <form method="post">
         <fieldset>
             <legend>Info</legend>
@@ -57,3 +53,4 @@
         </div>
     </form>
 </div>
+<script type="text/javascript" src="js/note_box.js"></script>

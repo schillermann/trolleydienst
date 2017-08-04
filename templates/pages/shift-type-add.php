@@ -2,7 +2,7 @@
 <a href="shift-type.php" tabindex="4" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
-        <div class="note-box">
+        <div id="note-box">
             <?php if (isset($placeholder['message']['success'])) : ?>
                 <p class="success">
                     <?php echo $placeholder['message']['success']; ?>

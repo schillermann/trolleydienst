@@ -1,22 +1,31 @@
 <h2>Schichten</h2>
-<div class="note-box">
-    <p>
-        <a target="_blank" href="https://wol.jw.org/de/wol/d/r10/lp-x/202015126">Das Predigen mit Trolleys und Infostand — wie?</a>
-    </p>
-</div>
 <?php if (isset($placeholder['message'])) : ?>
-    <div class="note-box">
+    <div id="note-box" class="fade-in">
         <?php if (isset($placeholder['message']['success'])) : ?>
             <p class="success">
                 <?php echo $placeholder['message']['success']; ?>
             </p>
+            <button type="button" onclick="closeNoteBox()">
+                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+            </button>
         <?php elseif(isset($placeholder['message']['error'])): ?>
             <p class="error">
                 <?php echo $placeholder['message']['error']; ?>
             </p>
         <?php endif; ?>
+        <!--
+        <button type="button">
+            <i class="fa fa-undo" aria-hidden="true"></i> rückgängig
+        </button>
+        -->
     </div>
 <?php endif; ?>
+
+<div class="info-box">
+    <p>
+        <a target="_blank" href="https://wol.jw.org/de/wol/d/r10/lp-x/202015126">Das Predigen mit Trolleys und Infostand — wie?</a>
+    </p>
+</div>
 
 <?php if($_SESSION['is_admin']): ?>
 <a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
@@ -96,3 +105,4 @@
     </table>
     <?php endforeach; ?>
 </div>
+<script type="text/javascript" src="js/note_box.js"></script>

@@ -3,7 +3,7 @@
 <div class="container-center">
 
     <?php if (isset($placeholder['message'])) : ?>
-        <div class="note-box">
+        <div id="note-box">
             <?php if (isset($placeholder['message']['success'])): ?>
                 <p class="success">
                     <?php echo $placeholder['message']['success'];?>
@@ -11,20 +11,6 @@
             <?php elseif (isset($placeholder['message']['error'])): ?>
                 <p class="error">
                     <?php echo $placeholder['message']['error'];?>
-                </p>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if (isset($placeholder['profile_save'])) : ?>
-        <div class="note-box">
-            <?php if ($placeholder['profile_save']): ?>
-                <p class="success">
-                    Dein Profil wurde gespeichert.
-                </p>
-            <?php else: ?>
-                <p class="error">
-                    Dein Profil konnte nicht gespeichert werden!
                 </p>
             <?php endif; ?>
         </div>
