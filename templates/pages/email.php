@@ -5,7 +5,7 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
 ?>
 <h2>Mail-Versand</h2>
 <?php if (isset($placeholder['message'])) : ?>
-    <div id="note-box">
+    <div id="note-box" class="fade-in">
         <?php if (isset($placeholder['message']['success'])): ?>
         <p class="success">
             <?php echo $placeholder['message']['success']; ?>
@@ -23,6 +23,9 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
             <?php echo $placeholder['message']['error']; ?>
         </p>
         <?php endif;?>
+        <button type="button" onclick="closeNoteBox()">
+            <i class="fa fa-times" aria-hidden="true"></i> schliessen
+        </button>
     </div>
 <?php endif;?>
 

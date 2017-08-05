@@ -105,4 +105,3 @@
     </table>
     <?php endforeach; ?>
 </div>
-<script type="text/javascript" src="js/note_box.js"></script>

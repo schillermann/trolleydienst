@@ -25,6 +25,7 @@ class Database {
             Shifts::create_table($connection) &&
             ShiftTypes::create_table($connection) &&
             ShiftUserMaps::create_table($connection) &&
-            Infos::create_table($connection);
+            Infos::create_table($connection) &&
+            History::create_table($connection);
     }
 }

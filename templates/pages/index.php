@@ -1,9 +1,12 @@
 <div class="container-center">
     <?php if (isset($placeholder['error_message'])) : ?>
-        <div id="note-box">
+        <div id="note-box" class="fade-in">
             <p class="error">
                 Anmeldung ist fehlgeschlagen!
             </p>
+            <button type="button" onclick="closeNoteBox()">
+                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+            </button>
         </div>
     <?php endif; ?>
     <form method="post">

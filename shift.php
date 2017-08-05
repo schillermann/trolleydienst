@@ -13,17 +13,47 @@ $id_shift_type = (int)$_GET['id_shift_type'];
 
 if(isset($_POST['delete_user'])) {
 
-    if(Tables\ShiftUserMaps::delete($database_pdo, (int)$_POST['id_shift'], $_SESSION['id_user'], (int)$_POST['position']))
+    if(Tables\ShiftUserMaps::delete($database_pdo, (int)$_POST['id_shift'], $_SESSION['id_user'], (int)$_POST['position'])) {
+        Tables\History::insert(
+            $database_pdo,
+            $_SESSION['id_user'],
+            Tables\History::SHIFT_WITHDRAWN_SUCCESS,
+            'Die Bewerbung von ' . $_SESSION['name'] . ' wurde zurück gezogen.'
+        );
+
         $placeholder['message']['success'] = 'Deine Bewerbung wurde zurück gezogen.';
-    else
+    } else {
+        Tables\History::insert(
+            $database_pdo,
+            $_SESSION['id_user'],
+            Tables\History::SHIFT_WITHDRAWN_SUCCESS,
+            'Die Bewerbung von ' . $_SESSION['name'] . ' konnte nicht zurück gezogen werden!'
+        );
         $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht zurück gezogen werden!';
+    }
 }
 elseif (isset($_POST['promote_user'])) {
 
-    if(Tables\ShiftUserMaps::insert($database_pdo, (int)$_POST['id_shift'], (int)$_POST['id_user'], (int)$_POST['position']))
+    if(Tables\ShiftUserMaps::insert($database_pdo, (int)$_POST['id_shift'], (int)$_POST['id_user'], (int)$_POST['position'])) {
+        Tables\History::insert(
+            $database_pdo,
+            $_SESSION['id_user'],
+            Tables\History::SHIFT_PROMOTE_SUCCESS,
+            'Die Bewerbung von ' . $_SESSION['name'] . ' wurde angenommen.'
+        );
+
         $placeholder['message']['success'] = 'Deine Bewerbung wurde angenommen.';
-    else
+    }
+    else {
+        Tables\History::insert(
+            $database_pdo,
+            $_SESSION['id_user'],
+            Tables\History::SHIFT_PROMOTE_SUCCESS,
+            'Die Bewerbung von ' . $_SESSION['name'] . ' konnte nicht angenommen werden!'
+        );
+
         $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht angenommen werden!';
+    }
 }
 
 $placeholder['user_per_shift_max'] = Tables\ShiftTypes::select_user_per_shift_max($database_pdo, $id_shift_type);

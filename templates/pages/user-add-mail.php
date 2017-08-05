@@ -1,13 +1,9 @@
 <h2>Neuer Teilnehmer</h2>
 <div class="container-center">
-    <div class="note-box">
+    <div id="note-box" class="fade-in">
         <p class="success">
             Der Teilnehmer wurde angelegt.
         </p>
-    </div>
-</div>
-<div class="container-center">
-    <div class="note-box">
         <p class="success">
             Login Daten wurden an <b><?php echo $placeholder['email']; ?></b> gesendet.
         </p>

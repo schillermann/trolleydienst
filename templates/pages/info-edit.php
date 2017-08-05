@@ -15,6 +15,9 @@
                         <?php echo $placeholder['message']['error']; ?>
                     </p>
                 <?php endif; ?>
+                <button type="button" onclick="closeNoteBox()">
+                    <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                </button>
             </div>
         <?php endif; ?>
 
@@ -53,4 +56,3 @@
         </div>
     </form>
 </div>
-<script type="text/javascript" src="js/note_box.js"></script>

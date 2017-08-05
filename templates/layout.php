@@ -50,6 +50,9 @@
                     <li>
                         <a href="email.php" class="<?php $active_page('email.php');?>">E-Mail</a>
                     </li>
+                    <li>
+                        <a href="history.php" class="<?php $active_page('history.php');?>">Verlauf</a>
+                    </li>
                     <?php endif;?>
                     <li style="float:right">
                         <a href="/?logout">Abmelden</a>
@@ -67,6 +70,6 @@
                 </div>
             </footer>
         </div>
-
+        <script type="text/javascript" src="js/note_box.js"></script>
     </body>
 </html>

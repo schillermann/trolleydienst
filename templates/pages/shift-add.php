@@ -4,7 +4,7 @@
 </a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
-        <div id="note-box">
+        <div id="note-box" class="fade-in">
             <?php if (isset($placeholder['message']['success'])) : ?>
                 <p class="success">
                     Folgende Schichten wurden angelegt:
@@ -24,6 +24,9 @@
                 </ul>
                 </p>
             <?php endif; ?>
+            <button type="button" onclick="closeNoteBox()">
+                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+            </button>
         </div>
     <?php endif; ?>
     <form method="post">

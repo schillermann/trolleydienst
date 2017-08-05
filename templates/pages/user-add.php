@@ -2,10 +2,13 @@
 <a href="user.php" tabindex="12" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message']['error'])) : ?>
-    <div id="note-box">
+    <div id="note-box" class="fade-in">
         <p class="error">
             <?php echo $placeholder['message']['error']; ?>
         </p>
+        <button type="button" onclick="closeNoteBox()">
+            <i class="fa fa-times" aria-hidden="true"></i> schliessen
+        </button>
     </div>
     <?php endif;?>
     <form method="post">
