@@ -55,7 +55,7 @@
         </thead>
         <tfoot>
             <tr>
-                <td colspan="2" style="background-color: <?php echo $shiftday['color_hex'];?>"></td>
+                <td colspan="2" style="background-color: <?php echo $shift_list['color_hex'];?>"></td>
             </tr>
         </tfoot>
         <?php $position = 1; ?>

@@ -16,7 +16,7 @@ class History {
             `id_history` INTEGER PRIMARY KEY AUTOINCREMENT,
             `id_user` INTEGER NOT NULL,
             `type` TEXT NOT NULL,
-            `description` TEXT NOT NULL,
+            `message` TEXT NOT NULL,
             `datetime` TEXT NOT NULL
             )';
 
@@ -25,11 +25,12 @@ class History {
 
     static function select_all(\PDO $connection, array $type): array {
         $stmt = $connection->prepare(
-            'SELECT firstname || " " || lastname AS name, type, description, datetime
+            'SELECT firstname || " " || lastname AS name, type, message, datetime
             FROM ' . self::TABLE_NAME . '
             LEFT JOIN users
             ON ' . self::TABLE_NAME . '.id_user = users.id_user
-            WHERE type = "' . join('" OR type = "', $type) . '"'
+            WHERE type = "' . join('" OR type = "', $type) . '"
+            ORder BY datetime DESC'
         );
 
         $stmt->execute();
@@ -38,19 +39,19 @@ class History {
         return ($result)? $result : array();
     }
 
-    static function insert(\PDO $connection, int $id_user, string $type, string $description): bool {
+    static function insert(\PDO $connection, int $id_user, string $type, string $message): bool {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (id_user, type, description, datetime)
-		    VALUES (:id_user, :type, :description, datetime("NOW"))'
+            (id_user, type, message, datetime)
+		    VALUES (:id_user, :type, :message, datetime("now", "localtime"))'
         );
 
         $stmt->execute(
             array(
                 ':id_user' => $id_user,
                 ':type' => $type,
-                ':description' => $description
+                ':message' => $message
             )
         );
         return $stmt->rowCount() == 1;

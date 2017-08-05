@@ -41,7 +41,7 @@ class Users {
 
     static function select_all(\PDO $connection): array {
         $stmt = $connection->query(
-            'SELECT id_user, firstname, lastname, email, username, is_admin, is_active 
+            'SELECT id_user, firstname, lastname, email, username, is_admin, is_active, last_login 
             FROM ' . self::TABLE_NAME
         );
         $result = $stmt->fetchAll();
@@ -174,7 +174,7 @@ class Users {
     static function update_login_time(\PDO $connection, int $id_user): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET last_login = "' . date('Y-m-d H:i:s') . '"
+            SET last_login = datetime("now", "localtime")
             WHERE id_user = :id_user'
         );
 
