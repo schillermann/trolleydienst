@@ -14,45 +14,51 @@ $id_shift_type = (int)$_GET['id_shift_type'];
 if(isset($_POST['delete_user'])) {
 
     if(Tables\ShiftUserMaps::delete($database_pdo, (int)$_POST['id_shift'], $_SESSION['id_user'], (int)$_POST['position'])) {
-        Tables\History::insert(
-            $database_pdo,
-            $_SESSION['id_user'],
-            Tables\History::SHIFT_WITHDRAWN_SUCCESS,
-            'Die Bewerbung von ' . $_SESSION['name'] . ' wurde zurück gezogen.'
-        );
 
-        $placeholder['message']['success'] = 'Deine Bewerbung wurde zurück gezogen.';
-    } else {
+        $placeholder['message']['success'] = 'Die Bewerbung von ' . $_SESSION['name'] . ' wurde zurück gezogen.';
+
         Tables\History::insert(
             $database_pdo,
             $_SESSION['id_user'],
             Tables\History::SHIFT_WITHDRAWN_SUCCESS,
-            'Die Bewerbung von ' . $_SESSION['name'] . ' konnte nicht zurück gezogen werden!'
+            $placeholder['message']['success']
         );
-        $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht zurück gezogen werden!';
+    } else {
+        $placeholder['message']['error'] = 'Die Bewerbung von ' . $_SESSION['name'] . ' konnte nicht zurück gezogen werden!';
+
+        Tables\History::insert(
+            $database_pdo,
+            $_SESSION['id_user'],
+            Tables\History::SHIFT_WITHDRAWN_SUCCESS,
+            $placeholder['message']['error']
+        );
     }
 }
 elseif (isset($_POST['promote_user'])) {
 
-    if(Tables\ShiftUserMaps::insert($database_pdo, (int)$_POST['id_shift'], (int)$_POST['id_user'], (int)$_POST['position'])) {
+    $id_user = (int)$_POST['id_user'];
+    $user_name = Tables\Users::select_user_name($database_pdo, $id_user);
+
+    if(Tables\ShiftUserMaps::insert($database_pdo, (int)$_POST['id_shift'], $id_user, (int)$_POST['position'])) {
+
+        $placeholder['message']['success'] = 'Die Bewerbung für ' . $user_name . ' wurde angenommen.';
+
         Tables\History::insert(
             $database_pdo,
             $_SESSION['id_user'],
             Tables\History::SHIFT_PROMOTE_SUCCESS,
-            'Die Bewerbung von ' . $_SESSION['name'] . ' wurde angenommen.'
+            $placeholder['message']['success']
         );
-
-        $placeholder['message']['success'] = 'Deine Bewerbung wurde angenommen.';
     }
     else {
+        $placeholder['message']['error'] = 'Die Bewerbung von ' . $user_name . ' konnte nicht angenommen werden!';
+
         Tables\History::insert(
             $database_pdo,
             $_SESSION['id_user'],
             Tables\History::SHIFT_PROMOTE_SUCCESS,
-            'Die Bewerbung von ' . $_SESSION['name'] . ' konnte nicht angenommen werden!'
+            $placeholder['message']['error']
         );
-
-        $placeholder['message']['error'] = 'Deine Bewerbung konnte nicht angenommen werden!';
     }
 }
 

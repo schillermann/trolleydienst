@@ -89,6 +89,21 @@ class Users {
         return ($result === false)? array() : $result;
     }
 
+    static function select_user_name(\PDO $connection, int $id_user): string {
+
+        $stmt = $connection->prepare(
+            'SELECT firstname || " " || lastname AS name
+            FROM ' . self::TABLE_NAME . '
+            WHERE id_user = :id_user'
+        );
+
+        $stmt->execute(
+            array(':id_user' => $id_user)
+        );
+        $result = $stmt->fetchColumn();
+        return ($result)? $result : 0;
+    }
+
     static function select_id_user(\PDO $connection, string $username, string $email): int {
         $stmt = $connection->prepare(
             'SELECT id_user
