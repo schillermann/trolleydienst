@@ -19,7 +19,7 @@ if(isset($_POST['delete_user'])) {
 
         Tables\History::insert(
             $database_pdo,
-            $_SESSION['id_user'],
+            $_SESSION['name'],
             Tables\History::SHIFT_WITHDRAWN_SUCCESS,
             $placeholder['message']['success']
         );
@@ -28,7 +28,7 @@ if(isset($_POST['delete_user'])) {
 
         Tables\History::insert(
             $database_pdo,
-            $_SESSION['id_user'],
+            $_SESSION['name'],
             Tables\History::SHIFT_WITHDRAWN_SUCCESS,
             $placeholder['message']['error']
         );
@@ -45,7 +45,7 @@ elseif (isset($_POST['promote_user'])) {
 
         Tables\History::insert(
             $database_pdo,
-            $_SESSION['id_user'],
+            $_SESSION['name'],
             Tables\History::SHIFT_PROMOTE_SUCCESS,
             $placeholder['message']['success']
         );
@@ -55,7 +55,7 @@ elseif (isset($_POST['promote_user'])) {
 
         Tables\History::insert(
             $database_pdo,
-            $_SESSION['id_user'],
+            $_SESSION['name'],
             Tables\History::SHIFT_PROMOTE_SUCCESS,
             $placeholder['message']['error']
         );

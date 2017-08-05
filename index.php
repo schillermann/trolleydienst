@@ -32,8 +32,16 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         header('location: shift.php');
         return;
     }
-    else
-        $placeholder['error_message'] = true;
+    else {
+        $placeholder['message']['error'] = 'Anmeldung ist fehlgeschlagen!';
+
+        Tables\History::insert(
+            $database_pdo,
+            $username,
+            Tables\History::LOGIN_ERROR,
+            $placeholder['message']['error']
+        );
+    }
 }
 
 $render_page = include 'includes/render_page.php';

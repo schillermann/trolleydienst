@@ -18,7 +18,7 @@
 
         $sort_shift_history_list[$type][] = array(
             'datetime' => $shift_history['datetime'],
-            'user' => $shift_history['name'],
+            'user' => $shift_history['user'],
             'message' => $shift_history['message']
         );
     }

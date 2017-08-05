@@ -9,12 +9,14 @@ class History {
     const SHIFT_PROMOTE_SUCCESS = 'shift promote success';
     const SHIFT_PROMOTE_ERROR = 'shift promote error';
 
+    const LOGIN_ERROR = 'login error';
+
     static function create_table(\PDO $connection): bool
     {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
             `id_history` INTEGER PRIMARY KEY AUTOINCREMENT,
-            `id_user` INTEGER NOT NULL,
+            `user` TEXT NOT NULL,
             `type` TEXT NOT NULL,
             `message` TEXT NOT NULL,
             `datetime` TEXT NOT NULL
@@ -25,10 +27,8 @@ class History {
 
     static function select_all(\PDO $connection, array $type): array {
         $stmt = $connection->prepare(
-            'SELECT firstname || " " || lastname AS name, type, message, datetime
+            'SELECT user, type, message, datetime
             FROM ' . self::TABLE_NAME . '
-            LEFT JOIN users
-            ON ' . self::TABLE_NAME . '.id_user = users.id_user
             WHERE type = "' . join('" OR type = "', $type) . '"
             ORder BY datetime DESC'
         );
@@ -39,17 +39,17 @@ class History {
         return ($result)? $result : array();
     }
 
-    static function insert(\PDO $connection, int $id_user, string $type, string $message): bool {
+    static function insert(\PDO $connection, string $user, string $type, string $message): bool {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (id_user, type, message, datetime)
-		    VALUES (:id_user, :type, :message, datetime("now", "localtime"))'
+            (user, type, message, datetime)
+		    VALUES (:user, :type, :message, datetime("now", "localtime"))'
         );
 
         $stmt->execute(
             array(
-                ':id_user' => $id_user,
+                ':user' => $user,
                 ':type' => $type,
                 ':message' => $message
             )
