@@ -39,8 +39,8 @@
                 <input id="phone" type="text" name="phone" tabindex="6" value="<?php echo (isset($_POST['phone']))? $_POST['phone'] : '';?>">
             </div>
             <div>
-                <label for="congregation">Versammlung</label>
-                <input id="congregation" type="text" name="congregation" tabindex="7" value="<?php echo (isset($_POST['congregation']))? $_POST['congregation'] : '';?>">
+                <label for="congregation_name">Versammlung</label>
+                <input id="congregation_name" type="text" name="congregation_name" tabindex="7" value="<?php echo (isset($_POST['congregation_name']))? $_POST['congregation_name'] : '';?>">
             </div>
             <div>
                 <label for="language">Sprache</label>

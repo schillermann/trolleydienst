@@ -53,8 +53,8 @@
                 <input id="phone" type="text" name="phone" tabindex="10" value="<?php echo $placeholder['user']['phone'];?>">
             </div>
             <div>
-                <label for="congregation">Versammlung</label>
-                <input id="congregation" type="text" name="congregation" tabindex="11" value="<?php echo $placeholder['user']['congregation'];?>">
+                <label for="congregation_name">Versammlung</label>
+                <input id="congregation_name" type="text" name="congregation_name" tabindex="11" value="<?php echo $placeholder['user']['congregation_name'];?>">
             </div>
             <div>
                 <label for="language">Sprache</label>

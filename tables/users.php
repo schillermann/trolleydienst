@@ -19,7 +19,7 @@ class Users {
             `is_admin` INTEGER DEFAULT 0,
             `phone` TEXT DEFAULT NULL,
             `mobile` TEXT DEFAULT NULL,
-            `congregation` TEXT DEFAULT NULL,
+            `congregation_name` TEXT DEFAULT NULL,
             `language` TEXT DEFAULT NULL,
             `note_user` TEXT NULL,
             `note_admin` TEXT NULL,
@@ -77,7 +77,7 @@ class Users {
 
         $stmt = $connection->prepare(
             'SELECT firstname, lastname, email, username, is_active, is_admin,
-            phone, mobile, congregation, language, note_admin, note_user
+            phone, mobile, congregation_name, language, note_admin, note_user
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
         );
@@ -118,15 +118,15 @@ class Users {
                 ':email' => $email
             )
         );
-        $result = $user_id = $stmt->fetchColumn();
+        $user_id = $stmt->fetchColumn();
 
-        return ($result === false)? 0 : $result;
+        return ($user_id === false)? 0 : $user_id;
     }
 
     static function select_profile(\PDO $connection, int $id_user): array {
 
         $stmt = $connection->prepare(
-            'SELECT firstname, lastname, email, username, phone, mobile, congregation, language, note_user
+            'SELECT firstname, lastname, email, username, phone, mobile, congregation_name, language, note_user
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
         );
@@ -189,7 +189,7 @@ class Users {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
             SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
-            phone = :phone, mobile = :mobile, congregation = :congregation, language = :language, 
+            phone = :phone, mobile = :mobile, congregation_name = :congregation_name, language = :language, 
             note_user = :note_user
             WHERE id_user = :id_user'
         );
@@ -202,7 +202,7 @@ class Users {
                 ':username' => $profile->get_username(),
                 ':phone' => $profile->get_phone(),
                 ':mobile' => $profile->get_mobile(),
-                ':congregation' => $profile->get_congregation(),
+                ':congregation_name' => $profile->get_congregation_name(),
                 ':language' => $profile->get_language(),
                 ':note_user' => $profile->get_note_user(),
                 ':id_user' => $profile->get_id_user()
@@ -216,7 +216,7 @@ class Users {
             'UPDATE ' . self::TABLE_NAME . '
             SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
             is_active = :is_active, is_admin = :is_admin, phone = :phone, mobile = :mobile,
-            congregation = :congregation, language = :language, note_admin = :note_admin
+            congregation_name = :congregation_name, language = :language, note_admin = :note_admin
             WHERE id_user = :id_user'
         );
 
@@ -230,7 +230,7 @@ class Users {
                 ':is_admin' => (int)$user->is_admin(),
                 ':phone' => $user->get_phone(),
                 ':mobile' => $user->get_mobile(),
-                ':congregation' => $user->get_congregation(),
+                ':congregation_name' => $user->get_congregation_name(),
                 ':language' => $user->get_language(),
                 ':note_admin' => $user->get_note_admin(),
                 ':id_user' => $user->get_id_user()
@@ -262,11 +262,11 @@ class Users {
             'INSERT INTO ' . self::TABLE_NAME . '
             (
                 firstname, lastname, email, username, password, is_admin,
-                is_active, phone, mobile, congregation, language, note_admin
+                is_active, phone, mobile, congregation_name, language, note_admin
             )
             VALUES (
                 :firstname, :lastname, :email, :username, :password, :is_admin,
-                :is_active, :phone, :mobile, :congregation, :language, :note_admin
+                :is_active, :phone, :mobile, :congregation_name, :language, :note_admin
             )'
         );
 
@@ -281,7 +281,7 @@ class Users {
                 ':is_active' => (int)$user->is_active(),
                 ':phone' => $user->get_phone(),
                 ':mobile' => $user->get_mobile(),
-                ':congregation' => $user->get_congregation(),
+                ':congregation_name' => $user->get_congregation_name(),
                 ':language' => $user->get_language(),
                 ':note_admin' => $user->get_note_admin()
             )

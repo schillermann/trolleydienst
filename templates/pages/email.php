@@ -3,7 +3,11 @@ $recipient_all = ($placeholder['recipient'] == Enum\Recipient::ALL)? 'selected' 
 $recipient_literature_table = ($placeholder['recipient'] == Enum\Recipient::LITERATURE_TABLE)? 'selected' : '';
 $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITERATURE_CART)? 'selected' : '';
 ?>
-<h2>Mail-Versand</h2>
+<h2>E-Mail Versand</h2>
+<a href="email-settings.php" tabindex="5" class="button active">
+    <i class="fa fa-cog" aria-hidden="true"></i> E-Mail Einstellungen
+</a>
+<div class="container-center">
 <?php if (isset($placeholder['message'])) : ?>
     <div id="note-box" class="fade-in">
         <?php if (isset($placeholder['message']['success'])): ?>
@@ -31,23 +35,14 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
 
 <form method="post">
     <fieldset>
-        <legend>Mail</legend>
-
-        <div>
-            <label for="recipient">Empfänger</label>
-            <select id="subject" name="recipient" tabindex="1">
-                <option value="<?php echo Enum\Recipient::ALL; ?>" <?php echo $recipient_all; ?>>Alle</option>
-                <option value="<?php echo Enum\Recipient::LITERATURE_TABLE; ?>" <?php echo $recipient_literature_table; ?>>Infostand</option>
-                <option value="<?php echo Enum\Recipient::LITERATURE_CART; ?>" <?php echo $recipient_literature_cart; ?>>Trolley</option>
-            </select>
-        </div>
+        <legend>An alle Teilnehmer</legend>
         <div>
             <label for="subject">Betreff <small>(Pflichtfeld)</small></label>
-            <input id="subject" type="text" name="subject" tabindex="2" required value="<?php echo $placeholder['subject']; ?>">
+            <input id="subject" type="text" name="subject" class="email-subject" tabindex="2" required value="<?php echo $placeholder['template_email_info']['subject']; ?>">
         </div>
         <div>
             <label for="text">Text <small>(Pflichtfeld)</small></label>
-            <textarea id="text" name="text" tabindex="3" rows="20" required><?php echo $placeholder['text'];?></textarea>
+            <textarea id="text" name="text" tabindex="3" rows="20" required><?php echo $placeholder['template_email_info']['message'];?></textarea>
         </div>
 
     </fieldset>
@@ -57,3 +52,4 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
         </button>
     </div>
 </form>
+</div>

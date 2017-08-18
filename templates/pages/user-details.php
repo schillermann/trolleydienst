@@ -19,10 +19,10 @@
                 <dd><a href="tel:<?php echo $placeholder['user']['phone']; ?>"><?php echo $placeholder['user']['phone']; ?></a></dd>
             <?php endif;?>
             <dt>Versammlung</dt>
-            <?php if(empty($placeholder['user']['congregation'])): ?>
+            <?php if(empty($placeholder['user']['congregation_name'])): ?>
                 <dd>fehlt</dd>
             <?php else : ?>
-                <dd><?php echo $placeholder['user']['congregation']; ?></dd>
+                <dd><?php echo $placeholder['user']['congregation_name']; ?></dd>
             <?php endif; ?>
             <dt>Sprache</dt>
             <?php if(empty($placeholder['user']['language'])): ?>

@@ -10,13 +10,13 @@
             <tr>
                 <th>Name</th>
                 <th>Teilnehmer pro Schicht maximal</th>
-                <th>Bearbeiten</th>
+                <th>Aktion</th>
             </tr>
             <?php foreach ($placeholder['shift_type_list'] as $shift_type) : ?>
             <tr>
                 <td><?php echo $shift_type['name']; ?></td>
                 <td><?php echo $shift_type['user_per_shift_max']; ?></td>
-                <td><a class="button" href="shift-type-edit.php?id_shift_type=<?php echo (int)$shift_type['id_shift_type'];?>"><i class="fa fa-pencil fa-6" aria-hidden="true"></i></a></td>
+                <td><a class="button" href="shift-type-edit.php?id_shift_type=<?php echo (int)$shift_type['id_shift_type'];?>"><i class="fa fa-pencil fa-6" aria-hidden="true"></i> bearbeiten</a></td>
             </tr>
             <?php endforeach; ?>
         </table>

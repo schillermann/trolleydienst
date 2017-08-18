@@ -14,7 +14,7 @@ class User {
         bool $is_active = true,
         string $phone = '',
         string $mobile = '',
-        string $congregation = '',
+        string $congregation_name = '',
         string $language = '',
         string $note_admin = '',
         string $note_user = ''
@@ -29,7 +29,7 @@ class User {
         $this->is_active = $is_active;
         $this->phone = $phone;
         $this->mobile = $mobile;
-        $this->congregation = $congregation;
+        $this->congregation_name = $congregation_name;
         $this->language = $language;
         $this->note_admin = $note_admin;
         $this->note_user = $note_user;
@@ -75,8 +75,8 @@ class User {
         return $this->mobile;
     }
 
-    function get_congregation(): string {
-        return $this->congregation;
+    function get_congregation_name(): string {
+        return $this->congregation_name;
     }
 
     function get_language(): string {
@@ -92,5 +92,5 @@ class User {
     }
 
     protected $id_user, $firstname, $lastname, $email, $username, $password, $is_admin, $is_active, $phone, $mobile;
-    protected $congregation, $language, $note_user, $note_admin;
+    protected $congregation_name, $language, $note_user, $note_admin;
 }

@@ -46,8 +46,8 @@
                 <input id="mobile" type="tel" name="mobile" tabindex="6" value="<?php echo $placeholder['profile']['mobile']; ?>">
             </div>
             <div>
-                <label for="congregation">Versammlung</label>
-                <input id="congregation" type="text" name="congregation" tabindex="7" value="<?php echo $placeholder['profile']['congregation']; ?>">
+                <label for="congregation_name">Versammlung</label>
+                <input id="congregation_name" type="text" name="congregation_name" tabindex="7" value="<?php echo $placeholder['profile']['congregation_name']; ?>">
             </div>
             <div>
                 <label for="language">Sprache</label>

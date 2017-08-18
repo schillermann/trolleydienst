@@ -255,12 +255,6 @@ fieldset div input, fieldset div select {
     display: block;
 }
 
-.color-picker {
-    display: block;
-    width: 250px;
-    font-weight: bold;
-}
-
 .from-button {
     margin: 1.5em 0 1em;
 }
@@ -292,6 +286,9 @@ button:hover, .button:hover {
 
 .promoted {
     background-color: #d5c8e4; }
+
+.email-subject {
+    width: 100%; }
 
 /**
  * Icons

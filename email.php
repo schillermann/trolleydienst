@@ -23,8 +23,7 @@ if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text']))
     $placeholder['EMAIL_ADDRESS_REPLY'] = EMAIL_ADDRESS_REPLY;
     $placeholder['WEBSITE_LINK'] = $_SERVER['SERVER_NAME'];
 
-    $render_template_static = include 'modules/render_template_static.php';
-    $placeholder['text'] = $render_template_static('templates/emails/mail.txt', $placeholder);
+    $placeholder['template_email_info'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_INFO);
 }
 
 $render_page = include 'includes/render_page.php';
