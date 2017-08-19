@@ -1,29 +1,34 @@
 <?php
 $placeholder = require 'includes/init_page.php';
 
-$placeholder['recipient'] = '';
-$placeholder['subject'] = '';
-$placeholder['text'] = '';
+if(isset($_POST['send']) && !empty($_POST['email_subject']) && !empty($_POST['email_message'])) {
 
-if(isset($_POST['send']) && !empty($_POST['subject']) && !empty($_POST['text'])) {
+    $placeholder['email'] = array();
+    $placeholder['email']['subject'] = $_POST['email_subject'];
+    $placeholder['email']['message'] = $_POST['email_message'];
 
-    $placeholder['recipient'] = $_POST['recipient'];
-    $placeholder['subject'] = $_POST['subject'];
-    $placeholder['text'] = $_POST['text'];
+    $placeholder['user_list'] = Tables\Users::select_all_email($database_pdo);
 
-    $placeholder['user_list'] = Tables\Users::select_all_email($database_pdo, $placeholder['recipient']);
-
-    if(true)
+    if(empty($placeholder['user_list']))
+        $placeholder['message']['error'] = 'Es wurden keine E-Mail Adresse für den Versand gefunden!';
+    else {
         $placeholder['message']['success'] = 'E-Mail wurde versendet an:';
-    else
-        $placeholder['message']['error'] = 'E-Mail konnte nicht versendet werden!';
-} else {
-    $placeholder['TEAM_NAME'] = TEAM_NAME;
-    $placeholder['CONGREGATION_NAME'] = CONGREGATION_NAME;
-    $placeholder['EMAIL_ADDRESS_REPLY'] = EMAIL_ADDRESS_REPLY;
-    $placeholder['WEBSITE_LINK'] = $_SERVER['SERVER_NAME'];
 
-    $placeholder['template_email_info'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_INFO);
+        foreach ($placeholder['user_list'] as $user) {
+            $replace_with = array(
+                'FIRSTNAME' => $user['firstname'],
+                'LASTNAME' => $user['lastname']
+            );
+            $email_message = strtr($placeholder['email']['message'], $replace_with);
+
+            $send_mail_plain = include 'modules/send_mail_plain.php';
+            if($send_mail_plain($user['email'], $placeholder['email']['subject'], $email_message))
+                $placeholder['user_list'][] = $user;
+        }
+    }
+} else {
+    $get_email_template = include 'includes/get_email_template.php';
+    $placeholder['email'] = $get_email_template($database_pdo);
 }
 
 $render_page = include 'includes/render_page.php';

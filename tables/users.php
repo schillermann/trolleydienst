@@ -48,7 +48,7 @@ class Users {
         return ($result === false)? array() : $result;
     }
 
-    static function select_all_email(\PDO $connection, string $recipient): array {
+    static function select_all_email(\PDO $connection): array {
 
         $stmt = $connection->query(
             'SELECT firstname, lastname, email FROM ' . self::TABLE_NAME . ' WHERE is_active = 1 '

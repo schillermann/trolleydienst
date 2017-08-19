@@ -161,6 +161,11 @@ dd {
     box-shadow: 0 0 5px 3px rgba(0,0,0,.05);
 }
 
+#note-box-content {
+    max-height: 200px;
+    overflow: auto;
+}
+
 #note-box .error {
     font-weight: 400;
     color: #CC0000;
