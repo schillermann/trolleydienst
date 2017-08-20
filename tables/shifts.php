@@ -21,7 +21,7 @@ class Shifts {
 
     static function select(\PDO $connection, int $id_shift): array {
         $stmt = $connection->prepare(
-            'SELECT route, datetime_from, number, minutes_per_shift, color_hex
+            'SELECT id_shift_type, route, datetime_from, number, minutes_per_shift, color_hex
             FROM ' . self::TABLE_NAME . '
             WHERE id_shift = :id_shift'
         );

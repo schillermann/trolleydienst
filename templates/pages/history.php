@@ -5,7 +5,7 @@
     <div class="table-container">
         <table>
             <tr>
-                <th>Zeit</th>
+                <th>Ausgeführt am</th>
                 <th>Ausgeführt von</th>
                 <th>Mitteilung</th>
             </tr>
@@ -24,7 +24,7 @@
     <div class="table-container">
         <table>
             <tr>
-                <th>Zeit</th>
+                <th>Ausgeführt am</th>
                 <th>Ausgeführt von</th>
                 <th>Mitteilung</th>
             </tr>
@@ -44,7 +44,7 @@
     <div class="table-container">
         <table>
             <tr>
-                <th>Zeit</th>
+                <th>Ausgeführt am</th>
                 <th>Benutzername</th>
                 <th>Mitteilung</th>
             </tr>

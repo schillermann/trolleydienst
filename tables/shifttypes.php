@@ -21,16 +21,33 @@ class ShiftTypes {
         $stmt = $connection->prepare(
             'SELECT name, user_per_shift_max
           FROM ' . self::TABLE_NAME . '
-          WHERE id_shift_type = ' . $id_shift_type
+          WHERE id_shift_type = :id_shift_type'
         );
 
-        $stmt->execute();
+        $stmt->execute(
+            array(':id_shift_type' => $id_shift_type)
+        );
 
         $result = $stmt->fetch();
         return ($result)? $result : array();
     }
 
-    static function select_first_id_shift_type(\PDO $connection) {
+    static function select_name(\PDO $connection, int $id_shift_type): string {
+        $stmt = $connection->prepare(
+            'SELECT name
+          FROM ' . self::TABLE_NAME . '
+          WHERE id_shift_type = :id_shift_type'
+        );
+
+        $stmt->execute(
+            array(':id_shift_type' => $id_shift_type)
+        );
+
+        $result = $stmt->fetchColumn();
+        return ($result)? $result : '';
+    }
+
+    static function select_first_id_shift_type(\PDO $connection): int {
         $stmt = $connection->prepare(
             'SELECT id_shift_type
           FROM ' . self::TABLE_NAME . ' LIMIT 1'
