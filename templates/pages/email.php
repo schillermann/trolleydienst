@@ -5,7 +5,7 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
 ?>
 <h2>E-Mail Versand</h2>
 <a href="email-settings.php" tabindex="5" class="button active">
-    <i class="fa fa-cog" aria-hidden="true"></i> E-Mail Einstellungen
+    <i class="fa fa-cog"></i> E-Mail Einstellungen
 </a>
 <div class="container-center">
 <?php if (isset($placeholder['message'])) : ?>
@@ -30,7 +30,7 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
             </p>
         <?php endif;?>
         <button type="button" onclick="closeNoteBox()">
-            <i class="fa fa-times" aria-hidden="true"></i> schliessen
+            <i class="fa fa-times"></i> schliessen
         </button>
     </div>
 <?php endif;?>

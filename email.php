@@ -27,7 +27,7 @@ if(isset($_POST['send']) && !empty($_POST['email_subject']) && !empty($_POST['em
         }
     }
 } else {
-    $get_email_template = include 'includes/get_email_template.php';
+    $get_email_template = include 'services/get_email_template.php';
     $placeholder['email'] = $get_email_template($database_pdo);
 }
 

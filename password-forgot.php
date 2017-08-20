@@ -21,24 +21,20 @@ if(isset($_POST['password_reset'])) {
         if(Tables\Users::update_password($database_pdo, $id_user, $new_password)) {
 
             $user = Tables\Users::select_firstname_and_lastname($database_pdo, $id_user);
-            $email_template = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT);
+            $get_template_email_password_forgot = include 'services/get_email_template.php';
+            $email_template = $get_template_email_password_forgot($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT);
 
-            $subject_replace_with = array(
-                'APPLICATION_NAME' => APPLICATION_NAME,
-                'CONGREGATION_NAME' => CONGREGATION_NAME
-            );
-            $email_subject = strtr($email_template['subject'], $subject_replace_with);
-
-            $message_replace_with = array(
+            $replace_with = array(
                 'FIRSTNAME' => $user['firstname'],
                 'LASTNAME' => $user['lastname'],
                 'PASSWORD' => $new_password
             );
-            $email_message = strtr($email_template['message'], $message_replace_with);
+
+            $email_template_message = strtr($email_template['message'], $replace_with);
 
             $send_mail_plain = include 'modules/send_mail_plain.php';
 
-            if($send_mail_plain($send_to_email, $email_subject, $email_message))
+            if($send_mail_plain($send_to_email, $email_template['subject'], $email_template_message))
                 $placeholder['message']['success'] = 'Dein neues Passwort wurde an <b>' . $send_to_email . '</b> versandt.';
         } else {
             $placeholder['message']['error'] = 'Dein Passwort konnte nicht geändert werden!';
