@@ -3,7 +3,7 @@ namespace Models;
 
 class Report {
 	function __construct(
-		int $id_user,
+		string $name,
 		int $id_shift_type,
 		\DateTime $shift_from,
 		int $book,
@@ -15,7 +15,7 @@ class Report {
 		int $talk,
 		string $note) {
 
-		$this->id_user = $id_user;
+		$this->name = $name;
 		$this->id_shift_type = $id_shift_type;
 		$this->shift_from = $shift_from;
 		$this->book = $book;
@@ -28,8 +28,8 @@ class Report {
 		$this->note = $note;
 	}
 
-	function get_id_user(): int {
-		return $this->id_user;
+	function get_name(): string {
+		return $this->name;
 	}
 	function get_id_shift_type(): int {
 		return $this->id_shift_type;
@@ -62,5 +62,5 @@ class Report {
 		return $this->note;
 	}
 
-	protected $id_user, $id_shift_type, $shift_from, $book, $brochure, $bible, $magazine, $tract, $address, $talk, $note;
+	protected $name, $id_shift_type, $shift_from, $book, $brochure, $bible, $magazine, $tract, $address, $talk, $note;
 }
