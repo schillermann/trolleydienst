@@ -13,9 +13,9 @@ if(isset($_POST['save'])) {
 	$shift_datetime_from = $merge_date_and_time($date_from, $_POST['time_from']);
 
 	$report = new Models\Report(
-		(int)$_POST['id_user'],
 		$placeholder['id_shift_type'],
-		$shift_datetime_from,
+		include 'filters/post_name.php',
+		include 'filters/post_route.php',
 		(int)$_POST['book'],
 		(int)$_POST['brochure'],
 		(int)$_POST['bible'],
@@ -23,7 +23,8 @@ if(isset($_POST['save'])) {
 		(int)$_POST['tract'],
 		(int)$_POST['address'],
 		(int)$_POST['talk'],
-		include 'filters/post_note.php'
+		include 'filters/post_note.php',
+		$shift_datetime_from
 	);
 	if(Tables\Reports::insert($database_pdo, $report))
 		$placeholder['message']['success'] = 'Dein Bericht wurde gespeichert.';
@@ -32,8 +33,8 @@ if(isset($_POST['save'])) {
 }
 
 $placeholder['user_list'] = Tables\Users::select_all($database_pdo);
+$placeholder['route_list'] = Tables\Shifts::select_route_list($database_pdo, $placeholder['id_shift_type']);
 $placeholder['shifttype_list'] = Tables\ShiftTypes::select_all($database_pdo);
-
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

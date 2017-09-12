@@ -10,18 +10,19 @@ class Reports
 	{
 		$sql =
 			'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `id_report`	INTEGER PRIMARY KEY AUTOINCREMENT,
-			`id_shift_type`	INTEGER NOT NULL,
-			`name` TEXT NOT NULL,
-			`shift_datetime_from`	TEXT NOT NULL,
-			`book` INTEGER,
-			`brochure` INTEGER,
-			`bible`	INTEGER,
-			`magazine` INTEGER,
-			`tract`	INTEGER,
-			`address` INTEGER,
-			`talk` INTEGER,
-			`note` TEXT
+				`id_report`	INTEGER PRIMARY KEY AUTOINCREMENT,
+				`id_shift_type`	INTEGER NOT NULL,
+				`name` TEXT NOT NULL,
+				`route` TEXT NOT NULL,
+				`book` INTEGER,
+				`brochure` INTEGER,
+				`bible`	INTEGER,
+				`magazine` INTEGER,
+				`tract`	INTEGER,
+				`address` INTEGER,
+				`talk` INTEGER,
+				`note` TEXT,
+				`shift_datetime_from` TEXT NOT NULL
             )';
 
 		return ($connection->exec($sql) === false) ? false : true;
@@ -45,15 +46,15 @@ class Reports
 	static function insert(\PDO $connection, \Models\Report $report): bool {
 		$stmt = $connection->prepare(
 			'INSERT INTO ' . self::TABLE_NAME . '
-			(name, id_shift_type, shift_datetime_from, book, brochure, bible, magazine, tract, address, talk, note)
-            VALUES (:id_user, :id_shift_type, :shift_datetime_from, :book, :brochure, :bible, :magazine, :tract, :address, :talk, :note)'
+			(id_shift_type, name, route, book, brochure, bible, magazine, tract, address, talk, note, shift_datetime_from)
+            VALUES (:id_shift_type, :name, :route, :book, :brochure, :bible, :magazine, :tract, :address, :talk, :note, :shift_datetime_from)'
 		);
 
 		$stmt->execute(
 			array(
-				':name' => $report->get_name(),
 				':id_shift_type' => $report->get_id_shift_type(),
-				':shift_datetime_from' => $report->get_shift_from()->format('Y-m-d H:i:s'),
+				':name' => $report->get_name(),
+				':route' => $report->get_route(),
 				':book' => $report->get_book(),
 				':brochure' => $report->get_brochure(),
 				':bible' => $report->get_bible(),
@@ -61,7 +62,8 @@ class Reports
 				':tract' => $report->get_tract(),
 				':address' => $report->get_address(),
 				':talk' => $report->get_talk(),
-				':note' => $report->get_note()
+				':note' => $report->get_note(),
+				':shift_datetime_from' => $report->get_shift_from()->format('Y-m-d H:i:s')
 			)
 		);
 		return $stmt->rowCount() == 1;

@@ -33,6 +33,16 @@
 					<?php endforeach;?>
 				</select>
 			</div>
+            <div>
+                <label for="route">Route</label>
+                <select id="route" name="route" tabindex="2">
+					<?php foreach($placeholder['route_list'] as $route): ?>
+                        <option value="<?php echo $route['route'];?>">
+							<?php echo $route['route'];?>
+                        </option>
+					<?php endforeach;?>
+                </select>
+            </div>
 			<div>
 				<label for="date_from">Schichtzeit Datum <small>(Pflichtfeld)</small></label>
 				<input id="date_from" type="date" name="date_from" tabindex="3" required value="<?php echo (isset($_POST['date_from']))? $_POST['date_from'] : '';?>">

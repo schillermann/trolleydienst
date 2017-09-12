@@ -48,6 +48,22 @@ class Shifts {
         return ($result)? $result : array();
     }
 
+    static function select_route_list(\PDO $connection, int $id_shift_type): array {
+		$stmt = $connection->prepare(
+			'SELECT route
+            FROM ' . self::TABLE_NAME . '
+            WHERE id_shift_type = :id_shift_type
+            GROUP BY route'
+		);
+
+		$stmt->execute(
+			array(':id_shift_type' => $id_shift_type)
+		);
+
+		$result = $stmt->fetchAll();
+		return ($result)? $result : array();
+	}
+
     /**
      * @param \PDO $connection
      * @param \Models\Shift $shift
