@@ -9,39 +9,37 @@ class Users {
 
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `id_user` INTEGER PRIMARY KEY AUTOINCREMENT,
-            `firstname` TEXT NOT NULL,
-            `lastname` TEXT NOT NULL,
-            `email` TEXT NOT NULL,
-            `username` TEXT NOT NULL,
-            `password` TEXT NOT NULL,
-            `is_active` INTEGER DEFAULT 1,
-            `is_admin` INTEGER DEFAULT 0,
-            `phone` TEXT DEFAULT NULL,
-            `mobile` TEXT DEFAULT NULL,
-            `congregation_name` TEXT DEFAULT NULL,
-            `language` TEXT DEFAULT NULL,
-            `note_user` TEXT NULL,
-            `note_admin` TEXT NULL,
-            `last_login` TEXT DEFAULT NULL)';
+            `id_user`	INTEGER PRIMARY KEY AUTOINCREMENT,
+			`name`	TEXT NOT NULL UNIQUE,
+			`email`	TEXT NOT NULL,
+			`password`	TEXT NOT NULL,
+			`phone`	TEXT DEFAULT NULL,
+			`mobile`	TEXT DEFAULT NULL,
+			`congregation_name`	TEXT DEFAULT NULL,
+			`language`	TEXT DEFAULT NULL,
+			`note_user`	TEXT,
+			`note_admin`	TEXT,
+			`last_login`	TEXT DEFAULT NULL,
+			`is_active`	INTEGER DEFAULT 1,
+			`is_admin`	INTEGER DEFAULT 0)';
 
         return ($connection->exec($sql) === false)? false : true;
     }
 
-    static function is_username(\PDO $connection, string $username): bool {
+    static function is_name(\PDO $connection, string $name): bool {
         $stmt = $connection->prepare(
-            'SELECT username FROM ' . self::TABLE_NAME . ' WHERE username = :username'
+            'SELECT name FROM ' . self::TABLE_NAME . ' WHERE name = :name'
         );
 
         $stmt->execute(
-            array(':username' => $username)
+            array(':name' => $name)
         );
         return (bool)$stmt->rowCount();
     }
 
     static function select_all(\PDO $connection): array {
         $stmt = $connection->query(
-            'SELECT id_user, firstname, lastname, email, username, is_admin, is_active, last_login 
+            'SELECT id_user, name, email, is_admin, is_active, last_login 
             FROM ' . self::TABLE_NAME
         );
         $result = $stmt->fetchAll();
@@ -51,7 +49,7 @@ class Users {
     static function select_all_email(\PDO $connection): array {
 
         $stmt = $connection->query(
-            'SELECT firstname, lastname, email FROM ' . self::TABLE_NAME . ' WHERE is_active = 1 '
+            'SELECT name, email FROM ' . self::TABLE_NAME . ' WHERE is_active = 1 '
         );
 
         $result = $stmt->fetchAll();
@@ -60,11 +58,11 @@ class Users {
 
     static function select_all_without_user(\PDO $connection, int $id_user): array {
         $stmt = $connection->prepare(
-            'SELECT id_user, firstname, lastname
+            'SELECT id_user, name
             FROM ' . self::TABLE_NAME . '
             WHERE id_user <> :id_user
             AND is_active = 1
-            ORDER BY firstname');
+            ORDER BY name');
 
         $stmt->execute(
             array(':id_user' => $id_user)
@@ -76,7 +74,7 @@ class Users {
     static function select_user(\PDO $connection, int $id_user): array {
 
         $stmt = $connection->prepare(
-            'SELECT firstname, lastname, email, username, is_active, is_admin,
+            'SELECT name, email, is_active, is_admin,
             phone, mobile, congregation_name, language, note_admin, note_user
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
@@ -89,10 +87,10 @@ class Users {
         return ($result === false)? array() : $result;
     }
 
-    static function select_user_name(\PDO $connection, int $id_user): string {
+    static function select_name(\PDO $connection, int $id_user): string {
 
         $stmt = $connection->prepare(
-            'SELECT firstname || " " || lastname AS name
+            'SELECT name
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
         );
@@ -101,20 +99,20 @@ class Users {
             array(':id_user' => $id_user)
         );
         $result = $stmt->fetchColumn();
-        return ($result)? $result : 0;
+        return ($result)? $result : '';
     }
 
-    static function select_id_user(\PDO $connection, string $username, string $email): int {
+    static function select_id_user(\PDO $connection, string $name, string $email): int {
         $stmt = $connection->prepare(
             'SELECT id_user
         FROM ' . self::TABLE_NAME . '
-        WHERE username = :username
+        WHERE name = :name
         AND email = :email'
         );
 
         $stmt->execute(
             array(
-                ':username' => $username,
+                ':name' => $name,
                 ':email' => $email
             )
         );
@@ -126,7 +124,7 @@ class Users {
     static function select_profile(\PDO $connection, int $id_user): array {
 
         $stmt = $connection->prepare(
-            'SELECT firstname, lastname, email, username, phone, mobile, congregation_name, language, note_user
+            'SELECT name, email, phone, mobile, congregation_name, language, note_user
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
         );
@@ -138,32 +136,18 @@ class Users {
         return ($result === false)? array() : $result;
     }
 
-    static function select_firstname_and_lastname(\PDO $connection, int $id_user): array {
+    static function select_logindata(\PDO $connection, string $name, string $password): array {
         $stmt = $connection->prepare(
-            'SELECT firstname, lastname
-            FROM ' . self::TABLE_NAME . '
-            WHERE id_user = :id_user'
-        );
-
-        $stmt->execute(
-            array(':id_user' => $id_user)
-        );
-        $result = $stmt->fetch();
-        return ($result === false)? array() : $result;
-    }
-
-    static function select_logindata(\PDO $connection, string $username, string $password): array {
-        $stmt = $connection->prepare(
-            'SELECT id_user, firstname, lastname, email, is_admin
+            'SELECT id_user, email, is_admin
             FROM ' . self::TABLE_NAME . '
             WHERE is_active = 1
-            AND username = :username
+            AND name = :name
             AND password = :password'
         );
 
         $stmt->execute(
             array(
-                ':username' => $username,
+                ':name' => $name,
                 ':password' => md5($password)
             )
         );
@@ -188,18 +172,16 @@ class Users {
     static function update_profile(\PDO $connection, \Models\Profile $profile): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
-            phone = :phone, mobile = :mobile, congregation_name = :congregation_name, language = :language, 
+            SET name = :name, email = :email, phone = :phone, mobile = :mobile,
+            congregation_name = :congregation_name, language = :language, 
             note_user = :note_user
             WHERE id_user = :id_user'
         );
 
         $stmt->execute(
             array(
-                ':firstname' => $profile->get_firstname(),
-                ':lastname' => $profile->get_lastname(),
+                ':name' => $profile->get_name(),
                 ':email' => $profile->get_email(),
-                ':username' => $profile->get_username(),
                 ':phone' => $profile->get_phone(),
                 ':mobile' => $profile->get_mobile(),
                 ':congregation_name' => $profile->get_congregation_name(),
@@ -214,18 +196,15 @@ class Users {
     static function update_user(\PDO $connection, \Models\User $user): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET firstname = :firstname, lastname = :lastname, email = :email, username = :username,
-            is_active = :is_active, is_admin = :is_admin, phone = :phone, mobile = :mobile,
-            congregation_name = :congregation_name, language = :language, note_admin = :note_admin
+            SET name = :name, email = :email, is_active = :is_active, is_admin = :is_admin, phone = :phone,
+            mobile = :mobile, congregation_name = :congregation_name, language = :language, note_admin = :note_admin
             WHERE id_user = :id_user'
         );
 
         $stmt->execute(
             array(
-                ':firstname' => $user->get_firstname(),
-                ':lastname' => $user->get_lastname(),
+                ':name' => $user->get_name(),
                 ':email' => $user->get_email(),
-                ':username' => $user->get_username(),
                 ':is_active' => (int)$user->is_active(),
                 ':is_admin' => (int)$user->is_admin(),
                 ':phone' => $user->get_phone(),
@@ -261,22 +240,20 @@ class Users {
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
             (
-                firstname, lastname, email, username, password, is_admin,
+                name, email, password, is_admin,
                 is_active, phone, mobile, congregation_name, language, note_admin
             )
             VALUES (
-                :firstname, :lastname, :email, :username, :password, :is_admin,
+                :name, :email, :password, :is_admin,
                 :is_active, :phone, :mobile, :congregation_name, :language, :note_admin
             )'
         );
 
         $stmt->execute(
             array(
-                ':firstname' => $user->get_firstname(),
-                ':lastname' => $user->get_lastname(),
+                ':name' => $user->get_name(),
                 ':email' => $user->get_email(),
-                ':username' => $user->get_username(),
-                ':password' => $user->get_password(),
+                ':password' => md5($user->get_password()),
                 ':is_admin' => (int)$user->is_admin(),
                 ':is_active' => (int)$user->is_active(),
                 ':phone' => $user->get_phone(),

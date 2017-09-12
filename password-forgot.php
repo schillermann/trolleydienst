@@ -12,7 +12,7 @@ if(isset($_POST['password_reset'])) {
     $id_user = Tables\Users::select_id_user($database_pdo, $username, $send_to_email);
 
     if($id_user == 0) {
-        $placeholder['message']['error'] = 'Benutzername oder E-Mail existiert nicht!';
+        $placeholder['message']['error'] = 'Name oder E-Mail existiert nicht!';
     }
     else {
         $generate_password = include 'helpers/generate_password.php';
@@ -20,13 +20,11 @@ if(isset($_POST['password_reset'])) {
 
         if(Tables\Users::update_password($database_pdo, $id_user, $new_password)) {
 
-            $user = Tables\Users::select_firstname_and_lastname($database_pdo, $id_user);
             $get_template_email_password_forgot = include 'services/get_email_template.php';
             $email_template = $get_template_email_password_forgot($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT);
 
             $replace_with = array(
-                'FIRSTNAME' => $user['firstname'],
-                'LASTNAME' => $user['lastname'],
+                'NAME' => Tables\Users::select_name($database_pdo, $id_user),
                 'PASSWORD' => $new_password
             );
 

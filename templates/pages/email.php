@@ -18,7 +18,7 @@ $recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITER
                 <table>
                     <?php foreach ($placeholder['user_list'] as $user): ?>
                         <tr>
-                            <td><?php echo $user['firstname']; ?> <?php echo $user['lastname']; ?></td>
+                            <td><?php echo $user['name']; ?></td>
                             <td><?php echo $user['email']; ?></td>
                         </tr>
                     <?php endforeach; ?>

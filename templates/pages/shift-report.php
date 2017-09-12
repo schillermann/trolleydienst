@@ -28,7 +28,7 @@
 				<select id="id_user" name="id_user" tabindex="1">
 					<?php foreach($placeholder['user_list'] as $user): ?>
 						<option value="<?php echo $user['id_user'];?>" <?php echo ((int)$user['id_user'] === $selected_user_id)? 'selected':'';?>>
-							<?php echo $user['firstname'] . ' ' . $user['lastname'];?>
+							<?php echo $user['name'];?>
 						</option>
 					<?php endforeach;?>
 				</select>

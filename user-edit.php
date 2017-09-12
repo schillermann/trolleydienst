@@ -10,10 +10,8 @@ $id_user = (int)$_GET['id_user'];
 if (isset($_POST['save'])) {
     $user = new Models\User(
         $id_user,
-        include 'filters/post_firstname.php',
-        include 'filters/post_lastname.php',
+        include 'filters/post_name.php',
         include 'filters/post_email.php',
-        include 'filters/post_username.php',
         '',
         include 'filters/post_is_admin.php',
         include 'filters/post_is_active.php',

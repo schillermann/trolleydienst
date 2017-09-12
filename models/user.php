@@ -5,10 +5,8 @@ class User {
 
     function __construct(
         int $id_user,
-        string $firstname,
-        string $lastname,
+        string $name,
         string $email,
-        string $username,
         string $password,
         bool $is_admin = false,
         bool $is_active = true,
@@ -20,11 +18,9 @@ class User {
         string $note_user = ''
     ) {
         $this->id_user = $id_user;
-        $this->firstname = $firstname;
-        $this->lastname = $lastname;
+        $this->name = $name;
         $this->email = $email;
-        $this->username = $username;
-        $this->password = md5($password);
+        $this->password = $password;
         $this->is_admin = $is_admin;
         $this->is_active = $is_active;
         $this->phone = $phone;
@@ -39,20 +35,12 @@ class User {
         return $this->id_user;
     }
 
-    function get_firstname(): string {
-        return $this->firstname;
-    }
-
-    function get_lastname(): string {
-        return $this->lastname;
+    function get_name(): string {
+        return $this->name;
     }
 
     function get_email(): string {
         return $this->email;
-    }
-
-    function get_username(): string {
-        return $this->username;
     }
 
     function get_password(): string {
@@ -91,6 +79,6 @@ class User {
         return $this->note_admin;
     }
 
-    protected $id_user, $firstname, $lastname, $email, $username, $password, $is_admin, $is_active, $phone, $mobile;
+    protected $id_user, $name, $email, $password, $is_admin, $is_active, $phone, $mobile;
     protected $congregation_name, $language, $note_user, $note_admin;
 }

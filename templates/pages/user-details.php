@@ -2,7 +2,7 @@
 <a href="shift.php?id_shift_type=<?php echo (int)$_GET['id_shift_type'];?>" tabindex="1" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
 <div class="container-center">
     <fieldset>
-        <legend><?php echo $placeholder['user']['firstname']; ?> <?php echo $placeholder['user']['lastname']; ?></legend>
+        <legend><?php echo $placeholder['user']['name']; ?></legend>
         <dl>
             <dt>E-Mail</dt>
                 <dd><a href="mailto:<?php echo $placeholder['user']['email'];?>?subject=Trolleydienst"><?php echo $placeholder['user']['email']; ?></a></dd>

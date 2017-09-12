@@ -5,14 +5,12 @@ class Profile {
     /**
      * Profile constructor.
      * @param int $id_user
-     * @param array $data With keys: firstname, lastname, email, username, phone, mobile, congregation_name, language, note_user
+     * @param array $data With keys: name, email, phone, mobile, congregation_name, language, note_user
      */
     function __construct(int $id_user, array $data) {
         $this->id_user = $id_user;
-        $this->firstname = (isset($data['firstname']))? $data['firstname'] : '';
-        $this->lastname = (isset($data['lastname']))? $data['lastname'] : '';
+        $this->name = (isset($data['name']))? $data['name'] : '';
         $this->email = (isset($data['email']))? $data['email'] : '';
-        $this->username = (isset($data['username']))? $data['username'] : '';
         $this->phone = (isset($data['phone']))? $data['phone'] : '';
         $this->mobile = (isset($data['mobile']))? $data['mobile'] : '';
         $this->congregation_name = (isset($data['congregation_name']))? $data['congregation_name'] : '';
@@ -24,20 +22,12 @@ class Profile {
         return $this->id_user;
     }
 
-    function get_firstname(): string {
-        return $this->firstname;
-    }
-
-    function get_lastname(): string {
-        return $this->lastname;
+    function get_name(): string {
+        return $this->name;
     }
 
     function get_email(): string {
         return $this->email;
-    }
-
-    function get_username(): string {
-        return $this->username;
     }
 
     function get_phone(): string {
@@ -60,5 +50,5 @@ class Profile {
         return $this->note_user;
     }
 
-    protected $id_user, $firstname, $lastname, $email, $username, $phone, $mobile, $congregation_name, $language, $note_user;
+    protected $id_user, $name, $email, $phone, $mobile, $congregation_name, $language, $note_user;
 }

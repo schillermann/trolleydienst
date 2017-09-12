@@ -1,5 +1,5 @@
 <h2>Passwort vergessen</h2>
-<a href="index.php" tabindex="4" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
+<a href="index.php" tabindex="4" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
 <div class="container-center">
 
     <?php if (isset($placeholder['message'])) : ?>
@@ -14,7 +14,7 @@
                 </p>
             <?php endif; ?>
             <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                <i class="fa fa-times"></i> schliessen
             </button>
         </div>
     <?php endif; ?>
@@ -23,8 +23,8 @@
         <fieldset>
             <legend>Passwort anfordern</legend>
             <div>
-                <label for="username">Benutzername <small>(Pflichtfeld)</small></label>
-                <input id="username" type="text" name="username" tabindex="1" required">
+                <label for="name">Name <small>(Pflichtfeld)</small></label>
+                <input id="name" name="name" tabindex="1" required">
             </div>
             <div>
                 <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
@@ -33,8 +33,8 @@
 
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="password_reset" class="active" tabindex="3">
-                <i class="fa fa-undo" aria-hidden="true"></i> Neues Passwort anfordern
+            <button name="password_reset" class="active" tabindex="3">
+                <i class="fa fa-undo"></i> Neues Passwort anfordern
             </button>
         </div>
     </form>

@@ -16,7 +16,7 @@ class History {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
             `id_history` INTEGER PRIMARY KEY AUTOINCREMENT,
-            `user` TEXT NOT NULL,
+            `name` TEXT NOT NULL,
             `type` TEXT NOT NULL,
             `message` TEXT NOT NULL,
             `datetime` TEXT NOT NULL
@@ -27,7 +27,7 @@ class History {
 
     static function select_all(\PDO $connection, array $type): array {
         $stmt = $connection->prepare(
-            'SELECT user, type, message, datetime
+            'SELECT name, type, message, datetime
             FROM ' . self::TABLE_NAME . '
             WHERE type = "' . join('" OR type = "', $type) . '"
             ORder BY datetime DESC'
@@ -39,17 +39,17 @@ class History {
         return ($result)? $result : array();
     }
 
-    static function insert(\PDO $connection, string $user, string $type, string $message): bool {
+    static function insert(\PDO $connection, string $name, string $type, string $message): bool {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (user, type, message, datetime)
-		    VALUES (:user, :type, :message, datetime("now", "localtime"))'
+            (name, type, message, datetime)
+		    VALUES (:name, :type, :message, datetime("now", "localtime"))'
         );
 
         $stmt->execute(
             array(
-                ':user' => $user,
+                ':name' => $name,
                 ':type' => $type,
                 ':message' => $message
             )

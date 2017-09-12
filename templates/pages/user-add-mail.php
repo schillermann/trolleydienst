@@ -9,7 +9,7 @@
         </p>
         <table>
             <tr>
-                <td>Benutzername</td>
+                <td>Name</td>
                 <td><?php echo $placeholder['username']; ?></td>
             </tr>
             <tr>

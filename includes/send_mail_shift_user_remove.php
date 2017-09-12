@@ -1,12 +1,11 @@
 <?php
-return function (\DateTime $shift_datetime_from, \DateTime $shift_datetime_to, string $firstname, string $lastname): bool {
+return function (\DateTime $shift_datetime_from, \DateTime $shift_datetime_to, string $name): bool {
 
     $placeholder = array(
         'SHIFT_DATE' => $shift_datetime_from->format('d.m.Y'),
         'SHIFT_TIME_FROM' => $shift_datetime_from->format('H:i'),
         'SHIFT_TIME_TO' => $shift_datetime_to->format('H:i'),
-        'FIRSTNAME' => $firstname,
-        'LASTNAME' => $lastname
+        'NAME' => $name
     );
 
     $render_mail = include 'modules/render_mail.php';

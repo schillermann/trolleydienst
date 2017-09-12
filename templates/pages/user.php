@@ -13,10 +13,8 @@
 <div class="table-container">
     <table>
         <tr>
-            <th>Vorname</th>
-            <th>Nachname</th>
+            <th>Name</th>
             <th>E-Mail</th>
-            <th>Benutzername</th>
             <th>Aktiv</th>
             <th>Admin</th>
             <th>Letzter Login</th>
@@ -24,10 +22,8 @@
         </tr>
         <?php foreach ($placeholder['user_list'] as $user) : ?>
         <tr>
-            <td><?php echo $user['firstname'];?></td>
-            <td><?php echo $user['lastname'];?></td>
+            <td><?php echo $user['name'];?></td>
             <td><?php echo $user['email'];?></td>
-            <td><?php echo $user['username'];?></td>
             <td><i class="fa <?php echo ($user['is_active']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
             <td><i class="fa <?php echo ($user['is_admin']) ? 'fa-check' : 'fa-times';?>" aria-hidden="true"></i></td>
             <td><?php echo $user['last_login'];?></td>

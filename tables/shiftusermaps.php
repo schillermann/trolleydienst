@@ -20,7 +20,7 @@ class ShiftUserMaps {
 
     static function select_all(\PDO $connection, int $id_shift): array {
         $stmt = $connection->prepare(
-            'SELECT position, users.id_user, firstname, lastname
+            'SELECT position, users.id_user, name
             FROM ' . self::TABLE_NAME . '
             LEFT JOIN users
             ON ' . self::TABLE_NAME . '.id_user = users.id_user

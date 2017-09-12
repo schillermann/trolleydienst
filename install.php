@@ -24,10 +24,8 @@ if(isset($_POST['install'])) {
 
         $user = new Models\User(
             1,
-            $input_list['firstname'],
-            $input_list['lastname'],
+            $input_list['name'],
             $input_list['email'],
-            $input_list['username'],
             $_POST['password'],
             true
         );

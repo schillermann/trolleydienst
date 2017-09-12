@@ -12,7 +12,7 @@
             <?php foreach ($placeholder['shift_error_list'] as $shift_history) : ?>
                 <tr>
                     <td><?php echo $shift_history['datetime'];?></td>
-                    <td><?php echo $shift_history['user'];?></td>
+                    <td><?php echo $shift_history['name'];?></td>
                     <td><?php echo $shift_history['message'];?></td>
                 </tr>
             <?php endforeach; ?>
@@ -31,7 +31,7 @@
             <?php foreach ($placeholder['shift_success_list'] as $shift_history) : ?>
                 <tr>
                     <td><?php echo $shift_history['datetime'];?></td>
-                    <td><?php echo $shift_history['user'];?></td>
+                    <td><?php echo $shift_history['name'];?></td>
                     <td><?php echo $shift_history['message'];?></td>
                 </tr>
             <?php endforeach; ?>
@@ -45,13 +45,13 @@
         <table>
             <tr>
                 <th>Ausgeführt am</th>
-                <th>Benutzername</th>
+                <th>Name</th>
                 <th>Mitteilung</th>
             </tr>
             <?php foreach ($placeholder['login_error_list'] as $shift_history) : ?>
                 <tr>
                     <td><?php echo $shift_history['datetime'];?></td>
-                    <td><?php echo $shift_history['user'];?></td>
+                    <td><?php echo $shift_history['name'];?></td>
                     <td><?php echo $shift_history['message'];?></td>
                 </tr>
             <?php endforeach; ?>

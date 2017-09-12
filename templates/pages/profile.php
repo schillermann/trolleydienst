@@ -13,7 +13,7 @@
                 </p>
             <?php endif; ?>
             <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                <i class="fa fa-times"></i> schliessen
             </button>
         </div>
     <?php endif; ?>
@@ -22,20 +22,12 @@
         <fieldset>
             <legend>Kontaktdaten</legend>
             <div>
-                <label for="firstname">Vorname <small>(Pflichtfeld)</small></label>
-                <input id="firstname" type="text" name="firstname" tabindex="1" required value="<?php echo $placeholder['profile']['firstname']; ?>">
-            </div>
-            <div>
-                <label for="lastname">Nachname <small>(Pflichtfeld)</small></label>
-                <input id="lastname" type="text" name="lastname" tabindex="2" required value="<?php echo $placeholder['profile']['lastname']; ?>">
+                <label for="name">Name <small>(Pflichtfeld)</small></label>
+                <input id="name" name="name" tabindex="1" required value="<?php echo $placeholder['profile']['name']; ?>">
             </div>
             <div>
                 <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
                 <input id="email" type="email" name="email" tabindex="3" required value="<?php echo $placeholder['profile']['email']; ?>">
-            </div>
-            <div>
-                <label for="username">Benutzername <small>(Pflichtfeld)</small></label>
-                <input id="username" type="text" name="username" tabindex="4" required readonly value="<?php echo $placeholder['profile']['username']; ?>">
             </div>
             <div>
                 <label for="phone">Telefon</label>
@@ -51,7 +43,7 @@
             </div>
             <div>
                 <label for="language">Sprache</label>
-                <input id="language" type="text" name="language" tabindex="8" value="<?php echo $placeholder['profile']['language']; ?>">
+                <input id="language" name="language" tabindex="8" value="<?php echo $placeholder['profile']['language']; ?>">
             </div>
             <div>
                 <label for="note_user">Bemerkung</label>
@@ -60,8 +52,8 @@
 
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="profile_save" class="active" tabindex="11">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> Profil speichern
+            <button name="profile_save" class="active" tabindex="11">
+                <i class="fa fa-floppy-o"></i> Profil speichern
             </button>
         </div>
     </form>
@@ -79,8 +71,8 @@
 
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="password_save" class="active" tabindex="14">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> Passwort ändern
+            <button name="password_save" class="active" tabindex="14">
+                <i class="fa fa-floppy-o"></i> Passwort ändern
             </button>
         </div>
     </form>

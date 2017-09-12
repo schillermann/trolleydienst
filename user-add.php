@@ -9,7 +9,7 @@ if(isset($_POST['save'])) {
     $username = include 'filters/post_username.php';
 
     if(Tables\Users::is_username($database_pdo, $username)) {
-        $placeholder['message']['error'] = 'Der Benutzername ist bereits vergeben!';
+        $placeholder['message']['error'] = 'Der Name ist bereits vergeben!';
     } else {
         $get_password = require 'modules/random_string.php';
         $password = $get_password(8);
@@ -17,10 +17,8 @@ if(isset($_POST['save'])) {
 
         $user = new Models\User(
             0,
-            include 'filters/post_firstname.php',
-            include 'filters/post_lastname.php',
+            include 'filters/post_name.php',
             $email,
-            $username,
             $password,
             include 'filters/post_is_admin.php',
             true,
@@ -34,7 +32,7 @@ if(isset($_POST['save'])) {
 
 
     if(Tables\Users::is_username($database_pdo, $username))
-        $placeholder['message']['error'] = 'Der Benutzername ist bereits vergeben!';
+        $placeholder['message']['error'] = 'Der Name ist bereits vergeben!';
     elseif (!Tables\Users::insert($database_pdo, $user))
         $placeholder['message']['error'] = 'Der Teilnehmer konnte nicht angelegt werden!';
 
