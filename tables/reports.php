@@ -11,8 +11,8 @@ class Reports
 		$sql =
 			'CREATE TABLE `' . self::TABLE_NAME . '` (
             `id_report`	INTEGER PRIMARY KEY AUTOINCREMENT,
-			`id_user` INTEGER NOT NULL,
 			`id_shift_type`	INTEGER NOT NULL,
+			`name` TEXT NOT NULL,
 			`shift_datetime_from`	TEXT NOT NULL,
 			`book` INTEGER,
 			`brochure` INTEGER,
