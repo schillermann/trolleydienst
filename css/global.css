@@ -126,20 +126,6 @@ dd {
 .table-container {
     overflow-x:auto; }
 
-.active {
-    background-color: #604A7B;
-    color: white;
-}
-
-.warning {
-    background-color: red;
-    color: white;
-}
-
-.enable {
-    background-color: #92D050;
-}
-
 /**
  * Messages
  */
@@ -310,6 +296,22 @@ button:hover, .button:hover {
     color: #333;
 }
 
+/**
+ * Status
+ */
+.active {
+    background-color: #604A7B;
+    color: white;
+}
+
+.warning {
+    background-color: red;
+    color: white;
+}
+
+.enable {
+    background-color: #92D050;
+}
 
 /**
  * Content

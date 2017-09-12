@@ -1,7 +1,7 @@
 <h2>Schichttyp Liste</h2>
 <div class="from-button">
     <a href="shift-type-add.php" tabindex="1" class="button active">
-        <i class="fa fa-plus" aria-hidden="true"></i> Neuer Schichttyp
+        <i class="fa fa-plus"></i> Neuer Schichttyp
     </a>
 </div>
 <div class="container-center">

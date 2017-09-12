@@ -27,9 +27,12 @@
     </p>
 </div>
 
+<a href="shift-report.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button">
+    <i class="fa fa-sticky-note-o"></i> Bericht abgeben
+</a>
 <?php if($_SESSION['is_admin']): ?>
-<a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
-    <i class="fa fa-plus" aria-hidden="true"></i> Neue Schichten
+<a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button">
+    <i class="fa fa-plus"></i> Neue Schichten
 </a>
 <?php endif; ?>
 
@@ -46,7 +49,7 @@
 
                         <?php if($_SESSION['is_admin']): ?>
                             <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
-                                <i class="fa fa-pencil" aria-hidden="true"></i> bearbeiten
+                                <i class="fa fa-pencil"></i> bearbeiten
                             </a>
                         <?php endif; ?>
                     </h3>

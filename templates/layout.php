@@ -36,11 +36,10 @@
                     <li>
                         <a href="profile.php" class="<?php $active_page('profile.php');?>">Profil</a>
                     </li>
-                        <!--
-                    <li>
-                        <a href="report.php" class="<?php $active_page('report.php');?>">Bericht</a>
-                    </li>-->
                     <?php if($_SESSION['is_admin']) : ?>
+                    <li>
+                        <a href="reports.php" class="<?php $active_page('reports.php');?>">Berichte</a>
+                    </li>
                     <li>
                         <a href="shift-type.php" class="<?php $active_page('shift-type.php');?>">Schichttyp</a>
                     </li>
