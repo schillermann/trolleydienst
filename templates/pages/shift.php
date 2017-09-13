@@ -26,12 +26,8 @@
         <a target="_blank" href="https://wol.jw.org/de/wol/d/r10/lp-x/202015126">Das Predigen mit Trolleys und Infostand — wie?</a>
     </p>
 </div>
-
-<a href="shift-report.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button">
-    <i class="fa fa-sticky-note-o"></i> Bericht abgeben
-</a>
 <?php if($_SESSION['is_admin']): ?>
-<a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button">
+<a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
     <i class="fa fa-plus"></i> Neue Schichten
 </a>
 <?php endif; ?>
@@ -46,13 +42,12 @@
                         <?php echo $shift_list['day']; ?>,
                         <?php echo $shift_list['date']; ?> -
                         <?php echo $shift_list['route']; ?>
-
-                        <?php if($_SESSION['is_admin']): ?>
-                            <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
-                                <i class="fa fa-pencil"></i> bearbeiten
-                            </a>
-                        <?php endif; ?>
                     </h3>
+					<?php if($_SESSION['is_admin']): ?>
+                        <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
+                            <i class="fa fa-pencil"></i> bearbeiten
+                        </a>
+					<?php endif; ?>
                 </th>
             </tr>
         </thead>
@@ -66,7 +61,7 @@
             <?php foreach ($shift_list['shifts'] as $shift_time => $user_list) : ?>
 
             <tr>
-                <td class="shift_time">
+                <td>
                     <?php echo $shift_time;?>
                 </td>
                 <td>
@@ -79,7 +74,7 @@
 
                             <?php if($has_user_promoted): ?>
                                 <button type="submit" name="delete_user" class="enable">
-                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <?php echo $name; ?>
+                                    <i class="fa fa-thumbs-o-up"></i> <?php echo $name; ?>
                                 </button>
                             <?php else: ?>
                                 <a href="user-details.php?id_shift_type=<?php echo (int)$_GET['id_shift_type'];?>&id_user=<?php echo $id_user; ?>" class="button promoted">
@@ -90,8 +85,8 @@
                         <?php endforeach; ?>
 
                         <?php if (count($user_list) < $placeholder['user_per_shift_max']) : ?>
-                        <button type="submit" name="promote_user">
-                            <i class="fa fa-plus" aria-hidden="true"></i> bewerben als
+                        <button name="promote_user">
+                            <i class="fa fa-plus"></i> bewerben als
                         </button>
                         <select name="id_user" class="button promote">
                             <?php foreach ($placeholder['user_promote_list'] as $id_user => $name): ?>

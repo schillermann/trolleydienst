@@ -13,12 +13,12 @@
 <div class="table-container">
     <table>
         <tr>
-            <th>Name</th>
-            <th>E-Mail</th>
-            <th>Aktiv</th>
-            <th>Admin</th>
-            <th>Letzter Login</th>
-            <th>Aktion</th>
+            <th><h3>Name</h3></th>
+            <th><h3>E-Mail</h3></th>
+            <th><h3>Aktiv</h3></th>
+            <th><h3>Admin</h3></th>
+            <th><h3>Letzter Login</h3></th>
+            <th><h3>Aktion</h3></th>
         </tr>
         <?php foreach ($placeholder['user_list'] as $user) : ?>
         <tr>

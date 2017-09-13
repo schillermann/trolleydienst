@@ -1,10 +1,5 @@
 <?php
-if(!isset($_GET['id_shift_type'])) {
-	header('location: info.php');
-	return;
-}
 $placeholder = require 'includes/init_page.php';
-$placeholder['id_shift_type'] = (int)$_GET['id_shift_type'];
 
 if(isset($_POST['save'])) {
 	$date_from = include 'filters/post_date_from.php';
@@ -13,8 +8,8 @@ if(isset($_POST['save'])) {
 	$shift_datetime_from = $merge_date_and_time($date_from, $_POST['time_from']);
 
 	$report = new Models\Report(
-		$placeholder['id_shift_type'],
-		include 'filters/post_name.php',
+		(int)$_POST['id_shift_type'],
+		Tables\Users::select_name($database_pdo, (int)$_POST['id_user']),
 		include 'filters/post_route.php',
 		(int)$_POST['book'],
 		(int)$_POST['brochure'],
@@ -33,7 +28,7 @@ if(isset($_POST['save'])) {
 }
 
 $placeholder['user_list'] = Tables\Users::select_all($database_pdo);
-$placeholder['route_list'] = Tables\Shifts::select_route_list($database_pdo, $placeholder['id_shift_type']);
+$placeholder['route_list'] = Tables\Shifts::select_route_list($database_pdo, 1);
 $placeholder['shifttype_list'] = Tables\ShiftTypes::select_all($database_pdo);
 
 $render_page = include 'includes/render_page.php';

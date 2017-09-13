@@ -275,6 +275,4 @@ class Users {
             array(':id_user' => $id_user)
         );
     }
-
-    protected $table_name;
 }

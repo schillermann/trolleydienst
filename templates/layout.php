@@ -31,6 +31,9 @@
                     </li>
                     <?php endforeach;?>
                     <li>
+                        <a href="reports.php" class="<?php $active_page('reports.php');?>">Berichte</a>
+                    </li>
+                    <li>
                         <a href="info.php" class="<?php $active_page('info.php');?>">Infos</a>
                     </li>
                     <li>
@@ -38,10 +41,7 @@
                     </li>
                     <?php if($_SESSION['is_admin']) : ?>
                     <li>
-                        <a href="reports.php" class="<?php $active_page('reports.php');?>">Berichte</a>
-                    </li>
-                    <li>
-                        <a href="shift-type.php" class="<?php $active_page('shift-type.php');?>">Schichttyp</a>
+                        <a href="shift-type.php" class="<?php $active_page('shift-type.php');?>">Schichtart</a>
                     </li>
                     <li>
                         <a href="user.php" class="<?php $active_page('user.php');?>">Teilnehmer</a>

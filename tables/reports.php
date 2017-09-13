@@ -28,16 +28,26 @@ class Reports
 		return ($connection->exec($sql) === false) ? false : true;
 	}
 
-	static function select_all(\PDO $connection, int $id_shift_type): array {
+	static function select_all(\PDO $connection, \DateTime $from, \DateTime $to, int $id_shift_type, string $name = ''): array {
+
+		$where_name = (empty($name))? ' ' : ' AND name = "' . $name . '" ';
 
 		$stmt = $connection->prepare(
-			'SELECT id_report, name, shift_datetime_from, book, brochure, bible, magazine, tract, address, talk, note
+			'SELECT id_report, name, route, shift_datetime_from, book, brochure, bible, magazine, tract, address, talk, note
             FROM ' . self::TABLE_NAME . '
-            WHERE id_shift_type = :id_shift_type
-            ORDER BY shift_datetime_from ASC'
+            WHERE id_shift_type = :id_shift_type' . $where_name .
+            'AND DATE(shift_datetime_from) >= DATE(:from)
+            AND DATE(shift_datetime_from) <= DATE(:to)
+            ORDER BY shift_datetime_from DESC'
 		);
 
-		$stmt->execute(array(':id_shift_type' => $id_shift_type));
+		$stmt->execute(
+			array(
+				':from' => $from->format('Y-m-d H:i:s'),
+				':to' => $to->format('Y-m-d H:i:s'),
+				':id_shift_type' => $id_shift_type
+			)
+		);
 
 		$result = $stmt->fetchAll();
 		return ($result)? $result : array();
@@ -67,5 +77,15 @@ class Reports
 			)
 		);
 		return $stmt->rowCount() == 1;
+	}
+
+	static function delete(\PDO $connection, int $id_report): bool {
+		$stmt = $connection->prepare(
+			'DELETE FROM ' . self::TABLE_NAME . ' WHERE id_report = :id_report'
+		);
+
+		return $stmt->execute(
+			array(':id_report' => $id_report)
+		);
 	}
 }
