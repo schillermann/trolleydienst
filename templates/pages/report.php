@@ -42,10 +42,8 @@
                 <thead>
                     <tr>
                         <th colspan="2" style="background-color: #d5c8e4">
-                            <h3>
-								<?php echo $report['day'];?>, <?php echo $report['datetime'];?> - <?php echo $report['name'];?> - <?php echo $report['route'];?>
-                            </h3>
-                            <a href="reports.php?id_report=<?php echo $id_report;?>" class="button warning">
+							<?php echo $report['day'];?>, <?php echo $report['datetime'];?> - <?php echo $report['name'];?> - <?php echo $report['route'];?>
+                            <a href="report.php?id_report=<?php echo $id_report;?>" class="button warning">
                                 <i class="fa fa-trash-o"></i> löschen
                             </a>
                         </th>

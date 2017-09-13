@@ -1,5 +1,5 @@
 <h2>Bericht abgeben</h2>
-<a href="reports.php" tabindex="15" class="button">
+<a href="report.php" tabindex="15" class="button">
 	<i class="fa fa-chevron-left"></i> zurück
 </a>
 <div class="container-center">

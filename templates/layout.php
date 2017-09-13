@@ -31,7 +31,7 @@
                     </li>
                     <?php endforeach;?>
                     <li>
-                        <a href="reports.php" class="<?php $active_page('reports.php');?>">Berichte</a>
+                        <a href="report.php" class="<?php $active_page('report.php');?>">Bericht</a>
                     </li>
                     <li>
                         <a href="info.php" class="<?php $active_page('info.php');?>">Infos</a>

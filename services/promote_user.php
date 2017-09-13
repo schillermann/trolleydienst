@@ -11,10 +11,10 @@
 
     if ($promote_user_success) {
         $history_type = Tables\History::SHIFT_PROMOTE_SUCCESS;
-        $message = 'Die ' . $shift_type_name . ' Schicht Bewerbung vom  ' . $shift_datetime_from_format . ' Position ' . $position . ' für ' . $name . ' wurde angenommen.';;
+        $message = 'Die ' . $shift_type_name . ' Schicht Bewerbung vom  ' . $shift_datetime_from_format . ' Schicht ' . $position . ' für ' . $name . ' wurde angenommen.';;
     } else {
         $history_type = Tables\History::SHIFT_PROMOTE_ERROR;
-        $message = 'Die ' . $shift_type_name . ' Schicht Bewerbung vom  ' . $shift_datetime_from_format . ' Position ' . $position . '  für ' . $name . ' konnte nicht angenommen werden!';
+        $message = 'Die ' . $shift_type_name . ' Schicht Bewerbung vom  ' . $shift_datetime_from_format . ' Schicht ' . $position . '  für ' . $name . ' konnte nicht angenommen werden!';
     }
 
     Tables\History::insert(

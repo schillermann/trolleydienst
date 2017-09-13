@@ -38,11 +38,9 @@
         <thead>
             <tr>
                 <th colspan="2" style="background-color: <?php echo $shift_list['color_hex'];?>">
-                    <h3>
-                        <?php echo $shift_list['day']; ?>,
-                        <?php echo $shift_list['date']; ?> -
-                        <?php echo $shift_list['route']; ?>
-                    </h3>
+                    <?php echo $shift_list['day']; ?>,
+                    <?php echo $shift_list['date']; ?> -
+                    <?php echo $shift_list['route']; ?>
 					<?php if($_SESSION['is_admin']): ?>
                         <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
                             <i class="fa fa-pencil"></i> bearbeiten
