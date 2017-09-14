@@ -13,7 +13,7 @@
     <body>
         <div>
             <div class="wrapper-center">
-                <a id="logo"><img src="../images/logo-trolleydienst.png"></a>
+                <a href="/" id="logo"><img src="../images/logo-trolleydienst.png"></a>
             </div>
         </div>
         <div>
@@ -31,26 +31,26 @@
                     </li>
                     <?php endforeach;?>
                     <li>
-                        <a href="report.php" class="<?php $active_page('report.php');?>">Bericht</a>
+                        <a href="report.php" class="<?php echo $active_page('report.php');?>">Bericht</a>
                     </li>
                     <li>
-                        <a href="info.php" class="<?php $active_page('info.php');?>">Info</a>
+                        <a href="info.php" class="<?php echo $active_page('info.php');?>">Info</a>
                     </li>
                     <li>
-                        <a href="profile.php" class="<?php $active_page('profile.php');?>">Profil</a>
+                        <a href="profile.php" class="<?php echo $active_page('profile.php');?>">Profil</a>
                     </li>
                     <?php if($_SESSION['is_admin']) : ?>
                     <li>
-                        <a href="shift-type.php" class="<?php $active_page('shift-type.php');?>">Schichtart</a>
+                        <a href="shift-type.php" class="<?php echo $active_page('shift-type.php');?>">Schichtart</a>
                     </li>
                     <li>
-                        <a href="user.php" class="<?php $active_page('user.php');?>">Teilnehmer</a>
+                        <a href="user.php" class="<?php echo $active_page('user.php');?>">Teilnehmer</a>
                     </li>
                     <li>
-                        <a href="email.php" class="<?php $active_page('email.php');?>">E-Mail</a>
+                        <a href="email.php" class="<?php echo $active_page('email.php');?>">E-Mail</a>
                     </li>
                     <li>
-                        <a href="history.php" class="<?php $active_page('history.php');?>">Verlauf</a>
+                        <a href="history.php" class="<?php echo $active_page('history.php');?>">Verlauf</a>
                     </li>
                     <?php endif;?>
                     <li style="float:right">
@@ -68,8 +68,9 @@
                 <nav>
                     <ul id="footer-nav">
                         <li><a href="//trolleydienst.de/feedback.php" target="_blank">Feedback</a></li>
-                        <li><a href="https://github.com/schillermann/trolleydienst" target="_blank" id="link-github">GitHub</a></li>
                         <li><a href="licence.php">Licence</a></li>
+                        <li><a href="https://github.com/schillermann/trolleydienst" target="_blank" id="link-github">GitHub</a></li>
+                        <li><a href="https://github.com/schillermann/trolleydienst/issues" target="_blank">Issues</a></li>
                     </ul>
                 </nav>
             </footer>
