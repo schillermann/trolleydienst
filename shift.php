@@ -30,6 +30,11 @@ if (isset($_POST['delete_user'])) {
 $id_shift_type = (int)$_GET['id_shift_type'];
 $placeholder['shift_type'] = Tables\ShiftTypes::select($database_pdo, $id_shift_type);
 
+if(!empty($placeholder['shift_type']['info'])) {
+	$parse_text_to_html = include 'templates/helpers/parse_text_to_html.php';
+	$placeholder['shift_type']['info'] = $parse_text_to_html($placeholder['shift_type']['info']);
+}
+
 $user_list = Tables\Users::select_all_without_user($database_pdo, $_SESSION['id_user']);
 $get_user_promote_list = include 'helpers/get_user_promote_list.php';
 $placeholder['user_promote_list'] = $get_user_promote_list($user_list);

@@ -1,4 +1,3 @@
-<?php $parse_text_to_html = include 'templates/helpers/parse_text_to_html.php'; ?>
 <h2>Schichten</h2>
 <?php if (isset($placeholder['message'])) : ?>
     <div id="note-box" class="fade-in">
@@ -21,12 +20,13 @@
         -->
     </div>
 <?php endif; ?>
-
+<?php if(!empty($placeholder['shift_type']['info'])): ?>
 <div class="info-box">
     <p>
-		<?php echo $parse_text_to_html($placeholder['shift_type']['info']);?>
+		<?php echo $placeholder['shift_type']['info'];?>
     </p>
 </div>
+<?php endif;?>
 <?php if($_SESSION['is_admin']): ?>
 <a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
     <i class="fa fa-plus"></i> Neue Schichten
