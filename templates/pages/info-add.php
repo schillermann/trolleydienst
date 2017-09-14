@@ -1,5 +1,5 @@
 <h2>Info hochladen</h2>
-<a href="info.php" tabindex="5" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
+<a href="info.php" tabindex="4" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div id="note-box" class="fade-in">
@@ -13,7 +13,7 @@
                 </p>
             <?php endif; ?>
             <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                <i class="fa fa-times"></i> schliessen
             </button>
         </div>
     <?php endif; ?>
@@ -23,29 +23,17 @@
             <legend>Info</legend>
             <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
             <div>
-                <label for="info_label">Bezeichnung</label>
-                <input id="info_label" type="text" name="info_label" tabindex="1">
+                <label for="file_label">Bezeichnung</label>
+                <input id="file_label" name="file_label" tabindex="1" value="<?php echo (isset($_POST['file_label']))? $_POST['file_label'] : '';?>">
             </div>
-
-            <div>
-                <label for="info_type">Typ</label>
-                <select id="info_type" name="info_type" tabindex="2">
-                    <option value="-1">Anleitung</option>
-                    <option value="0" selected="">Özi</option>
-                    <option value="1">Trolley</option>
-                    <option value="2">Infostand</option>
-                </select>
-            </div>
-
             <div>
                 <label for="file">Datei</label>
-                <input id="file" type="file" name="file" tabindex="3">
+                <input id="file" type="file" name="file" tabindex="2">
             </div>
-
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="upload" class="active" tabindex="4">
-                <i class="fa fa-cloud-upload" aria-hidden="true"></i> Datei hochladen
+            <button name="upload" class="active" tabindex="3">
+                <i class="fa fa-cloud-upload"></i> Datei hochladen
             </button>
 
         </div>

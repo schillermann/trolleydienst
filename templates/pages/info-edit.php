@@ -1,56 +1,44 @@
-<?php $file_name = $placeholder['info']['file_name']; ?>
+<?php $file_name = $placeholder['info']['file_name_hash']; ?>
 <h2>Info hochladen</h2>
-    <div class="container-center">
-        <?php if (isset($placeholder['message'])) : ?>
-            <div id="note-box" class="fade-in">
-                <?php if (isset($placeholder['message']['success'])) : ?>
-                    <p class="success">
-                        <?php echo $placeholder['message']['success']; ?>
-                    </p>
-                    <button type="button" onclick="closeNoteBox()">
-                        <i class="fa fa-times" aria-hidden="true"></i> schliessen
-                    </button>
-                <?php elseif(isset($placeholder['message']['error'])): ?>
-                    <p class="error">
-                        <?php echo $placeholder['message']['error']; ?>
-                    </p>
-                <?php endif; ?>
-                <button type="button" onclick="closeNoteBox()">
-                    <i class="fa fa-times" aria-hidden="true"></i> schliessen
-                </button>
-            </div>
-        <?php endif; ?>
-
+<a href="info.php" tabindex="4" class="button">
+    <i class="fa fa-chevron-left"></i> zurück
+</a>
+<div class="container-center">
+    <?php if (isset($placeholder['message'])) : ?>
+        <div id="note-box" class="fade-in">
+            <?php if (isset($placeholder['message']['success'])) : ?>
+                <p class="success">
+                    <?php echo $placeholder['message']['success']; ?>
+                </p>
+            <?php elseif(isset($placeholder['message']['error'])): ?>
+                <p class="error">
+                    <?php echo $placeholder['message']['error']; ?>
+                </p>
+            <?php endif; ?>
+            <button type="button" onclick="closeNoteBox()">
+                <i class="fa fa-times"></i> schliessen
+            </button>
+        </div>
+    <?php endif; ?>
+    <div class="info-box">
+        <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
+    </div>
     <form method="post">
         <fieldset>
             <legend>Info</legend>
-            <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
             <div>
-                <label for="info_label">Bezeichnung</label>
-                <input id="info_label" type="text" name="info_label" tabindex="1" value="<?php echo $placeholder['info']['label']; ?>">
-            </div>
-            <div>
-                <label for="info_type">Typ</label>
-                <?php $type = $placeholder['info']['type']; ?>
-                <select name="info_type" tabindex="2">
-                    <option value="-1" <?php echo ($type ==  -1) ? 'selected' : ''; ?>>Anleitung</option>
-                    <option value="0" <?php echo ($type ==  0) ? 'selected' : ''; ?>>Özi</option>
-                    <option value="1" <?php echo ($type ==  1) ? 'selected' : ''; ?>>Trolley</option>
-                    <option value="2" <?php echo ($type ==  2) ? 'selected' : ''; ?>>Infostand</option>
-                </select>
+                <label for="file_label">Bezeichnung</label>
+                <input id="file_label" name="file_label" tabindex="1" value="<?php echo $placeholder['info']['file_label']; ?>">
             </div>
 
         </fieldset>
         <div class="from-button">
 
-            <button type="submit" name="save" class="active" tabindex="3">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
+            <button name="save" class="active" tabindex="2">
+                <i class="fa fa-floppy-o"></i> speichern
             </button>
-            <a href="info.php" class="button" tabindex="4">
-                <i class="fa fa-ban" aria-hidden="true"></i> abbrechen
-            </a>
-            <button type="submit" name="delete" class="warning" tabindex="5">
-                <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
+            <button name="delete" class="warning" tabindex="3">
+                <i class="fa fa-trash-o"></i> löschen
             </button>
 
         </div>

@@ -1,7 +1,7 @@
 <?php
 $placeholder = require 'includes/init_page.php';
 
-if(isset($_POST['info_label']) && !empty($_POST['info_label'])) {
+if(isset($_POST['file_label']) && !empty($_POST['file_label'])) {
 
     $convert_megabyte_in_byte = include 'modules/convert_megabyte_in_byte.php';
     $upload_file = include 'modules/upload_file.php';
@@ -16,14 +16,13 @@ if(isset($_POST['info_label']) && !empty($_POST['info_label'])) {
     if(!$upload_file($file_hash, 'uploads/', $file_size_max, $file_types_allow))
         $placeholder['message']['error'] = 'Die Info konnte nicht hochgeladen werden!';
     else {
-        $info_label = include 'filters/post_info_label.php';
-        $info_type = include 'filters/post_info_type.php';
+        $file_label = include 'filters/post_file_label.php';
         $placeholder['message'] = array();
 
-        if(Tables\Infos::insert($database_pdo, $info_label, $info_type, $_FILES["file"]["name"], $file_hash))
-            $placeholder['message']['success'] = 'Die Info wurde hinzugefügt.';
+        if(Tables\Infos::insert($database_pdo, $file_label, $file_hash))
+            $placeholder['message']['success'] = 'Die Datei wurde hochgeladen.';
         else
-            $placeholder['message']['error'] = 'Die Info konnte nicht hinzugefügt werden!';
+            $placeholder['message']['error'] = 'Die Datei konnte nicht hochgeladen werden!';
     }
 }
 

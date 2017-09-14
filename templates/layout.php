@@ -34,7 +34,7 @@
                         <a href="report.php" class="<?php $active_page('report.php');?>">Bericht</a>
                     </li>
                     <li>
-                        <a href="info.php" class="<?php $active_page('info.php');?>">Infos</a>
+                        <a href="info.php" class="<?php $active_page('info.php');?>">Info</a>
                     </li>
                     <li>
                         <a href="profile.php" class="<?php $active_page('profile.php');?>">Profil</a>

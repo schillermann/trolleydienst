@@ -11,23 +11,22 @@ if(isset($_POST['delete'])) {
 
     $info = Tables\Infos::select($database_pdo, $id_info);
 
-    if(unlink('uploads/' . $info['file_hash']))
+    if(unlink('uploads/' . $info['file_name_hash']))
         if(Tables\Infos::delete($database_pdo, $id_info)) {
             header('location: info.php');
             return;
         }
     else
-        $placeholder['message']['error'] = 'Die Datei ' . $info['file_name'] . ' konnte nicht gelöscht werden!';
+        $placeholder['message']['error'] = 'Die Datei ' . $info['file_name_hash'] . ' konnte nicht gelöscht werden!';
 }
 elseif (isset($_POST['save'])) {
-    $info_label = include 'filters/post_info_label.php';
-    $info_type = include 'filters/post_info_type.php';
+    $file_label = include 'filters/post_file_label.php';
 
-    if($info_label && $info_type)
-        if(Tables\Infos::update($database_pdo, $id_info, $info_label, $info_type))
-            $placeholder['message']['success'] = 'Die Datei ' . $info_label . ' wurde geändert.';
+    if($file_label)
+        if(Tables\Infos::update($database_pdo, $id_info, $file_label))
+            $placeholder['message']['success'] = 'Die Datei wurde in "' . $file_label . '" umbenannt.';
         else
-            $placeholder['message']['error'] = 'Die Datei ' . $info_label . ' konnte nicht geändert werden!';
+            $placeholder['message']['error'] = 'Die Datei konnte nicht in "' . $file_label . '" umbennant werden!';
 }
 
 $info = Tables\Infos::select($database_pdo, $id_info);

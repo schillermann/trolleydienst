@@ -1,6 +1,6 @@
 <h2>Neue Schichten</h2>
 <a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="13" class="button">
-    <i class="fa fa-chevron-left" aria-hidden="true"></i> zurück
+    <i class="fa fa-chevron-left"></i> zurück
 </a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
