@@ -28,7 +28,7 @@ if (isset($_POST['delete_user'])) {
 }
 
 $id_shift_type = (int)$_GET['id_shift_type'];
-$placeholder['user_per_shift_max'] = Tables\ShiftTypes::select_user_per_shift_max($database_pdo, $id_shift_type);
+$placeholder['shift_type'] = Tables\ShiftTypes::select($database_pdo, $id_shift_type);
 
 $user_list = Tables\Users::select_all_without_user($database_pdo, $_SESSION['id_user']);
 $get_user_promote_list = include 'helpers/get_user_promote_list.php';

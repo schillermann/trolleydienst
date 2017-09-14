@@ -1,3 +1,4 @@
+<?php $parse_text_to_html = include 'templates/helpers/parse_text_to_html.php'; ?>
 <h2>Schichten</h2>
 <?php if (isset($placeholder['message'])) : ?>
     <div id="note-box" class="fade-in">
@@ -6,7 +7,7 @@
                 <?php echo $placeholder['message']['success']; ?>
             </p>
             <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                <i class="fa fa-times"></i> schliessen
             </button>
         <?php elseif(isset($placeholder['message']['error'])): ?>
             <p class="error">
@@ -23,7 +24,7 @@
 
 <div class="info-box">
     <p>
-        <a target="_blank" href="https://wol.jw.org/de/wol/d/r10/lp-x/202015126">Das Predigen mit Trolleys und Infostand — wie?</a>
+		<?php echo $parse_text_to_html($placeholder['shift_type']['info']);?>
     </p>
 </div>
 <?php if($_SESSION['is_admin']): ?>
@@ -76,13 +77,13 @@
                                 </button>
                             <?php else: ?>
                                 <a href="user-details.php?id_shift_type=<?php echo (int)$_GET['id_shift_type'];?>&id_user=<?php echo $id_user; ?>" class="button promoted">
-                                    <i class="fa fa-info" aria-hidden="true"></i> <?php echo $name; ?>
+                                    <i class="fa fa-info"></i> <?php echo $name; ?>
                                 </a>
                             <?php endif; ?>
 
                         <?php endforeach; ?>
 
-                        <?php if (count($user_list) < $placeholder['user_per_shift_max']) : ?>
+                        <?php if (count($user_list) < (int)$placeholder['shift_type']['user_per_shift_max']) : ?>
                         <button name="promote_user">
                             <i class="fa fa-plus"></i> bewerben als
                         </button>

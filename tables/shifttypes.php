@@ -19,7 +19,7 @@ class ShiftTypes {
 
     static function select(\PDO $connection, int $id_shift_type): array {
         $stmt = $connection->prepare(
-            'SELECT name, user_per_shift_max
+            'SELECT name, info, user_per_shift_max
           FROM ' . self::TABLE_NAME . '
           WHERE id_shift_type = :id_shift_type'
         );
@@ -59,24 +59,9 @@ class ShiftTypes {
         return ($result)? $result : 0;
     }
 
-    static function select_user_per_shift_max(\PDO $connection, int $id_shift_type): int {
-        $stmt = $connection->prepare(
-            'SELECT user_per_shift_max
-          FROM ' . self::TABLE_NAME . '
-          WHERE id_shift_type = :id_shift_type'
-        );
-
-        $stmt->execute(
-            array(':id_shift_type' => $id_shift_type)
-        );
-
-        $result = $stmt->fetchColumn();
-        return ($result)? (int)$result : 2;
-    }
-
     static function select_all(\PDO $connection): array {
         $stmt = $connection->prepare(
-            'SELECT id_shift_type, name, user_per_shift_max FROM ' . self::TABLE_NAME
+            'SELECT id_shift_type, name, info, user_per_shift_max FROM ' . self::TABLE_NAME
         );
 
         $stmt->execute();
@@ -85,32 +70,34 @@ class ShiftTypes {
         return ($result)? $result : array();
     }
 
-    static function insert(\PDO $connection, string $name, int $user_per_shift_max = 2): bool {
+    static function insert(\PDO $connection, string $name, string $info, int $user_per_shift_max = 2): bool {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (name, user_per_shift_max, info) VALUES (:name, :user_per_shift_max, :info)'
+            (name, info, user_per_shift_max, info) VALUES (:name, :info, :user_per_shift_max, :info)'
         );
 
         $stmt->execute(
             array(
                 ':name' => $name,
+                ':info' => $info,
                 ':user_per_shift_max' => $user_per_shift_max
             )
         );
         return $stmt->rowCount() == 1;
     }
 
-    static function update(\PDO $connection, int $id_shift_type, string $name, int $user_per_shift_max): bool {
+    static function update(\PDO $connection, int $id_shift_type, string $name, string $info, int $user_per_shift_max = 2): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET name = :name, user_per_shift_max = :user_per_shift_max
+            SET name = :name, info = :info, user_per_shift_max = :user_per_shift_max
             WHERE id_shift_type = :id_shift_type'
         );
 
         $stmt->execute(
             array(
                 ':name' => $name,
+                ':info' => $info,
                 ':user_per_shift_max' => $user_per_shift_max,
                 ':id_shift_type' => $id_shift_type
             )
