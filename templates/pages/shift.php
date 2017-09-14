@@ -59,7 +59,7 @@
             <?php foreach ($shift_list['shifts'] as $shift_time => $user_list) : ?>
 
             <tr>
-                <td>
+                <td class="shift-time">
                     <?php echo $shift_time;?>
                 </td>
                 <td>
