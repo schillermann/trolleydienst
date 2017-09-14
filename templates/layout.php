@@ -65,8 +65,13 @@
                 <?php echo $placeholder['template']; ?>
             </main>
             <footer>
-                <div class="wrapper-center">
-                </div>
+                <nav>
+                    <ul id="footer-nav">
+                        <li><a href="//trolleydienst.de/feedback.php" target="_blank">Feedback</a></li>
+                        <li><a href="https://github.com/schillermann/trolleydienst" target="_blank" id="link-github">GitHub</a></li>
+                        <li><a href="licence.php">Licence</a></li>
+                    </ul>
+                </nav>
             </footer>
         </div>
         <script type="text/javascript" src="js/note_box.js"></script>

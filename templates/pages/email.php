@@ -1,8 +1,3 @@
-<?php
-$recipient_all = ($placeholder['recipient'] == Enum\Recipient::ALL)? 'selected' : '';
-$recipient_literature_table = ($placeholder['recipient'] == Enum\Recipient::LITERATURE_TABLE)? 'selected' : '';
-$recipient_literature_cart = ($placeholder['recipient'] == Enum\Recipient::LITERATURE_CART)? 'selected' : '';
-?>
 <h2>E-Mail Versand</h2>
 <a href="email-settings.php" tabindex="5" class="button active">
     <i class="fa fa-cog"></i> E-Mail Einstellungen

@@ -26,7 +26,7 @@
         <fieldset>
             <legend>E-Mail Platzhalter</legend>
             <div>
-                <label for="email_address_from">E-Mail Adresse von <small>(Pflichtfeld)</small></label>
+                <label for="email_address_from">E-Mail Absenderadresse <small>(Pflichtfeld)</small></label>
                 <input id="email_address_from" type="email" name="email_address_from" tabindex="1" required value="<?php echo $placeholder['email_address_from'];?>">
             </div>
             <div>
