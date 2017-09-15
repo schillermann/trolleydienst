@@ -25,10 +25,10 @@ class Templates
             WHERE name = :name'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':name' => $name)
-        );
-        $stmt->execute();
+        ))
+        	return array();
 
         $result = $stmt->fetch();
         return ($result)? $result : array();
@@ -42,13 +42,12 @@ class Templates
             WHERE name = :name'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':subject' => $subject,
                 ':message' => $message,
                 ':name' => $name
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 }

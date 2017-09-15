@@ -41,13 +41,14 @@ class Reports
             ORDER BY shift_datetime_from DESC'
 		);
 
-		$stmt->execute(
+		if(!$stmt->execute(
 			array(
 				':from' => $from->format('Y-m-d H:i:s'),
 				':to' => $to->format('Y-m-d H:i:s'),
 				':id_shift_type' => $id_shift_type
 			)
-		);
+		))
+			return array();
 
 		$result = $stmt->fetchAll();
 		return ($result)? $result : array();
@@ -60,7 +61,7 @@ class Reports
             VALUES (:id_shift_type, :name, :route, :book, :brochure, :bible, :magazine, :tract, :address, :talk, :note, :shift_datetime_from)'
 		);
 
-		$stmt->execute(
+		return $stmt->execute(
 			array(
 				':id_shift_type' => $report->get_id_shift_type(),
 				':name' => $report->get_name(),
@@ -75,8 +76,7 @@ class Reports
 				':note' => $report->get_note(),
 				':shift_datetime_from' => $report->get_shift_from()->format('Y-m-d H:i:s')
 			)
-		);
-		return $stmt->rowCount() == 1;
+		) && $stmt->rowCount() == 1;
 	}
 
 	static function delete(\PDO $connection, int $id_report): bool {

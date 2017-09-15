@@ -9,52 +9,70 @@ class Infos {
     {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `id_info` INTEGER PRIMARY KEY AUTOINCREMENT,
-            `file_label` TEXT NOT NULL,
-            `file_name_hash` TEXT NOT NULL
+				`id_info` INTEGER PRIMARY KEY AUTOINCREMENT,
+				`label` TEXT NOT NULL,
+				`mime_type`	TEXT NOT NULL
             )';
 
         return ($connection->exec($sql) === false)? false : true;
     }
 
+	static function select_label(\PDO $connection, int $id_info): string {
+		$stmt = $connection->prepare(
+			'SELECT label
+            FROM ' . self::TABLE_NAME . '
+            WHERE id_info = :id_info'
+		);
+
+		$stmt->execute(
+			array(':id_info' => $id_info)
+		);
+		$label = $stmt->fetchColumn();
+		return ($label)? $label : '';
+	}
+
     static function select_all(\PDO $connection): array {
         $stmt = $connection->query(
-            'SELECT id_info, file_label, file_name_hash
+            'SELECT id_info, label, mime_type
             FROM ' . self::TABLE_NAME . '
-            ORDER BY file_label'
+            ORDER BY label'
         );
 
         $result = $stmt->fetchAll();
         return ($result === false)? array() : $result;
     }
 
-    static function select(\PDO $connection, int $id_info): array {
+    static function select_mime_type(\PDO $connection, int $id_info): string {
         $stmt = $connection->prepare(
-            'SELECT id_info, file_label, file_name_hash
+            'SELECT mime_type
             FROM ' . self::TABLE_NAME . '
             WHERE id_info = :id_info'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_info' => $id_info)
-        );
-        $result = $stmt->fetch();
-        return ($result === false)? array() : $result;
+        ))
+        	return '';
+        $mime_type = $stmt->fetchColumn();
+        return ($mime_type)? $mime_type : '';
     }
 
-    static function insert(\PDO $connection, string $file_label, string $file_name_hash): bool {
-        $stmt = $connection->prepare(
-            'INSERT INTO ' . self::TABLE_NAME . ' (file_label, file_name_hash)
-            VALUES (:file_label, :file_name_hash)'
-        );
+    static function insert(\PDO $connection, string $label, string $mime_type): int {
 
-        $stmt->execute(
-            array(
-                ':file_label' => $file_label,
-                ':file_name_hash' => $file_name_hash
-            )
-        );
-        return $stmt->rowCount() == 1;
+		$stmt = $connection->prepare(
+			'INSERT INTO ' . self::TABLE_NAME . '
+			 (label, mime_type)
+			 VALUES (:label, :mime_type)'
+		);
+		if($stmt->execute(
+			array(
+				':label' => $label,
+				':mime_type' => $mime_type
+			)
+		))
+			return $connection->lastInsertId();
+		else
+			return 0;
     }
 
     static function delete(\PDO $connection, int $id_info): bool {
@@ -67,14 +85,14 @@ class Infos {
         );
     }
 
-    static function update(\PDO $connection, int $id_info, string $file_label): bool {
+    static function update(\PDO $connection, int $id_info, string $label): bool {
         $stmt = $connection->prepare(
-            'UPDATE ' . self::TABLE_NAME . ' SET file_label = :file_label WHERE id_info = :id_info'
+            'UPDATE ' . self::TABLE_NAME . ' SET label = :label WHERE id_info = :id_info'
         );
 
         return $stmt->execute(
             array(
-                ':file_label' => $file_label,
+                ':label' => $label,
                 ':id_info' => $id_info
             )
         );

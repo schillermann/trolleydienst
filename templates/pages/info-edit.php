@@ -1,4 +1,3 @@
-<?php $file_name = $placeholder['info']['file_name_hash']; ?>
 <h2>Info hochladen</h2>
 <a href="info.php" tabindex="4" class="button">
     <i class="fa fa-chevron-left"></i> zurück
@@ -20,20 +19,17 @@
             </button>
         </div>
     <?php endif; ?>
-    <div class="info-box">
-        <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
-    </div>
     <form method="post">
         <fieldset>
             <legend>Info</legend>
             <div>
-                <label for="file_label">Bezeichnung</label>
-                <input id="file_label" name="file_label" tabindex="1" value="<?php echo $placeholder['info']['file_label']; ?>">
+                <label for="info_file_label">Bezeichnung</label>
+                <input id="info_file_label" name="info_file_label" tabindex="1" value="<?php echo $placeholder['info_file_label']; ?>">
             </div>
 
         </fieldset>
         <div class="from-button">
-
+            <input type="hidden" value="<?php echo $_GET['id_info'];?>">
             <button name="save" class="active" tabindex="2">
                 <i class="fa fa-floppy-o"></i> speichern
             </button>

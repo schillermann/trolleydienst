@@ -26,7 +26,8 @@ class Shifts {
             WHERE id_shift = :id_shift'
         );
 
-        $stmt->execute(array(':id_shift' => $id_shift));
+        if(!$stmt->execute(array(':id_shift' => $id_shift)))
+        	return array();
 
         $result = $stmt->fetch();
         return ($result === false)? array() : $result;
@@ -42,7 +43,8 @@ class Shifts {
             ORDER BY datetime_from ASC'
         );
 
-        $stmt->execute(array(':id_shift_type' => $id_shift_type));
+        if(!$stmt->execute(array(':id_shift_type' => $id_shift_type)))
+        	return array();
 
         $result = $stmt->fetchAll();
         return ($result)? $result : array();
@@ -56,9 +58,10 @@ class Shifts {
             GROUP BY route'
 		);
 
-		$stmt->execute(
+		if(!$stmt->execute(
 			array(':id_shift_type' => $id_shift_type)
-		);
+		))
+			return array();
 
 		$result = $stmt->fetchAll();
 		return ($result)? $result : array();
@@ -77,7 +80,7 @@ class Shifts {
 		    VALUES (:id_shift_type, :route, :date_from, :number, :minutes_per_shift, :color_hex)'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(
                 ':id_shift_type' => $shift->get_id_shift_type(),
                 ':route' => $shift->get_route(),
@@ -86,7 +89,8 @@ class Shifts {
                 ':minutes_per_shift' => $shift->get_minutes_per_shift(),
                 ':color_hex' => $shift->get_color_hex()
             )
-        );
+        ))
+        	return 0;
         return (int)$connection->lastInsertId();
     }
 

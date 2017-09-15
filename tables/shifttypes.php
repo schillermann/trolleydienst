@@ -24,9 +24,10 @@ class ShiftTypes {
           WHERE id_shift_type = :id_shift_type'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_shift_type' => $id_shift_type)
-        );
+        ))
+        	return array();
 
         $result = $stmt->fetch();
         return ($result)? $result : array();
@@ -39,9 +40,10 @@ class ShiftTypes {
           WHERE id_shift_type = :id_shift_type'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_shift_type' => $id_shift_type)
-        );
+        ))
+        	return '';
 
         $result = $stmt->fetchColumn();
         return ($result)? $result : '';
@@ -53,7 +55,8 @@ class ShiftTypes {
           FROM ' . self::TABLE_NAME . ' LIMIT 1'
         );
 
-        $stmt->execute();
+        if(!$stmt->execute())
+        	return 0;
 
         $result = $stmt->fetchColumn();
         return ($result)? $result : 0;
@@ -64,7 +67,8 @@ class ShiftTypes {
             'SELECT id_shift_type, name, info, user_per_shift_max FROM ' . self::TABLE_NAME
         );
 
-        $stmt->execute();
+        if(!$stmt->execute())
+        	return array();
 
         $result = $stmt->fetchAll();
         return ($result)? $result : array();
@@ -77,14 +81,13 @@ class ShiftTypes {
             (name, info, user_per_shift_max, info) VALUES (:name, :info, :user_per_shift_max, :info)'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':name' => $name,
                 ':info' => $info,
                 ':user_per_shift_max' => $user_per_shift_max
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function update(\PDO $connection, int $id_shift_type, string $name, string $info, int $user_per_shift_max = 2): bool {
@@ -94,15 +97,14 @@ class ShiftTypes {
             WHERE id_shift_type = :id_shift_type'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':name' => $name,
                 ':info' => $info,
                 ':user_per_shift_max' => $user_per_shift_max,
                 ':id_shift_type' => $id_shift_type
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function delete(\PDO $connection, int $id_shift_type): bool {

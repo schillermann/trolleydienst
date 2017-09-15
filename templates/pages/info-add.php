@@ -1,4 +1,4 @@
-<h2>Info hochladen</h2>
+<h2>Datei hochladen</h2>
 <a href="info.php" tabindex="4" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
@@ -17,14 +17,15 @@
             </button>
         </div>
     <?php endif; ?>
-
+    <div class="info-box">
+        <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format mit maximal <?php echo UPLOAD_SIZE_MAX_IN_MEGABYTE;?> MB hochladen.</p>
+    </div>
     <form method="post" enctype="multipart/form-data">
         <fieldset>
-            <legend>Info</legend>
-            <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format hochladen.</p>
+            <legend>Datei</legend>
             <div>
-                <label for="file_label">Bezeichnung</label>
-                <input id="file_label" name="file_label" tabindex="1" value="<?php echo (isset($_POST['file_label']))? $_POST['file_label'] : '';?>">
+                <label for="info_file_label">Bezeichnung</label>
+                <input id="info_file_label" name="info_file_label" tabindex="1" value="<?php echo (isset($_POST['info_file_label']))? $_POST['info_file_label'] : '';?>" required>
             </div>
             <div>
                 <label for="file">Datei</label>
@@ -35,7 +36,6 @@
             <button name="upload" class="active" tabindex="3">
                 <i class="fa fa-cloud-upload"></i> Datei hochladen
             </button>
-
         </div>
     </form>
 </div>

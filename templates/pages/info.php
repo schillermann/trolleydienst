@@ -1,17 +1,17 @@
-<?php $parse_file_preview_url = include 'templates/helpers/parse_file_preview_url.php'; ?>
+<?php $get_file_icon_uri = include 'templates/helpers/get_file_icon_uri.php'; ?>
 <h2>Info</h2>
 <?php if($_SESSION['is_admin']): ?>
 <a href="info-add.php" tabindex="1" class="button active">
-    <i class="fa fa-cloud-upload"></i> Information hochladen
+    <i class="fa fa-cloud-upload"></i> Datei hochladen
 </a>
 <?php endif; ?>
 <section>
     <ul class="info-list">
     <?php foreach ($placeholder['file_list'] as $file) : ?>
     <li>
-        <a target="_blank" href="uploads/<?php echo $file['file_name_hash']; ?>">
-            <img src="<?php echo $parse_file_preview_url('uploads/' . $file['file_name_hash']); ?>">
-            <h4><?php echo $file['file_label']; ?></h4>
+        <a target="_blank" href="info-file.php?id_info=<?php echo $file['id_info'];?>">
+            <img src="<?php echo $get_file_icon_uri($file['mime_type']);?>">
+            <h4><?php echo $file['label']; ?></h4>
             <?php if ($_SESSION['is_admin']) : ?>
                 <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button" target="_blank">bearbeiten</a>
             <?php endif; ?>

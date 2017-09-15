@@ -28,9 +28,10 @@ class ShiftUserMaps {
             ORDER BY position'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_shift' => $id_shift)
-        );
+        ))
+        	return array();
 
         $result = $stmt->fetchAll();
         return ($result)? $result : array();
@@ -44,15 +45,13 @@ class ShiftUserMaps {
             VALUES (:id_shift, :id_user, :position)'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':id_shift' => $id_shift,
                 ':id_user' => $id_user,
                 ':position' => $position
             )
-        );
-
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function delete(\PDO $connection, int $id_shift, int $id_user, int $position): bool {
@@ -64,14 +63,12 @@ class ShiftUserMaps {
             AND position = :position'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':id_shift' => $id_shift,
                 ':id_user' => $id_user,
                 ':position' => $position
             )
-        );
-
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 }

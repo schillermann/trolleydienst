@@ -64,9 +64,10 @@ class Users {
             AND is_active = 1
             ORDER BY name');
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_user' => $id_user)
-        );
+        ))
+        	return array();
         $result = $stmt->fetchAll();
         return ($result === false)? array() : $result;
     }
@@ -80,9 +81,10 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_user' => $id_user)
-        );
+        ))
+        	return array();
         $result = $stmt->fetch();
         return ($result === false)? array() : $result;
     }
@@ -95,9 +97,10 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_user' => $id_user)
-        );
+        ))
+        	return array();
         $result = $stmt->fetchColumn();
         return ($result)? $result : '';
     }
@@ -110,12 +113,13 @@ class Users {
         AND email = :email'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(
                 ':name' => $name,
                 ':email' => $email
             )
-        );
+        ))
+        	return 0;
         $user_id = $stmt->fetchColumn();
 
         return ($user_id === false)? 0 : $user_id;
@@ -129,9 +133,10 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(':id_user' => $id_user)
-        );
+        ))
+        	return array();
         $result = $stmt->fetch();
         return ($result === false)? array() : $result;
     }
@@ -145,12 +150,13 @@ class Users {
             AND password = :password'
         );
 
-        $stmt->execute(
+        if(!$stmt->execute(
             array(
                 ':name' => $name,
                 ':password' => md5($password)
             )
-        );
+        ))
+        	return array();
         $result = $stmt->fetch();
         return ($result === false)? array() : $result;
     }
@@ -162,11 +168,9 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(':id_user' => $id_user)
-        );
-
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function update_profile(\PDO $connection, \Models\Profile $profile): bool {
@@ -178,7 +182,7 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':name' => $profile->get_name(),
                 ':email' => $profile->get_email(),
@@ -189,8 +193,7 @@ class Users {
                 ':note_user' => $profile->get_note_user(),
                 ':id_user' => $profile->get_id_user()
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function update_user(\PDO $connection, \Models\User $user): bool {
@@ -201,7 +204,7 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+		return $stmt->execute(
             array(
                 ':name' => $user->get_name(),
                 ':email' => $user->get_email(),
@@ -214,9 +217,7 @@ class Users {
                 ':note_admin' => $user->get_note_admin(),
                 ':id_user' => $user->get_id_user()
             )
-        );
-
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function update_password(\PDO $connection, int $id_user, string $password): bool {
@@ -226,13 +227,12 @@ class Users {
             WHERE id_user = :id_user'
         );
 
-        $stmt->execute(
+		return $stmt->execute(
             array(
                 ':password' => md5($password),
                 ':id_user' => $id_user
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function insert(\PDO $connection, \Models\User $user): bool {
@@ -249,7 +249,7 @@ class Users {
             )'
         );
 
-        $stmt->execute(
+        return $stmt->execute(
             array(
                 ':name' => $user->get_name(),
                 ':email' => $user->get_email(),
@@ -262,8 +262,7 @@ class Users {
                 ':language' => $user->get_language(),
                 ':note_admin' => $user->get_note_admin()
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 
     static function delete(\PDO $connection, int $id_user): bool {

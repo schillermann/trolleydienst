@@ -33,7 +33,8 @@ class History {
             ORder BY datetime DESC'
         );
 
-        $stmt->execute();
+        if(!$stmt->execute())
+        	return array();
 
         $result = $stmt->fetchAll();
         return ($result)? $result : array();
@@ -47,13 +48,12 @@ class History {
 		    VALUES (:name, :type, :message, datetime("now", "localtime"))'
         );
 
-        $stmt->execute(
+		return $stmt->execute(
             array(
                 ':name' => $name,
                 ':type' => $type,
                 ':message' => $message
             )
-        );
-        return $stmt->rowCount() == 1;
+        ) && $stmt->rowCount() == 1;
     }
 }
