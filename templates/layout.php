@@ -71,6 +71,7 @@
                         <li><a href="licence.php">Licence</a></li>
                         <li><a href="https://github.com/schillermann/trolleydienst" target="_blank" id="link-github">GitHub</a></li>
                         <li><a href="https://github.com/schillermann/trolleydienst/issues" target="_blank">Issues</a></li>
+                        <?php if(!empty($_SESSION)):?><li>Version <?php echo include 'includes/get_version.php';?></li><?php endif;?>
                     </ul>
                 </nav>
             </footer>

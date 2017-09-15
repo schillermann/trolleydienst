@@ -10,7 +10,7 @@ class Infos {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
 				`id_info` INTEGER PRIMARY KEY AUTOINCREMENT,
-				`label` TEXT NOT NULL,
+				`label` TEXT NOT NULL UNIQUE,
 				`mime_type`	TEXT NOT NULL
             )';
 
