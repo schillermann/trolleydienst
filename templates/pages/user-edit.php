@@ -34,27 +34,27 @@
             </div>
             <div>
                 <label for="email">E-Mail <small>(Pflichtfeld)</small></label>
-                <input id="email" type="text" name="email" tabindex="4" required value="<?php echo $placeholder['user']['email'];?>">
+                <input id="email" name="email" tabindex="4" required value="<?php echo $placeholder['user']['email'];?>">
             </div>
             <div>
                 <label for="mobile">Handynr</label>
-                <input id="mobile" type="text" name="mobile" tabindex="5" value="<?php echo $placeholder['user']['mobile'];?>">
+                <input id="mobile" name="mobile" tabindex="5" value="<?php echo $placeholder['user']['mobile'];?>">
             </div>
             <div>
                 <label for="phone">Telefonnr</label>
-                <input id="phone" type="text" name="phone" tabindex="6" value="<?php echo $placeholder['user']['phone'];?>">
+                <input id="phone" name="phone" tabindex="6" value="<?php echo $placeholder['user']['phone'];?>">
             </div>
             <div>
                 <label for="congregation_name">Versammlung</label>
-                <input id="congregation_name" type="text" name="congregation_name" tabindex="7" value="<?php echo $placeholder['user']['congregation_name'];?>">
+                <input id="congregation_name" name="congregation_name" tabindex="7" value="<?php echo $placeholder['user']['congregation_name'];?>">
             </div>
             <div>
                 <label for="language">Sprache</label>
-                <input id="language" type="text" name="language" tabindex="8" value="<?php echo $placeholder['user']['language'];?>">
+                <input id="language" name="language" tabindex="8" value="<?php echo $placeholder['user']['language'];?>">
             </div>
             <div>
-                <label for="note">Admin Bemerkung</label>
-                <textarea id="note" name="note" class="note" tabindex="9"><?php echo $placeholder['user']['note_admin'];?></textarea>
+                <label for="note_admin">Admin Bemerkung</label>
+                <textarea id="note_admin" name="note_admin" class="note" tabindex="9"><?php echo $placeholder['user']['note_admin'];?></textarea>
             </div>
             <div>
                 <label for="note_user">Teilnehmer Bemerkung</label>
@@ -89,4 +89,7 @@
             </button>
         </div>
     </form>
+    <div id="footnote">
+        <p><strong>Geändert am:</strong> <?php echo $placeholder['user']['updated'];?> - <strong>Erstellt am:</strong> <?php echo $placeholder['user']['created'];?></p>
+    </div>
 </div>

@@ -42,17 +42,20 @@
                     <?php echo $shift_list['day']; ?>,
                     <?php echo $shift_list['date']; ?> -
                     <?php echo $shift_list['route']; ?>
-					<?php if($_SESSION['is_admin']): ?>
-                        <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
-                            <i class="fa fa-pencil"></i> bearbeiten
-                        </a>
-					<?php endif; ?>
                 </th>
             </tr>
         </thead>
         <tfoot>
             <tr>
-                <td colspan="2" style="background-color: <?php echo $shift_list['color_hex'];?>"></td>
+                <td colspan="2" style="background-color: <?php echo $shift_list['color_hex'];?>">
+                    <p>
+                        <?php if($_SESSION['is_admin']): ?>
+                            <a href="shift-edit.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>&id_shift=<?php echo $id_shift;?>" class="button">
+                                <i class="fa fa-pencil"></i> bearbeiten
+                            </a>
+                        <?php endif; ?>
+                    </p>
+                </td>
             </tr>
         </tfoot>
         <?php $position = 1; ?>
@@ -72,7 +75,7 @@
                             <?php $has_user_promoted = $id_user === $_SESSION['id_user'];?>
 
                             <?php if($has_user_promoted): ?>
-                                <button type="submit" name="delete_user" class="enable">
+                                <button name="delete_user" class="enable">
                                     <i class="fa fa-thumbs-o-up"></i> <?php echo $name; ?>
                                 </button>
                             <?php else: ?>

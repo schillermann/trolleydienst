@@ -26,7 +26,7 @@ if(isset($_POST['save'])) {
             include 'filters/post_mobile.php',
             include 'filters/post_congregation_name.php',
             include 'filters/post_language.php',
-            include 'filters/post_note.php'
+            include 'filters/post_note_admin.php'
         );
     }
 

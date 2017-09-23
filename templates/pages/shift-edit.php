@@ -1,5 +1,5 @@
 <h2>Schichten bearbeiten</h2>
-<a href="shift.php" tabindex="8" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
+<a href="shift.php" tabindex="8" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div id="note-box" class="fade-in">
@@ -13,7 +13,7 @@
                 </p>
             <?php endif; ?>
             <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times" aria-hidden="true"></i> schliessen
+                <i class="fa fa-times"></i> schliessen
             </button>
         </div>
     <?php endif; ?>
@@ -22,7 +22,7 @@
             <legend>Schichten</legend>
             <div>
                 <label for="route">Route <small>(Pflichtfeld)</small></label>
-                <input id="route" type="text" name="route" tabindex="1" required value="<?php echo $placeholder['route'];?>">
+                <input id="route" name="route" tabindex="1" required value="<?php echo $placeholder['route'];?>">
             </div>
             <div>
                 <label for="date_from">Datum <small>(Pflichtfeld)</small></label>
@@ -50,14 +50,17 @@
             </div>
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="save" class="active" tabindex="6">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
+            <button name="save" class="active" tabindex="6">
+                <i class="fa fa-floppy-o"></i> speichern
             </button>
-            <button type="submit" name="delete" class="warning" tabindex="7">
-                <i class="fa fa-trash-o" aria-hidden="true"></i> löschen
+            <button name="delete" class="warning" tabindex="7">
+                <i class="fa fa-trash-o"></i> löschen
             </button>
         </div>
     </form>
+    <div id="footnote">
+        <p><strong>Geändert am:</strong> <?php echo $placeholder['updated'];?> - <strong>Erstellt am:</strong> <?php echo $placeholder['created'];?></p>
+    </div>
 </div>
 <script type="text/javascript" src="js/calculate_shift_datetime_to.js"></script>
 <script>

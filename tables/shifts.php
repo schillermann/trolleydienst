@@ -21,7 +21,7 @@ class Shifts {
 
     static function select(\PDO $connection, int $id_shift): array {
         $stmt = $connection->prepare(
-            'SELECT id_shift_type, route, datetime_from, number, minutes_per_shift, color_hex
+            'SELECT id_shift_type, route, datetime_from, number, minutes_per_shift, color_hex, updated, created
             FROM ' . self::TABLE_NAME . '
             WHERE id_shift = :id_shift'
         );
@@ -76,8 +76,14 @@ class Shifts {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (id_shift_type, route, datetime_from, number, minutes_per_shift, color_hex)
-		    VALUES (:id_shift_type, :route, :date_from, :number, :minutes_per_shift, :color_hex)'
+            (
+                id_shift_type, route, datetime_from, number,
+                minutes_per_shift, color_hex, updated, created
+            )
+		    VALUES (
+		        :id_shift_type, :route, :date_from, :number, :minutes_per_shift,
+		        :color_hex, datetime("now", "localtime"), datetime("now", "localtime")
+		    )'
         );
 
         if(!$stmt->execute(
@@ -97,7 +103,8 @@ class Shifts {
     static function update(\PDO $connection, \Models\Shift $shift): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET route = :route, datetime_from = :datetime_from, minutes_per_shift = :minutes_per_shift, color_hex = :color_hex
+            SET route = :route, datetime_from = :datetime_from, minutes_per_shift = :minutes_per_shift,
+            color_hex = :color_hex, updated = datetime("now", "localtime")
             WHERE id_shift = :id_shift'
         );
 

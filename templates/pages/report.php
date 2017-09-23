@@ -43,21 +43,25 @@
                     <tr>
                         <th colspan="2" style="background-color: #d5c8e4">
 							<?php echo $report['day'];?>, <?php echo $report['datetime'];?> - <?php echo $report['name'];?> - <?php echo $report['route'];?>
-                            <a href="report.php?id_report=<?php echo $id_report;?>" class="button warning">
-                                <i class="fa fa-trash-o"></i> löschen
-                            </a>
                         </th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <td colspan="2" style="background-color: #d5c8e4"></td>
+                        <td colspan="2">
+                            <p>
+                                <a href="report.php?id_report=<?php echo $id_report;?>" class="button warning">
+                                    <i class="fa fa-trash-o"></i> löschen
+                                </a>
+                                <span><strong>Erstellt am:</strong> <?php echo $report['created'];?></span>
+                            </p>
+                        </td>
                     </tr>
                 </tfoot>
                 <tbody>
                     <?php if($report['book'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Bücher
                         </td>
                         <td>
@@ -67,7 +71,7 @@
                     <?php endif;?>
                     <?php if($report['brochure'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Broschüren
                         </td>
                         <td>
@@ -77,7 +81,7 @@
                     <?php endif;?>
                     <?php if($report['bible'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Bibel
                         </td>
                         <td>
@@ -87,7 +91,7 @@
                     <?php endif;?>
                     <?php if($report['magazine'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Zeitschriften
                         </td>
                         <td>
@@ -97,7 +101,7 @@
                     <?php endif;?>
                     <?php if($report['tract'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Traktate
                         </td>
                         <td>
@@ -107,7 +111,7 @@
                     <?php endif;?>
                     <?php if($report['address'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Adressen
                         </td>
                         <td>
@@ -117,7 +121,7 @@
                     <?php endif;?>
                     <?php if($report['talk'] > 0): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Gespräche
                         </td>
                         <td>
@@ -125,13 +129,13 @@
                         </td>
                     </tr>
                     <?php endif;?>
-                    <?php if(!empty($report['note'])): ?>
+                    <?php if(!empty($report['note_user'])): ?>
                     <tr>
-                        <td>
+                        <td class="report-label">
                             Bemerkung
                         </td>
                         <td>
-                            <?php echo $report['note'];?>
+                            <?php echo $report['note_user'];?>
                         </td>
                     </tr>
                     <?php endif;?>

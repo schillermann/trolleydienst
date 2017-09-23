@@ -5,6 +5,7 @@
 	foreach (Tables\Reports::select_all($connection, $report_from, $report_to, $id_shift_type, $name) as $report) {
 
 		$shift_datetime_from = new \DateTime($report['shift_datetime_from']);
+        $created = new \DateTime($report['created']);
 		$get_weekday = include 'helpers/get_weekday.php';
 
 		$report_list[$report['id_report']] = array(
@@ -19,7 +20,8 @@
 			'tract' => (int)$report['tract'],
 			'address' => (int)$report['address'],
 			'talk' => (int)$report['talk'],
-			'note' => $report['note']
+			'note_user' => $report['note_user'],
+            'created' => $created->format('d.m.Y H:i')
 		);
 	}
 	return $report_list;

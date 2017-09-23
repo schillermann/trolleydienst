@@ -35,15 +35,15 @@
             </div>
             <div>
                 <label for="congregation_name">Name der Versammlung <small>(Pflichtfeld)</small></label>
-                <input id="congregation_name" type="text" name="congregation_name" tabindex="3" required value="<?php echo $placeholder['congregation_name'];?>">
+                <input id="congregation_name" name="congregation_name" tabindex="3" required value="<?php echo $placeholder['congregation_name'];?>">
             </div>
             <div>
                 <label for="application_name">Name des Programms <small>(Pflichtfeld)</small></label>
-                <input id="application_name" type="text" name="application_name" tabindex="4" required value="<?php echo $placeholder['application_name'];?>">
+                <input id="application_name" name="application_name" tabindex="4" required value="<?php echo $placeholder['application_name'];?>">
             </div>
             <div>
                 <label for="team_name">Name des Team <small>(Pflichtfeld)</small></label>
-                <input id="team_name" type="text" name="team_name" tabindex="5" required value="<?php echo $placeholder['team_name'];?>">
+                <input id="team_name" name="team_name" tabindex="5" required value="<?php echo $placeholder['team_name'];?>">
             </div>
         </fieldset>
         <div class="from-button">
@@ -58,7 +58,7 @@
             <legend>Infos</legend>
             <div>
                 <label for="template_email_info_subject">Betreff <small>(Pflichtfeld)</small></label>
-                <input id="template_email_info_subject" type="text" name="template_email_info_subject" class="email-subject" tabindex="7" required value="<?php echo $placeholder['template_email_info']['subject']; ?>">
+                <input id="template_email_info_subject" name="template_email_info_subject" class="email-subject" tabindex="7" required value="<?php echo $placeholder['template_email_info']['subject']; ?>">
             </div>
             <div>
                 <label for="template_email_info_message">Nachricht <small>(Pflichtfeld)</small></label>
@@ -69,7 +69,7 @@
             <legend>Passwort vergessen</legend>
             <div>
                 <label for="template_email_password_forgot_subject">Betreff <small>(Pflichtfeld)</small></label>
-                <input id="template_email_password_forgot_subject" type="text" name="template_email_password_forgot_subject" class="email-subject" tabindex="9" required value="<?php echo $placeholder['template_email_password_forgot']['subject']; ?>">
+                <input id="template_email_password_forgot_subject" name="template_email_password_forgot_subject" class="email-subject" tabindex="9" required value="<?php echo $placeholder['template_email_password_forgot']['subject']; ?>">
             </div>
             <div>
                 <label for="template_email_password_forgot_message">Nachricht <small>(Pflichtfeld)</small></label>

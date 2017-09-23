@@ -90,8 +90,8 @@
 				<input id="talk" type="number" name="talk" tabindex="12" value="<?php echo (isset($_POST['talk']))? (int)$_POST['talk'] : 0;?>">
 			</div>
 			<div>
-				<label for="note">Bemerkung</label>
-				<textarea id="note" name="note" class="note" tabindex="13"><?php echo (isset($_POST['note']))? $_POST['note'] : '';?></textarea>
+				<label for="note_user">Bemerkung</label>
+				<textarea id="note_user" name="note_user" class="note" tabindex="13"><?php echo (isset($_POST['note_user']))? $_POST['note_user'] : '';?></textarea>
 			</div>
 		</fieldset>
 		<div class="from-button">

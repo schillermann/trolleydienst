@@ -20,7 +20,7 @@ if(isset($_POST['save'])) {
 		(int)$_POST['tract'],
 		(int)$_POST['address'],
 		(int)$_POST['talk'],
-		include 'filters/post_note.php',
+        include 'filters/post_note_user.php',
 		$shift_datetime_from
 	);
 	if(Tables\Reports::insert($database_pdo, $report))

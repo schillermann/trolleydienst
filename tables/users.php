@@ -9,19 +9,22 @@ class Users {
 
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `id_user`	INTEGER PRIMARY KEY AUTOINCREMENT,
-			`name`	TEXT NOT NULL UNIQUE,
-			`email`	TEXT NOT NULL,
-			`password`	TEXT NOT NULL,
-			`phone`	TEXT DEFAULT NULL,
-			`mobile`	TEXT DEFAULT NULL,
-			`congregation_name`	TEXT DEFAULT NULL,
-			`language`	TEXT DEFAULT NULL,
-			`note_user`	TEXT,
-			`note_admin`	TEXT,
-			`last_login`	TEXT DEFAULT NULL,
-			`is_active`	INTEGER DEFAULT 1,
-			`is_admin`	INTEGER DEFAULT 0)';
+                `id_user` INTEGER PRIMARY KEY AUTOINCREMENT,
+                `name`	TEXT NOT NULL UNIQUE,
+                `email`	TEXT NOT NULL,
+                `password` TEXT NOT NULL,
+                `phone`	TEXT DEFAULT NULL,
+                `mobile` TEXT DEFAULT NULL,
+                `congregation_name`	TEXT DEFAULT NULL,
+                `language`	TEXT DEFAULT NULL,
+                `note_user`	TEXT,
+                `note_admin` TEXT,
+                `is_active`	INTEGER DEFAULT 1,
+                `is_admin` INTEGER DEFAULT 0,
+                `last_login` TEXT DEFAULT NULL,
+                `updated` TEXT NOT NULL,
+                `created` TEXT NOT NULL
+			)';
 
         return ($connection->exec($sql) === false)? false : true;
     }
@@ -39,7 +42,7 @@ class Users {
 
     static function select_all(\PDO $connection): array {
         $stmt = $connection->query(
-            'SELECT id_user, name, email, is_admin, is_active, last_login 
+            'SELECT id_user, name, email, is_admin, is_active, last_login
             FROM ' . self::TABLE_NAME
         );
         $result = $stmt->fetchAll();
@@ -75,8 +78,8 @@ class Users {
     static function select_user(\PDO $connection, int $id_user): array {
 
         $stmt = $connection->prepare(
-            'SELECT name, email, is_active, is_admin,
-            phone, mobile, congregation_name, language, note_admin, note_user
+            'SELECT name, email, phone, mobile, congregation_name,
+            language, note_admin, note_user, is_active, is_admin, updated, created
             FROM ' . self::TABLE_NAME . '
             WHERE id_user = :id_user'
         );
@@ -177,8 +180,8 @@ class Users {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
             SET name = :name, email = :email, phone = :phone, mobile = :mobile,
-            congregation_name = :congregation_name, language = :language, 
-            note_user = :note_user
+            congregation_name = :congregation_name, language = :language,
+            note_user = :note_user, updated = datetime("now", "localtime")
             WHERE id_user = :id_user'
         );
 
@@ -199,8 +202,9 @@ class Users {
     static function update_user(\PDO $connection, \Models\User $user): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET name = :name, email = :email, is_active = :is_active, is_admin = :is_admin, phone = :phone,
-            mobile = :mobile, congregation_name = :congregation_name, language = :language, note_admin = :note_admin
+            SET name = :name, email = :email, is_active = :is_active, is_admin = :is_admin,
+            phone = :phone, mobile = :mobile, congregation_name = :congregation_name,
+            language = :language, note_admin = :note_admin, updated = datetime("now", "localtime")
             WHERE id_user = :id_user'
         );
 
@@ -223,7 +227,7 @@ class Users {
     static function update_password(\PDO $connection, int $id_user, string $password): bool {
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET password = :password
+            SET password = :password, updated = datetime("now", "localtime")
             WHERE id_user = :id_user'
         );
 
@@ -240,12 +244,12 @@ class Users {
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
             (
-                name, email, password, is_admin,
-                is_active, phone, mobile, congregation_name, language, note_admin
+                name, email, password, phone, mobile, congregation_name,
+                language, note_admin, is_active, is_admin, updated, created
             )
             VALUES (
-                :name, :email, :password, :is_admin,
-                :is_active, :phone, :mobile, :congregation_name, :language, :note_admin
+                :name, :email, :password, :phone, :mobile, :congregation_name, :language,
+                :note_admin, :is_active, :is_admin, datetime("now", "localtime"), datetime("now", "localtime")
             )'
         );
 
@@ -254,13 +258,13 @@ class Users {
                 ':name' => $user->get_name(),
                 ':email' => $user->get_email(),
                 ':password' => md5($user->get_password()),
-                ':is_admin' => (int)$user->is_admin(),
-                ':is_active' => (int)$user->is_active(),
                 ':phone' => $user->get_phone(),
                 ':mobile' => $user->get_mobile(),
                 ':congregation_name' => $user->get_congregation_name(),
                 ':language' => $user->get_language(),
-                ':note_admin' => $user->get_note_admin()
+                ':note_admin' => $user->get_note_admin(),
+                ':is_admin' => (int)$user->is_admin(),
+                ':is_active' => (int)$user->is_active()
             )
         ) && $stmt->rowCount() == 1;
     }

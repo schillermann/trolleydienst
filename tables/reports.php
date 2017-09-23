@@ -21,7 +21,7 @@ class Reports
 				`tract`	INTEGER,
 				`address` INTEGER,
 				`talk` INTEGER,
-				`note` TEXT,
+				`note_user` TEXT,
 				`shift_datetime_from` TEXT NOT NULL,
 				`created` TEXT NOT NULL
             )';
@@ -34,7 +34,8 @@ class Reports
 		$where_name = (empty($name))? ' ' : ' AND name = "' . $name . '" ';
 
 		$stmt = $connection->prepare(
-			'SELECT id_report, name, route, shift_datetime_from, book, brochure, bible, magazine, tract, address, talk, note
+			'SELECT id_report, name, route, shift_datetime_from, book,
+            brochure, bible, magazine, tract, address, talk, note_user, created
             FROM ' . self::TABLE_NAME . '
             WHERE id_shift_type = :id_shift_type' . $where_name .
             'AND DATE(shift_datetime_from) >= DATE(:from)
@@ -58,8 +59,14 @@ class Reports
 	static function insert(\PDO $connection, \Models\Report $report): bool {
 		$stmt = $connection->prepare(
 			'INSERT INTO ' . self::TABLE_NAME . '
-			(id_shift_type, name, route, book, brochure, bible, magazine, tract, address, talk, note, shift_datetime_from, created)
-            VALUES (:id_shift_type, :name, :route, :book, :brochure, :bible, :magazine, :tract, :address, :talk, :note, :shift_datetime_from, datetime("now", "localtime"))'
+			(
+			    id_shift_type, name, route, book, brochure, bible, magazine,
+			    tract, address, talk, note_user, shift_datetime_from, created
+			)
+            VALUES (
+                :id_shift_type, :name, :route, :book, :brochure, :bible, :magazine,
+                :tract, :address, :talk, :note_user, :shift_datetime_from, datetime("now", "localtime")
+            )'
 		);
 
 		return $stmt->execute(
@@ -74,7 +81,7 @@ class Reports
 				':tract' => $report->get_tract(),
 				':address' => $report->get_address(),
 				':talk' => $report->get_talk(),
-				':note' => $report->get_note(),
+				':note_user' => $report->get_note_user(),
 				':shift_datetime_from' => $report->get_shift_from()->format('Y-m-d H:i:s')
 			)
 		) && $stmt->rowCount() == 1;

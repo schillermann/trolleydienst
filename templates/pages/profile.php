@@ -39,7 +39,7 @@
             </div>
             <div>
                 <label for="congregation_name">Versammlung</label>
-                <input id="congregation_name" type="text" name="congregation_name" tabindex="7" value="<?php echo $placeholder['profile']['congregation_name']; ?>">
+                <input id="congregation_name" name="congregation_name" tabindex="7" value="<?php echo $placeholder['profile']['congregation_name']; ?>">
             </div>
             <div>
                 <label for="language">Sprache</label>

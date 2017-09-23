@@ -8,6 +8,7 @@ $placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['save'])) {
 	Tables\Shifts::delete_old_entries($database_pdo);
+    Tables\ShiftUserMaps::delete_old_entries($database_pdo);
 
     $date_from = include 'filters/post_date_from.php';
 

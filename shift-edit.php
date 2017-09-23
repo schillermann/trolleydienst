@@ -40,5 +40,10 @@ $datetime_from = explode(' ', $shift['datetime_from']);
 $placeholder['date_from'] = $datetime_from[0];
 $placeholder['time_from'] = $datetime_from[1];
 
+$updated = new \DateTime($shift['updated']);
+$created = new \DateTime($shift['created']);
+$placeholder['updated'] = $updated->format('d.m.Y H:i');
+$placeholder['created'] = $created->format('d.m.Y H:i');
+
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

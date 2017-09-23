@@ -19,7 +19,7 @@ if (isset($_POST['save'])) {
         include 'filters/post_mobile.php',
         include 'filters/post_congregation_name.php',
         include 'filters/post_language.php',
-        include 'filters/post_note.php'
+        include 'filters/post_note_admin.php'
     );
 
     if(Tables\Users::update_user($database_pdo, $user)) {
@@ -44,6 +44,11 @@ if (isset($_POST['save'])) {
 }
 
 $placeholder['user'] = Tables\Users::select_user($database_pdo, $id_user);
+
+$user_updated = new \DateTime($placeholder['user']['updated']);
+$user_created = new \DateTime($placeholder['user']['created']);
+$placeholder['user']['updated'] = $user_updated->format('d.m.Y H:i');
+$placeholder['user']['created'] = $user_created->format('d.m.Y H:i');
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

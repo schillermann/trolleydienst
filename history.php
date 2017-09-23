@@ -1,6 +1,7 @@
 <?php
 $placeholder = require 'includes/init_page.php';
 
+Tables\History::delete_old_entries($database_pdo);
 $get_history_shift = include 'services/get_history_shift.php';
 $shift_history_list = $get_history_shift($database_pdo);
 

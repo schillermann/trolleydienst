@@ -72,4 +72,9 @@ class ShiftUserMaps {
             )
         ) && $stmt->rowCount() == 1;
     }
+
+    static function delete_old_entries(\PDO $connection): bool {
+        $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE DATE(created) < date("now", "-2 years")';
+        return ($connection->exec($sql) === false)? false : true;
+    }
 }

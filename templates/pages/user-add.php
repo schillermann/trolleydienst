@@ -39,8 +39,8 @@
                 <input id="language" name="language" tabindex="6" value="<?php echo (isset($_POST['language']))? $_POST['language'] : '';?>">
             </div>
             <div>
-                <label for="note">Admin Bemerkung</label>
-                <textarea id="note" name="note" class="note" tabindex="7"><?php echo (isset($_POST['note']))? $_POST['note'] : '';?></textarea>
+                <label for="note_admin">Admin Bemerkung</label>
+                <textarea id="note_admin" name="note_admin" class="note" tabindex="7"><?php echo (isset($_POST['note_admin']))? $_POST['note_admin'] : '';?></textarea>
             </div>
             <div>
                 <label for="is_admin">Admin-Rechte</label>

@@ -22,7 +22,7 @@
             <legend>Schichtart</legend>
             <div>
                 <label for="name">Name <small>(Pflichtfeld)</small></label>
-                <input id="name" type="text" name="name" tabindex="1" required value="<?php echo (isset($_POST['name']))? $_POST['name'] : '';?>">
+                <input id="name" name="name" tabindex="1" required value="<?php echo (isset($_POST['name']))? $_POST['name'] : '';?>">
             </div>
             <div>
                 <label for="user_per_shift_max">Max. Teilnehmer <small>(Pflichtfeld)</small></label>
