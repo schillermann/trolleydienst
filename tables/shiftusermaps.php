@@ -12,6 +12,7 @@ class ShiftUserMaps {
             `id_shift` INTEGER NOT NULL,
             `id_user` INTEGER NOT NULL,
             `position` INTEGER DEFAULT 1,
+            `created` TEXT NOT NULL,
             PRIMARY KEY (id_shift_day, id_shift, id_user)
             )';
 
@@ -41,8 +42,8 @@ class ShiftUserMaps {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (id_shift, id_user, position)
-            VALUES (:id_shift, :id_user, :position)'
+            (id_shift, id_user, position, created)
+            VALUES (:id_shift, :id_user, :position, datetime("now", "localtime"))'
         );
 
         return $stmt->execute(

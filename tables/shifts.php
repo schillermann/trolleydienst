@@ -111,4 +111,9 @@ class Shifts {
             )
         );
     }
+
+	static function delete_old_entries(\PDO $connection): bool {
+		$sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE DATE(datetime_from) < date("now", "-2 years")';
+		return ($connection->exec($sql) === false)? false : true;
+	}
 }

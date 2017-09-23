@@ -15,7 +15,7 @@
                 </ul>
                 </p>
             <?php elseif(isset($placeholder['message']['error'])): ?>
-                <p class="success">
+                <p class="error">
                     Folgende Schichten konnten nicht angelegt werden:
                 <ul>
                     <?php foreach ($placeholder['message']['error'] as $shiftday): ?>

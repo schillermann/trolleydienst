@@ -11,7 +11,8 @@ class ShiftTypes {
             id_shift_type INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT NOT NULL,
             user_per_shift_max INTEGER DEFAULT 2,
-            info TEXT
+            info TEXT,
+            `created` TEXT NOT NULL
             )';
 
         return ($connection->exec($sql) === false)? false : true;
@@ -78,7 +79,7 @@ class ShiftTypes {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (name, info, user_per_shift_max, info) VALUES (:name, :info, :user_per_shift_max, :info)'
+            (name, info, user_per_shift_max, info, created) VALUES (:name, :info, :user_per_shift_max, :info, datetime("now", "localtime"))'
         );
 
         return $stmt->execute(

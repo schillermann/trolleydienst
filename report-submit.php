@@ -2,6 +2,8 @@
 $placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['save'])) {
+	Tables\Reports::delete_old_entries($database_pdo);
+
 	$date_from = include 'filters/post_date_from.php';
 
 	$merge_date_and_time = include 'modules/merge_date_and_time.php';

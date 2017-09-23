@@ -7,6 +7,7 @@ if(!isset($_GET['id_shift_type'])) {
 $placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['save'])) {
+	Tables\Shifts::delete_old_entries($database_pdo);
 
     $date_from = include 'filters/post_date_from.php';
 

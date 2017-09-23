@@ -19,7 +19,7 @@ class History {
             `name` TEXT NOT NULL,
             `type` TEXT NOT NULL,
             `message` TEXT NOT NULL,
-            `datetime` TEXT NOT NULL
+            `created` TEXT NOT NULL
             )';
 
         return ($connection->exec($sql) === false)? false : true;
@@ -27,10 +27,10 @@ class History {
 
     static function select_all(\PDO $connection, array $type): array {
         $stmt = $connection->prepare(
-            'SELECT name, type, message, datetime
+            'SELECT name, type, message, created
             FROM ' . self::TABLE_NAME . '
             WHERE type = "' . join('" OR type = "', $type) . '"
-            ORder BY datetime DESC'
+            ORder BY created DESC'
         );
 
         if(!$stmt->execute())
@@ -44,7 +44,7 @@ class History {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
-            (name, type, message, datetime)
+            (name, type, message, created)
 		    VALUES (:name, :type, :message, datetime("now", "localtime"))'
         );
 

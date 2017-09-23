@@ -22,7 +22,8 @@ class Reports
 				`address` INTEGER,
 				`talk` INTEGER,
 				`note` TEXT,
-				`shift_datetime_from` TEXT NOT NULL
+				`shift_datetime_from` TEXT NOT NULL,
+				`created` TEXT NOT NULL
             )';
 
 		return ($connection->exec($sql) === false) ? false : true;
@@ -57,8 +58,8 @@ class Reports
 	static function insert(\PDO $connection, \Models\Report $report): bool {
 		$stmt = $connection->prepare(
 			'INSERT INTO ' . self::TABLE_NAME . '
-			(id_shift_type, name, route, book, brochure, bible, magazine, tract, address, talk, note, shift_datetime_from)
-            VALUES (:id_shift_type, :name, :route, :book, :brochure, :bible, :magazine, :tract, :address, :talk, :note, :shift_datetime_from)'
+			(id_shift_type, name, route, book, brochure, bible, magazine, tract, address, talk, note, shift_datetime_from, created)
+            VALUES (:id_shift_type, :name, :route, :book, :brochure, :bible, :magazine, :tract, :address, :talk, :note, :shift_datetime_from, datetime("now", "localtime"))'
 		);
 
 		return $stmt->execute(
@@ -87,5 +88,10 @@ class Reports
 		return $stmt->execute(
 			array(':id_report' => $id_report)
 		);
+	}
+
+	static function delete_old_entries(\PDO $connection): bool {
+		$sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE DATE(shift_datetime_from) < date("now", "-2 years")';
+		return ($connection->exec($sql) === false)? false : true;
 	}
 }

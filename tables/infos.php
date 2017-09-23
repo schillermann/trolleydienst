@@ -11,7 +11,8 @@ class Infos {
             'CREATE TABLE `' . self::TABLE_NAME . '` (
 				`id_info` INTEGER PRIMARY KEY AUTOINCREMENT,
 				`label` TEXT NOT NULL UNIQUE,
-				`mime_type`	TEXT NOT NULL
+				`mime_type`	TEXT NOT NULL,
+				`created` TEXT NOT NULL
             )';
 
         return ($connection->exec($sql) === false)? false : true;
@@ -61,8 +62,8 @@ class Infos {
 
 		$stmt = $connection->prepare(
 			'INSERT INTO ' . self::TABLE_NAME . '
-			 (label, mime_type)
-			 VALUES (:label, :mime_type)'
+			 (label, mime_type, created)
+			 VALUES (:label, :mime_type, datetime("now", "localtime"))'
 		);
 		if($stmt->execute(
 			array(
