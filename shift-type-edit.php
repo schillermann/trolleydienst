@@ -24,5 +24,10 @@ if (isset($_POST['save'])) {
 
 $placeholder['shift_type'] = Tables\ShiftTypes::select($database_pdo, $id_shift_type);
 
+$updated = new \DateTime($placeholder['shift_type']['updated']);
+$created = new \DateTime($placeholder['shift_type']['created']);
+$placeholder['shift_type']['updated'] = $updated->format('d.m.Y H:i');
+$placeholder['shift_type']['created'] = $created->format('d.m.Y H:i');
+
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);

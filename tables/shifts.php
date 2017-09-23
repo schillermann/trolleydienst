@@ -8,13 +8,16 @@ class Shifts {
     static function create_table(\PDO $connection): bool {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `id_shift` INTEGER PRIMARY KEY AUTOINCREMENT,
-            `id_shift_type` INTEGER NOT NULL,
-            `route` TEXT NOT NULL,
-            `datetime_from` TEXT NOT NULL,
-            `number` INTEGER DEFAULT 1,
-            `minutes_per_shift` INTEGER DEFAULT 60,
-            `color_hex` TEXT DEFAULT "#d5c8e4")';
+                `id_shift` INTEGER PRIMARY KEY AUTOINCREMENT,
+                `id_shift_type` INTEGER NOT NULL,
+                `route` TEXT NOT NULL,
+                `datetime_from` TEXT NOT NULL,
+                `number` INTEGER DEFAULT 1,
+                `minutes_per_shift` INTEGER DEFAULT 60,
+                `color_hex` TEXT DEFAULT "#d5c8e4",
+                `updated` TEXT NOT NULL,
+                `created` TEXT NOT NULL
+            )';
 
         return ($connection->exec($sql) === false)? false : true;
     }

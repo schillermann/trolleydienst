@@ -60,7 +60,6 @@ if (isset($_POST['save_email_placeholder'])) {
         $placeholder['message']['error'][] = 'Die Vorlage Signatur konnte nicht gespeichert werden!';
 }
 
-
 $placeholder['template_email_info'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_INFO);
 $placeholder['template_email_password_forgot'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT);
 $placeholder['template_email_signature'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_SIGNATURE);

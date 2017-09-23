@@ -44,4 +44,7 @@
             </button>
         </div>
     </form>
+    <div id="footnote">
+        <p><strong>Geändert am:</strong> <?php echo $placeholder['shift_type']['updated'];?> - <strong>Erstellt am:</strong> <?php echo $placeholder['shift_type']['created'];?></p>
+    </div>
 </div>

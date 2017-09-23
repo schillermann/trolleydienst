@@ -47,8 +47,8 @@
             </div>
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="save_email_placeholder" class="active" tabindex="6">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
+            <button name="save_email_placeholder" class="active" tabindex="6">
+                <i class="fa fa-floppy-o"></i> speichern
             </button>
         </div>
     </form>
@@ -64,6 +64,9 @@
                 <label for="template_email_info_message">Nachricht <small>(Pflichtfeld)</small></label>
                 <textarea id="template_email_info_message" name="template_email_info_message" tabindex="8" rows="10" required><?php echo $placeholder['template_email_info']['message'];?></textarea>
             </div>
+            <div>
+                <p><strong>Geändert am:</strong> <?php echo $placeholder['template_email_info']['updated'];?></p>
+            </div>
         </fieldset>
         <fieldset>
             <legend>Passwort vergessen</legend>
@@ -75,16 +78,22 @@
                 <label for="template_email_password_forgot_message">Nachricht <small>(Pflichtfeld)</small></label>
                 <textarea id="template_email_password_forgot_message" name="template_email_password_forgot_message" tabindex="10" rows="10" required><?php echo $placeholder['template_email_password_forgot']['message'];?></textarea>
             </div>
+            <div>
+                <p><strong>Geändert am:</strong> <?php echo $placeholder['template_email_password_forgot']['updated'];?></p>
+            </div>
         </fieldset>
         <fieldset>
             <legend>Signatur</legend>
             <div>
                 <textarea name="template_email_signature" tabindex="11" rows="10" required><?php echo $placeholder['template_email_signature']['message'];?></textarea>
             </div>
+            <div>
+                <p><strong>Geändert am:</strong> <?php echo $placeholder['template_email_signature']['updated'];?></p>
+            </div>
         </fieldset>
         <div class="from-button">
-            <button type="submit" name="save_templates_email" class="active" tabindex="12">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i> speichern
+            <button name="save_templates_email" class="active" tabindex="12">
+                <i class="fa fa-floppy-o"></i> speichern
             </button>
         </div>
     </form>

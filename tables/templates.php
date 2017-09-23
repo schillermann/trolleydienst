@@ -11,16 +11,18 @@ class Templates
     static function create_table(\PDO $connection): bool {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-            `name` TEXT NOT NULL PRIMARY KEY,
-            `subject` TEXT,
-            `message` TEXT NOT NULL)';
+                `name` TEXT NOT NULL PRIMARY KEY,
+                `subject` TEXT,
+                `message` TEXT NOT NULL,
+                `updated` TEXT NOT NULL
+            )';
 
         return ($connection->exec($sql) === false) ? false : true;
     }
 
     static function select(\PDO $connection, string $name): array {
         $stmt = $connection->prepare(
-            'SELECT subject, message
+            'SELECT subject, message, updated
             FROM ' . self::TABLE_NAME . '
             WHERE name = :name'
         );
@@ -38,7 +40,7 @@ class Templates
 
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
-            SET subject = :subject, message = :message
+            SET subject = :subject, message = :message, updated = datetime("now", "localtime")
             WHERE name = :name'
         );
 
