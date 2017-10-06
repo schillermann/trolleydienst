@@ -38,7 +38,7 @@ class ShiftUserMaps {
         return ($result)? $result : array();
     }
 
-    static function insert (\PDO $connection, int $id_shift, int $id_user, int $position): bool {
+    static function insert (\PDO $connection, int $id_shift, int $position, int $id_user): bool {
 
         $stmt = $connection->prepare(
             'INSERT INTO ' . self::TABLE_NAME . '
@@ -55,7 +55,7 @@ class ShiftUserMaps {
         ) && $stmt->rowCount() == 1;
     }
 
-    static function delete(\PDO $connection, int $id_shift, int $id_user, int $position): bool {
+    static function delete(\PDO $connection, int $id_shift, int $position, int $id_user): bool {
 
         $stmt = $connection->prepare(
             'DELETE FROM ' . self::TABLE_NAME . ' 

@@ -10,21 +10,23 @@ if(!isset($_GET['id_shift_type'])) {
     return;
 }
 
-if (isset($_POST['delete_user'])) {
+if (isset($_POST['promote_user'])) {
 
-    $promote_user_withdraw = include 'services/promote_user_withdraw.php';
-    if($promote_user_withdraw($database_pdo, (int)$_POST['id_shift'], (int)$_POST['position'], $_SESSION['id_user'], $_SESSION['name']))
+	$promote_user = include 'services/promote_user.php';
+
+	if($promote_user($database_pdo, (int)$_POST['id_shift'], (int)$_POST['position'], (int)$_POST['promote_id_user']))
+		$placeholder['message']['success'] = 'Die Bewerbung wurde angenommen.';
+	else
+		$placeholder['message']['error'] = 'Die Bewerbung konnte nicht angenommen werden!';
+
+} elseif (isset($_POST['delete_application'])) {
+
+    $delete_application = include 'services/delete_application.php';
+    if($delete_application($database_pdo, (int)$_POST['id_shift'], (int)$_POST['position'], (int)$_POST['id_user']))
         $placeholder['message']['success'] = 'Die Bewerbung wurde zurück gezogen.';
     else
         $placeholder['message']['error'] = 'Die Bewerbung konnte nicht zurück gezogen werden!';
 
-} elseif (isset($_POST['promote_user'])) {
-
-    $promote_user = include 'services/promote_user.php';
-    if($promote_user($database_pdo, (int)$_POST['id_shift'], (int)$_POST['position'], (int)$_POST['id_user'], $_SESSION['name']))
-        $placeholder['message']['success'] = 'Die Bewerbung wurde angenommen.';
-    else
-        $placeholder['message']['error'] = 'Die Bewerbung konnte nicht angenommen werden!';
 }
 
 $id_shift_type = (int)$_GET['id_shift_type'];

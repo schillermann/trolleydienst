@@ -5,19 +5,26 @@
             <p class="success">
                 <?php echo $placeholder['message']['success']; ?>
             </p>
-            <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times"></i> schliessen
-            </button>
         <?php elseif(isset($placeholder['message']['error'])): ?>
             <p class="error">
                 <?php echo $placeholder['message']['error']; ?>
             </p>
         <?php endif; ?>
-        <!--
-        <button type="button">
-            <i class="fa fa-undo" aria-hidden="true"></i> rückgängig
-        </button>
-        -->
+
+        <form method="post">
+            <button onclick="closeNoteBox(); return false;">
+                <i class="fa fa-times"></i> schliessen
+            </button>
+            <?php if(isset($_POST['promote_user'])): ?>
+                <button name="delete_application">
+                    <i class="fa fa-undo"></i> rückgängig
+                </button>
+                <input type="hidden" name="id_shift" value="<?php echo (int)$_POST['id_shift'];?>">
+                <input type="hidden" name="position" value="<?php echo (int)$_POST['position'];?>">
+                <input type="hidden" name="id_user" value="<?php echo (int)$_POST['promote_id_user'];?>">
+            <?php endif; ?>
+        </form>
+
     </div>
 <?php endif; ?>
 <?php if(!empty($placeholder['shift_type']['info'])): ?>
@@ -70,12 +77,13 @@
                     <form method="post" action="#id_shift_<?php echo $id_shift; ?>">
                         <input type="hidden" name="id_shift" value="<?php echo $id_shift; ?>">
                         <input type="hidden" name="position" value="<?php echo $position++; ?>">
+                        <input type="hidden" name="id_user" value="<?php echo $_SESSION['id_user']; ?>">
                         <?php $has_user_promoted = false;?>
                         <?php foreach ($user_list as $id_user => $name) : ?>
                             <?php $has_user_promoted = $id_user === $_SESSION['id_user'];?>
 
                             <?php if($has_user_promoted): ?>
-                                <button name="delete_user" class="enable">
+                                <button name="delete_application" class="enable">
                                     <i class="fa fa-thumbs-o-up"></i> <?php echo $name; ?>
                                 </button>
                             <?php else: ?>
@@ -90,7 +98,7 @@
                         <button name="promote_user">
                             <i class="fa fa-plus"></i> bewerben als
                         </button>
-                        <select name="id_user" class="button promote">
+                        <select name="promote_id_user" class="button promote">
                             <?php foreach ($placeholder['user_promote_list'] as $id_user => $name): ?>
                                 <?php if($has_user_promoted && (int)$id_user === $_SESSION['id_user']) continue; ?>
                                 <option value="<?php echo $id_user; ?>"><?php echo $name; ?></option>
