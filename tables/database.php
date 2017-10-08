@@ -27,6 +27,7 @@ class Database {
             ShiftUserMaps::create_table($connection) &&
             Infos::create_table($connection) &&
             History::create_table($connection) &&
-			Reports::create_table($connection);
+			Reports::create_table($connection) &&
+			AccessFails::create_table($connection);
     }
 }

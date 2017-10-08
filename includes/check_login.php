@@ -6,6 +6,9 @@ return function (\PDO $database_pdo, string $name, string $password): bool {
     if(empty($user))
         return false;
 
+	$user_ip_address = include 'modules/get_ip_address.php';
+    Tables\AccessFails::delete($database_pdo, $user_ip_address);
+
     $_SESSION['id_user'] = (int)$user['id_user'];
     $_SESSION['name'] = $name;
     $_SESSION['email'] = $user['email'];

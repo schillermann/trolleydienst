@@ -26,14 +26,20 @@ if(isset($_POST['name']) && isset($_POST['password'])) {
 
     $check_login = include 'includes/check_login.php';
     $name = include 'filters/post_name.php';
-    $database_pdo = Tables\Database::get_connection();
+	$database_pdo = Tables\Database::get_connection();
+
+    $is_user_banned = include 'services/is_user_banned.php';
 
     if($check_login($database_pdo, $name, $_POST['password'])) {
         header('location: shift.php');
         return;
     }
     else {
-        $placeholder['message']['error'] = 'Anmeldung ist fehlgeschlagen!';
+
+		if($is_user_banned($database_pdo))
+			$placeholder['message']['error'] = 'Du bist für 5 Minuten gesperrt!';
+		else
+	        $placeholder['message']['error'] = 'Anmeldung ist fehlgeschlagen!';
 
         Tables\History::insert(
             $database_pdo,
