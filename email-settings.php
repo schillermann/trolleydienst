@@ -22,7 +22,9 @@ if (isset($_POST['save_email_placeholder'])) {
         'CONGREGATION_NAME' => $congregation_name,
         'APPLICATION_NAME' => $application_name,
         'TEAM_NAME' => $team_name,
-        'UPLOAD_SIZE_MAX_IN_MEGABYTE' => UPLOAD_SIZE_MAX_IN_MEGABYTE
+        'UPLOAD_SIZE_MAX_IN_MEGABYTE' => UPLOAD_SIZE_MAX_IN_MEGABYTE,
+		'BAN_TIME_IN_MINUTES' => BAN_TIME_IN_MINUTES,
+		'LOGIN_FAIL_MAX' => LOGIN_FAIL_MAX
     );
     if($write_config_file($config)) {
         $placeholder['email_address_from'] = $email_address_from;

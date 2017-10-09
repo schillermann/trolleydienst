@@ -28,16 +28,20 @@ if(isset($_POST['name']) && isset($_POST['password'])) {
     $name = include 'filters/post_name.php';
 	$database_pdo = Tables\Database::get_connection();
 
-    $is_user_banned = include 'services/is_user_banned.php';
+	$get_ban_time_in_minutes = include 'services/get_ban_time_in_minutes.php';
+	$ban_time_in_minutes = $get_ban_time_in_minutes($database_pdo, BAN_TIME_IN_MINUTES);
 
-    if($check_login($database_pdo, $name, $_POST['password'])) {
+	if($ban_time_in_minutes > 0) {
+		$placeholder['message']['error'] = 'Du bist noch für ' . $ban_time_in_minutes . ' Minuten gesperrt!';
+	} elseif($check_login($database_pdo, $name, $_POST['password'])) {
         header('location: shift.php');
         return;
     }
     else {
+		$set_ban_time = include 'services/set_ban_time.php';
 
-		if($is_user_banned($database_pdo))
-			$placeholder['message']['error'] = 'Du bist für 5 Minuten gesperrt!';
+		if($set_ban_time($database_pdo, LOGIN_FAIL_MAX))
+			$placeholder['message']['error'] = 'Du bist für ' . BAN_TIME_IN_MINUTES . ' Minuten gesperrt!';
 		else
 	        $placeholder['message']['error'] = 'Anmeldung ist fehlgeschlagen!';
 

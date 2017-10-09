@@ -1,9 +1,9 @@
 <?php
 namespace Tables;
 
-class AccessFails {
+class LoginFails {
 
-	const TABLE_NAME = 'access_fails';
+	const TABLE_NAME = 'login_fails';
 
 	static function create_table(\PDO $connection): bool {
 		$sql =
@@ -11,7 +11,7 @@ class AccessFails {
 			`ip` TEXT PRIMARY KEY,
 			`fail` INTEGER DEFAULT 1,
 			`ban` TEXT,
-			`updated` TEXT
+			`updated` TEXT NOT NULL
 		)';
 
 		return ($connection->exec($sql) === false)? false : true;
@@ -54,7 +54,7 @@ class AccessFails {
 		return ($fail)? $fail : 0;
 	}
 
-	static function select_ban(\PDO $connection, string $ip): \DateTime {
+	static function select_ban(\PDO $connection, string $ip): string {
 		$stmt = $connection->prepare(
 			'SELECT ban
             FROM ' . self::TABLE_NAME . '
@@ -65,7 +65,22 @@ class AccessFails {
 			array(':ip' => $ip)
 		);
 		$ban = $stmt->fetchColumn();
-		return ($ban)? new \DateTime($ban) : new \DateTime('0000-00-00 00:00:00');
+		return ($ban)? $ban : '';
+	}
+
+	static function is_ban(\PDO $connection, string $ip): bool {
+		$stmt = $connection->prepare(
+			'SELECT COUNT(*)
+            FROM ' . self::TABLE_NAME . '
+            WHERE ip = :ip
+            AND ban IS NOT NULL'
+		);
+
+		$stmt->execute(
+			array(':ip' => $ip)
+		);
+
+		return (int)$stmt->fetchColumn() > 0;
 	}
 
 	static function update_fail(\PDO $connection, string $ip) {

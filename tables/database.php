@@ -28,6 +28,6 @@ class Database {
             Infos::create_table($connection) &&
             History::create_table($connection) &&
 			Reports::create_table($connection) &&
-			AccessFails::create_table($connection);
+			LoginFails::create_table($connection);
     }
 }
