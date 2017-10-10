@@ -38,6 +38,28 @@ class ShiftUserMaps {
         return ($result)? $result : array();
     }
 
+    static function select_all_with_id_shift_and_position(\PDO $connection, int $id_shift, int $position): array {
+		$stmt = $connection->prepare(
+			'SELECT users.id_user, name, email
+            FROM ' . self::TABLE_NAME . '
+            LEFT JOIN users
+            ON ' . self::TABLE_NAME . '.id_user = users.id_user
+            WHERE id_shift = :id_shift
+            AND position = :position'
+		);
+
+		if(!$stmt->execute(
+			array(
+				':id_shift' => $id_shift,
+				':position' => $position
+			)
+		))
+			return array();
+
+		$result = $stmt->fetchAll();
+		return ($result)? $result : array();
+	}
+
     static function insert (\PDO $connection, int $id_shift, int $position, int $id_user): bool {
 
         $stmt = $connection->prepare(

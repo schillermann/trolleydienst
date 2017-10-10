@@ -11,6 +11,8 @@ class History {
 
     const LOGIN_ERROR = 'login error';
 
+	const SYSTEM_ERROR = 'system error';
+
     static function create_table(\PDO $connection): bool
     {
         $sql =

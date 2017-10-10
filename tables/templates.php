@@ -7,6 +7,7 @@ class Templates
     const EMAIL_SIGNATURE = 'email signature';
     const EMAIL_INFO = 'email info';
     const EMAIL_PASSWORD_FORGOT = 'email password forgot';
+    const EMAIL_USER_PROMOTE = 'email user promote';
 
     static function create_table(\PDO $connection): bool {
         $sql =
