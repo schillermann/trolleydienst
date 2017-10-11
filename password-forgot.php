@@ -21,7 +21,7 @@ if(isset($_POST['password_reset'])) {
         if(Tables\Users::update_password($database_pdo, $id_user, $new_password)) {
 
             $get_template_email_password_forgot = include 'services/get_email_template.php';
-            $email_template = $get_template_email_password_forgot($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT);
+            $email_template = $get_template_email_password_forgot($database_pdo, Tables\EmailTemplates::PASSWORD_FORGOT);
 
             $replace_with = array(
                 'NAME' => Tables\Users::select_name($database_pdo, $id_user),

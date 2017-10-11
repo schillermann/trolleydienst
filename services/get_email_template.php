@@ -2,8 +2,8 @@
 /**
  * return array('subject' => '...', 'message' => '...')
  */
-return function (\PDO $connection, string $template_name = Tables\Templates::EMAIL_INFO): array {
-    $template = Tables\Templates::select($connection, $template_name);
+return function (\PDO $connection, string $id_email_template = Tables\EmailTemplates::INFO): array {
+    $template = Tables\EmailTemplates::select($connection, $id_email_template);
 
     $replace_with = array(
         'TEAM_NAME' => TEAM_NAME,
@@ -17,7 +17,7 @@ return function (\PDO $connection, string $template_name = Tables\Templates::EMA
     $template_placeholder_replaced['subject'] = strtr($template['subject'], $replace_with);
 
     if(strpos($template['message'], 'SIGNATURE') !== false) {
-        $template_signature = Tables\Templates::select($connection, Tables\Templates::EMAIL_SIGNATURE);
+        $template_signature = Tables\EmailTemplates::select($connection, Tables\EmailTemplates::SIGNATURE);
         $replace_with['SIGNATURE'] =  strtr($template_signature['message'], $replace_with);
     }
 

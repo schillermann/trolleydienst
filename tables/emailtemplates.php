@@ -1,35 +1,36 @@
 <?php
 namespace Tables;
 
-class Templates
+class EmailTemplates
 {
-    const TABLE_NAME = 'templates';
-    const EMAIL_SIGNATURE = 'email signature';
-    const EMAIL_INFO = 'email info';
-    const EMAIL_PASSWORD_FORGOT = 'email password forgot';
-    const EMAIL_USER_PROMOTE = 'email user promote';
+    const TABLE_NAME = 'email_templates';
+
+    const SIGNATURE = 1;
+    const INFO = 2;
+    const PASSWORD_FORGOT = 3;
+    const USER_PROMOTE = 4;
 
     static function create_table(\PDO $connection): bool {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
-                `name` TEXT NOT NULL PRIMARY KEY,
-                `subject` TEXT,
-                `message` TEXT NOT NULL,
-                `updated` TEXT NOT NULL
+                `id_email_template` INTEGER PRIMARY KEY AUTOINCREMENT,
+				`subject` TEXT,
+				`message` TEXT NOT NULL,
+				`updated` TEXT NOT NULL
             )';
 
         return ($connection->exec($sql) === false) ? false : true;
     }
 
-    static function select(\PDO $connection, string $name): array {
+    static function select(\PDO $connection, int $id_email_template): array {
         $stmt = $connection->prepare(
             'SELECT subject, message, updated
             FROM ' . self::TABLE_NAME . '
-            WHERE name = :name'
+            WHERE id_email_template = :id_email_template'
         );
 
         if(!$stmt->execute(
-            array(':name' => $name)
+            array(':id_email_template' => $id_email_template)
         ))
         	return array();
 
@@ -37,19 +38,19 @@ class Templates
         return ($result)? $result : array();
     }
 
-    static function update(\PDO $connection, string $name, string $message, string $subject = null): bool {
+    static function update(\PDO $connection, int $id_email_template, string $message, string $subject = null): bool {
 
         $stmt = $connection->prepare(
             'UPDATE ' . self::TABLE_NAME . '
             SET subject = :subject, message = :message, updated = datetime("now", "localtime")
-            WHERE name = :name'
+            WHERE id_email_template = :id_email_template'
         );
 
         return $stmt->execute(
             array(
                 ':subject' => $subject,
                 ':message' => $message,
-                ':name' => $name
+                ':id_email_template' => $id_email_template
             )
         ) && $stmt->rowCount() == 1;
     }

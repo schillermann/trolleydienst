@@ -41,7 +41,7 @@ if (isset($_POST['save_email_placeholder'])) {
     $template_email_info_subject = include 'filters/post_template_email_info_subject.php';
     $template_email_info_message = include 'filters/post_template_email_info_message.php';
 
-    if(Tables\Templates::update($database_pdo, Tables\Templates::EMAIL_INFO, $template_email_info_message, $template_email_info_subject))
+    if(Tables\EmailTemplates::update($database_pdo, Tables\EmailTemplates::INFO, $template_email_info_message, $template_email_info_subject))
         $placeholder['message']['success'][] = 'Die Vorlage Info wurde gespeichert.';
     else
         $placeholder['message']['error'][] = 'Die Vorlage Info konnte nicht gespeichert werden!';
@@ -49,22 +49,22 @@ if (isset($_POST['save_email_placeholder'])) {
     $template_email_password_forgot_subject = include 'filters/post_template_email_password_forgot_subject.php';
     $template_email_password_forgot_message = include 'filters/post_template_email_password_forgot_message.php';
 
-    if(Tables\Templates::update($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT, $template_email_password_forgot_message, $template_email_password_forgot_subject))
+    if(Tables\EmailTemplates::update($database_pdo, Tables\EmailTemplates::PASSWORD_FORGOT, $template_email_password_forgot_message, $template_email_password_forgot_subject))
         $placeholder['message']['success'][] = 'Die Vorlage Passwort vergessen wurde gespeichert.';
     else
         $placeholder['message']['error'][] = 'Die Vorlage Passwort vergessen konnte nicht gespeichert werden!';
 
     $template_email_signature = include 'filters/post_template_email_signature.php';
 
-    if(Tables\Templates::update($database_pdo, Tables\Templates::EMAIL_SIGNATURE, $template_email_signature))
+    if(Tables\EmailTemplates::update($database_pdo, Tables\EmailTemplates::SIGNATURE, $template_email_signature))
         $placeholder['message']['success'][] = 'Die Vorlage Signatur wurde gespeichert.';
     else
         $placeholder['message']['error'][] = 'Die Vorlage Signatur konnte nicht gespeichert werden!';
 }
 
-$placeholder['template_email_info'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_INFO);
-$placeholder['template_email_password_forgot'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_PASSWORD_FORGOT);
-$placeholder['template_email_signature'] = Tables\Templates::select($database_pdo, Tables\Templates::EMAIL_SIGNATURE);
+$placeholder['template_email_info'] = Tables\EmailTemplates::select($database_pdo, Tables\EmailTemplates::INFO);
+$placeholder['template_email_password_forgot'] = Tables\EmailTemplates::select($database_pdo, Tables\EmailTemplates::PASSWORD_FORGOT);
+$placeholder['template_email_signature'] = Tables\EmailTemplates::select($database_pdo, Tables\EmailTemplates::SIGNATURE);
 
 $render_page = include 'includes/render_page.php';
 echo $render_page($placeholder);
