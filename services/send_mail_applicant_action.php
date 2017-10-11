@@ -1,4 +1,4 @@
-<?php return function (\PDO $connection, int $id_shift, int $position, int $id_user, \DateTime $shift_datetime) {
+<?php return function (\PDO $connection, int $id_shift, int $position, int $id_user, \DateTime $shift_datetime, int $id_email_template = Tables\EmailTemplates::APPLICATION_ACCEPT) {
 
 	$user_name = Tables\Users::select_name($connection, $id_user);
 	$user_list_from_shift_postion = Tables\ShiftUserMaps::select_all_with_id_shift_and_position($connection, $id_shift, $position);
@@ -8,7 +8,7 @@
 			continue;
 
 		$get_template_email_user_promote = include 'services/get_email_template.php';
-		$email_template = $get_template_email_user_promote($connection, Tables\EmailTemplates::USER_PROMOTE);
+		$email_template = $get_template_email_user_promote($connection, $id_email_template);
 
 		$replace_with = array(
 			'NAME' => $user['name'],

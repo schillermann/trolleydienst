@@ -2,7 +2,7 @@
 /**
  * return array('subject' => '...', 'message' => '...')
  */
-return function (\PDO $connection, string $id_email_template = Tables\EmailTemplates::INFO): array {
+return function (\PDO $connection, int $id_email_template = Tables\EmailTemplates::INFO): array {
     $template = Tables\EmailTemplates::select($connection, $id_email_template);
 
     $replace_with = array(

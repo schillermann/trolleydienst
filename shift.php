@@ -19,10 +19,10 @@ if (isset($_POST['promote_user'])) {
 	else
 		$placeholder['message']['error'] = 'Die Bewerbung konnte nicht angenommen werden!';
 
-} elseif (isset($_POST['delete_application'])) {
+} elseif (isset($_POST['cancel_application'])) {
 
-    $delete_application = include 'services/delete_application.php';
-    if($delete_application($database_pdo, (int)$_POST['id_shift'], (int)$_POST['position'], (int)$_POST['id_user']))
+    $cancel_application = include 'services/cancel_application.php';
+    if($cancel_application($database_pdo, (int)$_POST['id_shift'], (int)$_POST['position'], (int)$_POST['id_user']))
         $placeholder['message']['success'] = 'Die Bewerbung wurde zurück gezogen.';
     else
         $placeholder['message']['error'] = 'Die Bewerbung konnte nicht zurück gezogen werden!';

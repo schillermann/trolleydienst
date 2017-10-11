@@ -16,7 +16,7 @@
                 <i class="fa fa-times"></i> schliessen
             </button>
             <?php if(isset($_POST['promote_user'])): ?>
-                <button name="delete_application">
+                <button name="cancel_application">
                     <i class="fa fa-undo"></i> rückgängig
                 </button>
                 <input type="hidden" name="id_shift" value="<?php echo (int)$_POST['id_shift'];?>">
@@ -83,7 +83,7 @@
                             <?php $has_user_promoted = $id_user === $_SESSION['id_user'];?>
 
                             <?php if($has_user_promoted): ?>
-                                <button name="delete_application" class="enable">
+                                <button name="cancel_application" class="enable">
                                     <i class="fa fa-thumbs-o-up"></i> <?php echo $name; ?>
                                 </button>
                             <?php else: ?>

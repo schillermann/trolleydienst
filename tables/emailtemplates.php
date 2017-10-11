@@ -8,13 +8,14 @@ class EmailTemplates
     const SIGNATURE = 1;
     const INFO = 2;
     const PASSWORD_FORGOT = 3;
-    const USER_PROMOTE = 4;
+	const APPLICATION_ACCEPT = 4;
+	const APPLICATION_CANCEL = 5;
 
     static function create_table(\PDO $connection): bool {
         $sql =
             'CREATE TABLE `' . self::TABLE_NAME . '` (
                 `id_email_template` INTEGER PRIMARY KEY AUTOINCREMENT,
-				`subject` TEXT,
+				`subject` TEXT NOT NULL,
 				`message` TEXT NOT NULL,
 				`updated` TEXT NOT NULL
             )';

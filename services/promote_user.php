@@ -11,8 +11,8 @@
 
     if ($promote_user_success) {
 
-    	$send_mail_promote_user = include 'services/send_mail_promote_user.php';
-		$send_mail_promote_user($connection, $id_shift, $position, $id_user, $shift_datetime_format);
+    	$send_mail_promote_user = include 'services/send_mail_applicant_action.php';
+		$send_mail_promote_user($connection, $id_shift, $position, $id_user, $shift_datetime);
 
         $history_type = Tables\History::SHIFT_PROMOTE_SUCCESS;
         $message = 'Die ' . $shift_type_name . ' Schicht Bewerbung vom  ' . $shift_datetime_format . ' Schicht ' . $position . ' für ' . $user_name . ' wurde angenommen.';
