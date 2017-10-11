@@ -36,6 +36,24 @@ class Shifts {
         return ($result === false)? array() : $result;
     }
 
+	static function select_datetime_from(\PDO $connection, int $id_shift): \DateTime {
+		$stmt = $connection->prepare(
+			'SELECT datetime_from
+            FROM ' . self::TABLE_NAME . '
+            WHERE id_shift = :id_shift'
+		);
+
+		$datetime_null = new \DateTime('0000-00-00 00:00:00');
+
+		if(!$stmt->execute(
+			array(':id_shift' => $id_shift)
+		))
+			return $datetime_null;
+
+		$datetime_from = $stmt->fetchColumn();
+		return ($datetime_from)? new \DateTime($datetime_from) : $datetime_null;
+	}
+
     static function select_all(\PDO $connection, int $id_shift_type): array {
 
         $stmt = $connection->prepare(
@@ -121,6 +139,17 @@ class Shifts {
             )
         );
     }
+
+	static function delete(\PDO $connection, int $id_shift): bool {
+
+		$stmt = $connection->prepare(
+			'DELETE FROM ' . self::TABLE_NAME . ' WHERE id_shift = :id_shift'
+		);
+
+		return $stmt->execute(
+			array(':id_shift' => $id_shift)
+		);
+	}
 
 	static function delete_old_entries(\PDO $connection): bool {
 		$sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE DATE(datetime_from) < date("now", "-2 years")';

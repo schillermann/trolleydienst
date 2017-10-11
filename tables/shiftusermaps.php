@@ -38,6 +38,26 @@ class ShiftUserMaps {
         return ($result)? $result : array();
     }
 
+	static function select_all_with_id_shift(\PDO $connection, int $id_shift): array {
+		$stmt = $connection->prepare(
+			'SELECT users.id_user, name, email
+            FROM ' . self::TABLE_NAME . '
+            LEFT JOIN users
+            ON ' . self::TABLE_NAME . '.id_user = users.id_user
+            WHERE id_shift = :id_shift'
+		);
+
+		if(!$stmt->execute(
+			array(
+				':id_shift' => $id_shift
+			)
+		))
+			return array();
+
+		$result = $stmt->fetchAll();
+		return ($result)? $result : array();
+	}
+
     static function select_all_with_id_shift_and_position(\PDO $connection, int $id_shift, int $position): array {
 		$stmt = $connection->prepare(
 			'SELECT users.id_user, name, email
@@ -94,6 +114,19 @@ class ShiftUserMaps {
             )
         ) && $stmt->rowCount() == 1;
     }
+
+	static function delete_shift(\PDO $connection, int $id_shift): bool {
+
+		$stmt = $connection->prepare(
+			'DELETE FROM ' . self::TABLE_NAME . ' WHERE id_shift = :id_shift'
+		);
+
+		return $stmt->execute(
+				array(
+					':id_shift' => $id_shift
+				)
+			) && $stmt->rowCount() == 1;
+	}
 
     static function delete_old_entries(\PDO $connection): bool {
         $sql = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE DATE(created) < date("now", "-2 years")';

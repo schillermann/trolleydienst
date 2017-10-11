@@ -1,5 +1,5 @@
 <h2>Schichten bearbeiten</h2>
-<a href="shift.php" tabindex="8" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
+<a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type'];?>" tabindex="8" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div id="note-box" class="fade-in">

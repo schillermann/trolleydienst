@@ -27,8 +27,17 @@ if (isset($_POST['save'])) {
     else
         $placeholder['message']['error'] = 'Die Schicht konnte nicht geändert werden!';
 } elseif (isset($_POST['delete'])) {
+	$delete_shift = include 'services/delete_shift.php';
 
+	if($delete_shift($database_pdo, $id_shift)) {
+		header('location: shift.php?id_shift_type=' . $id_shift_type);
+		return;
+	} else {
+		$placeholder['message']['error'] = 'Die Schicht konnte nicht gelöscht werden';
+	}
 }
+
+$placeholder['id_shift_type'] = $id_shift_type;
 
 $shift = Tables\Shifts::select($database_pdo, $id_shift);
 $placeholder['route'] = $shift['route'];

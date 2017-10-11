@@ -10,6 +10,7 @@ class EmailTemplates
     const PASSWORD_FORGOT = 3;
 	const APPLICATION_ACCEPT = 4;
 	const APPLICATION_CANCEL = 5;
+	const SHIFT_DELETE = 6;
 
     static function create_table(\PDO $connection): bool {
         $sql =
