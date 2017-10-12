@@ -1,5 +1,5 @@
 <h2>Neuer Schichttyp</h2>
-<a href="shift-type.php" tabindex="5" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
+<a href="shifttype.php" tabindex="5" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
 <div class="container-center">
     <?php if (isset($placeholder['message'])) : ?>
         <div id="note-box" class="fade-in">

@@ -1,5 +1,5 @@
 <h2>Schichttyp bearbeiten</h2>
-<a href="shift-type.php" tabindex="6" class="button">
+<a href="shifttype.php" tabindex="6" class="button">
     <i class="fa fa-chevron-left"></i> zurück
 </a>
 <div class="container-center">

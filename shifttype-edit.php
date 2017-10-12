@@ -1,6 +1,6 @@
 <?php
 if(!isset($_GET['id_shift_type'])) {
-    header('location: shift-type.php');
+    header('location: shifttype.php');
     return;
 }
 $placeholder = require 'includes/init_page.php';
@@ -17,7 +17,7 @@ if (isset($_POST['save'])) {
         $placeholder['message']['error'] = 'Die Änderungen konnten nicht gespeichert werden!';
 } elseif (isset($_POST['delete'])) {
     if(Tables\ShiftTypes::delete($database_pdo, $id_shift_type)) {
-        header('location: shift-type.php');
+        header('location: shifttype.php');
         return;
     }
 }

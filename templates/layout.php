@@ -27,30 +27,30 @@
                     <?php if(!empty($_SESSION)) : ?>
                     <?php foreach ($placeholder['shift_types'] as $shift_type): ?>
                     <li>
-                        <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $active_page('shift.php', 'id_shift_type=' . $shift_type['id_shift_type']);?>"><?php echo $shift_type['name'];?></a>
+                        <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $active_page('shift');?>"><?php echo $shift_type['name'];?></a>
                     </li>
                     <?php endforeach;?>
                     <li>
-                        <a href="report.php" class="<?php echo $active_page('report.php');?>">Bericht</a>
+                        <a href="report.php" class="<?php echo $active_page('report');?>">Bericht</a>
                     </li>
                     <li>
-                        <a href="info.php" class="<?php echo $active_page('info.php');?>">Info</a>
+                        <a href="info.php" class="<?php echo $active_page('info');?>">Info</a>
                     </li>
                     <li>
-                        <a href="profile.php" class="<?php echo $active_page('profile.php');?>">Profil</a>
+                        <a href="profile.php" class="<?php echo $active_page('profile');?>">Profil</a>
                     </li>
                     <?php if($_SESSION['is_admin']) : ?>
                     <li>
-                        <a href="shift-type.php" class="<?php echo $active_page('shift-type.php');?>">Schichtart</a>
+                        <a href="shifttype.php" class="<?php echo $active_page('shifttype');?>">Schichtart</a>
                     </li>
                     <li>
-                        <a href="user.php" class="<?php echo $active_page('user.php');?>">Teilnehmer</a>
+                        <a href="user.php" class="<?php echo $active_page('user');?>">Teilnehmer</a>
                     </li>
                     <li>
-                        <a href="email.php" class="<?php echo $active_page('email.php');?>">E-Mail</a>
+                        <a href="email.php" class="<?php echo $active_page('email');?>">E-Mail</a>
                     </li>
                     <li>
-                        <a href="history.php" class="<?php echo $active_page('history.php');?>">Verlauf</a>
+                        <a href="history.php" class="<?php echo $active_page('history');?>">Verlauf</a>
                     </li>
                     <?php endif;?>
                     <li style="float:right">

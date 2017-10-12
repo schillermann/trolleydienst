@@ -25,13 +25,6 @@
             <div id="divForgotLink" class="login">
                 <a href="/password-forgot.php" class="xsmall">Namen oder Kennwort vergessen?</a>
             </div>
-            <!--
-            <div>
-                <label>
-                    <input type="checkbox" tabindex="3" name="remember">&nbsp;Meinen Namen speichern
-                </label>
-            </div>
-            -->
         </fieldset>
         <div class="from-button">
             <button name="login" class="active" tabindex="4">
