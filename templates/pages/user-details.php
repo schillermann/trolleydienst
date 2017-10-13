@@ -1,5 +1,11 @@
-<h2>Teilnehmer Kontaktdaten</h2>
-<a href="shift.php?id_shift_type=<?php echo (int)$_GET['id_shift_type'];?>" tabindex="1" class="button"><i class="fa fa-chevron-left" aria-hidden="true"></i> zurück</a>
+<header>
+    <h2>Teilnehmer Kontaktdaten</h2>
+</header>
+<nav id="nav-sub">
+    <a href="shift.php?id_shift_type=<?php echo (int)$_GET['id_shift_type'];?>" tabindex="1" class="button">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i> zurück
+    </a>
+</nav>
 <div class="container-center">
     <fieldset>
         <legend><?php echo $placeholder['user']['name']; ?></legend>

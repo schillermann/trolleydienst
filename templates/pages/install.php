@@ -1,15 +1,8 @@
-<h2>Installation</h2>
+<?php include 'templates/snippets/note-box.php' ?>
+<header>
+    <h2>Installation</h2>
+</header>
 <div class="container-center">
-    <?php if (isset($placeholder['message']['error'])) : ?>
-        <div id="note-box" class="fade-in">
-            <p class="error">
-                <?php echo $placeholder['message']['error']; ?>
-            </p>
-            <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times"></i> schliessen
-            </button>
-        </div>
-    <?php endif;?>
     <form method="post">
         <fieldset>
             <legend>Admin</legend>
@@ -61,8 +54,8 @@
     </form>
 </div>
 <script>
-    let emailAddressFrom = document.getElementById('email_address_from');
-    let emailAddressReply = document.getElementById('email_address_reply');
+    var emailAddressFrom = document.getElementById('email_address_from');
+    var emailAddressReply = document.getElementById('email_address_reply');
 
     function insertEmail(email) {
         emailAddressFrom.value = email.value;

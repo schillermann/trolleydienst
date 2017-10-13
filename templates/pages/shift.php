@@ -1,43 +1,49 @@
-<h2>Schichten</h2>
 <?php if (isset($placeholder['message'])) : ?>
     <div id="note-box" class="fade-in">
-        <?php if (isset($placeholder['message']['success'])) : ?>
+		<?php if (isset($placeholder['message']['success'])) : ?>
             <p class="success">
-                <?php echo $placeholder['message']['success']; ?>
+				<?php echo $placeholder['message']['success']; ?>
             </p>
-        <?php elseif(isset($placeholder['message']['error'])): ?>
+		<?php elseif(isset($placeholder['message']['error'])): ?>
             <p class="error">
-                <?php echo $placeholder['message']['error']; ?>
+				<?php echo $placeholder['message']['error']; ?>
             </p>
-        <?php endif; ?>
+		<?php endif; ?>
 
         <form method="post">
             <button onclick="closeNoteBox(); return false;">
                 <i class="fa fa-times"></i> schliessen
             </button>
-            <?php if(isset($_POST['promote_user'])): ?>
+			<?php if(isset($_POST['promote_user'])): ?>
                 <button name="cancel_application">
                     <i class="fa fa-undo"></i> rückgängig
                 </button>
                 <input type="hidden" name="id_shift" value="<?php echo (int)$_POST['id_shift'];?>">
                 <input type="hidden" name="position" value="<?php echo (int)$_POST['position'];?>">
                 <input type="hidden" name="id_user" value="<?php echo (int)$_POST['promote_id_user'];?>">
-            <?php endif; ?>
+			<?php endif; ?>
         </form>
 
     </div>
 <?php endif; ?>
-<?php if(!empty($placeholder['shift_type']['info'])): ?>
-<div class="info-box">
-    <p>
-		<?php echo $placeholder['shift_type']['info'];?>
-    </p>
-</div>
-<?php endif;?>
+
+<header>
+    <h2>Schichten</h2>
+	<?php if(!empty($placeholder['shift_type']['info'])): ?>
+        <div class="info-box">
+            <p>
+				<?php echo $placeholder['shift_type']['info'];?>
+            </p>
+        </div>
+	<?php endif;?>
+</header>
+
 <?php if($_SESSION['is_admin']): ?>
-<a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
-    <i class="fa fa-plus"></i> Neue Schichten
-</a>
+    <nav>
+        <a href="shift-add.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="1" class="button active">
+            <i class="fa fa-plus"></i> Neue Schichten
+        </a>
+    </nav>
 <?php endif; ?>
 
 <div class="table-container">

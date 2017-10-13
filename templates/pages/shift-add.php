@@ -1,34 +1,38 @@
-<h2>Neue Schichten</h2>
-<a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="13" class="button">
-    <i class="fa fa-chevron-left"></i> zurück
-</a>
+<?php if (isset($placeholder['message'])) : ?>
+    <div id="note-box" class="fade-in">
+		<?php if (isset($placeholder['message']['success'])) : ?>
+            <p class="success">
+                Folgende Schichten wurden angelegt:
+            <ul>
+				<?php foreach ($placeholder['message']['success'] as $shiftday): ?>
+                    <li><?php echo $shiftday; ?></li>
+				<?php endforeach;?>
+            </ul>
+            </p>
+		<?php elseif(isset($placeholder['message']['error'])): ?>
+            <p class="error">
+                Folgende Schichten konnten nicht angelegt werden:
+            <ul>
+				<?php foreach ($placeholder['message']['error'] as $shiftday): ?>
+                    <li><?php echo $shiftday; ?></li>
+				<?php endforeach;?>
+            </ul>
+            </p>
+		<?php endif; ?>
+        <button type="button" onclick="closeNoteBox()">
+            <i class="fa fa-times"></i> schliessen
+        </button>
+    </div>
+<?php endif; ?>
+<header>
+    <h2>Neue Schichten</h2>
+</header>
+<nav id="nav-sub">
+    <a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type']?>" tabindex="13" class="button">
+        <i class="fa fa-chevron-left"></i> zurück
+    </a>
+</nav>
 <div class="container-center">
-    <?php if (isset($placeholder['message'])) : ?>
-        <div id="note-box" class="fade-in">
-            <?php if (isset($placeholder['message']['success'])) : ?>
-                <p class="success">
-                    Folgende Schichten wurden angelegt:
-                <ul>
-                    <?php foreach ($placeholder['message']['success'] as $shiftday): ?>
-                        <li><?php echo $shiftday; ?></li>
-                    <?php endforeach;?>
-                </ul>
-                </p>
-            <?php elseif(isset($placeholder['message']['error'])): ?>
-                <p class="error">
-                    Folgende Schichten konnten nicht angelegt werden:
-                <ul>
-                    <?php foreach ($placeholder['message']['error'] as $shiftday): ?>
-                        <li><?php echo $shiftday; ?></li>
-                    <?php endforeach;?>
-                </ul>
-                </p>
-            <?php endif; ?>
-            <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times"></i> schliessen
-            </button>
-        </div>
-    <?php endif; ?>
     <form method="post">
         <fieldset>
             <legend>Schichten</legend>

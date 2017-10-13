@@ -1,16 +1,13 @@
-<h2>Neuer Teilnehmer</h2>
-<a href="user.php" tabindex="10" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
+<?php include 'templates/snippets/note-box.php' ?>
+<header>
+    <h2>Neuer Teilnehmer</h2>
+</header>
+<nav id="nav-sub">
+    <a href="user.php" tabindex="10" class="button">
+        <i class="fa fa-chevron-left"></i> zurück
+    </a>
+</nav>
 <div class="container-center">
-    <?php if (isset($placeholder['message']['error'])) : ?>
-    <div id="note-box" class="fade-in">
-        <p class="error">
-            <?php echo $placeholder['message']['error']; ?>
-        </p>
-        <button type="button" onclick="closeNoteBox()">
-            <i class="fa fa-times"></i> schliessen
-        </button>
-    </div>
-    <?php endif;?>
     <form method="post">
         <fieldset>
             <legend>Teilnehmer</legend>

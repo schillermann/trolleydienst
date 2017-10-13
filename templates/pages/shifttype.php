@@ -1,10 +1,13 @@
 <?php $parse_text_to_html = include 'templates/helpers/parse_text_to_html.php'; ?>
-<h2>Schichttyp Liste</h2>
-<div class="from-button">
+
+<header>
+    <h2>Schichttyp Liste</h2>
+</header>
+<nav id="nav-sub">
     <a href="shifttype-add.php" tabindex="1" class="button active">
         <i class="fa fa-plus"></i> Neuer Schichttyp
     </a>
-</div>
+</nav>
 <div class="table-container">
     <table>
         <tr>

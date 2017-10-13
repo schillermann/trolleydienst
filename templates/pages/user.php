@@ -1,4 +1,6 @@
-<h2>Teilnehmer Liste</h2>
+<header>
+    <h2>Teilnehmer Liste</h2>
+</header>
 <form method="post">
     <div class="from-button">
         <a href="user-add.php" tabindex="1" class="button active">

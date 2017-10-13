@@ -1,11 +1,17 @@
 <?php $get_file_icon_uri = include 'templates/helpers/get_file_icon_uri.php'; ?>
-<h2>Info</h2>
+
+<header>
+    <h2>Info</h2>
+</header>
+
 <?php if($_SESSION['is_admin']): ?>
-<a href="info-add.php" tabindex="1" class="button active">
-    <i class="fa fa-cloud-upload"></i> Datei hochladen
-</a>
+    <nav id="nav-sub">
+        <a href="info-add.php" tabindex="1" class="button active">
+            <i class="fa fa-cloud-upload"></i> Datei hochladen
+        </a>
+    </nav>
 <?php endif; ?>
-<section>
+<div>
     <ul class="info-list">
     <?php foreach ($placeholder['file_list'] as $file) : ?>
     <li>
@@ -19,4 +25,4 @@
     </li>
     <?php endforeach; ?>
     </ul>
-</section>
+</div>

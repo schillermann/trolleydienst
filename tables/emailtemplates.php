@@ -40,6 +40,19 @@ class EmailTemplates
         return ($result)? $result : array();
     }
 
+	static function select_all(\PDO $connection): array {
+
+		$stmt = $connection->prepare(
+			'SELECT id_email_template, subject FROM ' . self::TABLE_NAME
+		);
+
+		if(!$stmt->execute())
+			return array();
+
+		$result = $stmt->fetchAll();
+		return ($result)? $result : array();
+	}
+
     static function update(\PDO $connection, int $id_email_template, string $message, string $subject = null): bool {
 
         $stmt = $connection->prepare(

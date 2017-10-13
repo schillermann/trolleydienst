@@ -1,22 +1,11 @@
-<h2>Datei hochladen</h2>
-<a href="info.php" tabindex="4" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
+<?php include 'templates/snippets/note-box.php' ?>
+<header>
+    <h2>Datei hochladen</h2>
+</header>
+<nav id="nav-sub">
+    <a href="info.php" tabindex="4" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
+</nav>
 <div class="container-center">
-    <?php if (isset($placeholder['message'])) : ?>
-        <div id="note-box" class="fade-in">
-            <?php if (isset($placeholder['message']['success'])) : ?>
-                <p class="success">
-                    <?php echo $placeholder['message']['success']; ?>
-                </p>
-            <?php elseif(isset($placeholder['message']['error'])): ?>
-                <p class="error">
-                    <?php echo $placeholder['message']['error']; ?>
-                </p>
-            <?php endif; ?>
-            <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times"></i> schliessen
-            </button>
-        </div>
-    <?php endif; ?>
     <div class="info-box">
         <p>Du kannst Bilder im png, jpg, gif Format und Dokumente im pdf Format mit maximal <?php echo UPLOAD_SIZE_MAX_IN_MEGABYTE;?> MB hochladen.</p>
     </div>

@@ -1,22 +1,13 @@
-<h2>Schichten bearbeiten</h2>
-<a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type'];?>" tabindex="8" class="button"><i class="fa fa-chevron-left"></i> zurück</a>
+<?php include 'templates/snippets/note-box.php' ?>
+<header>
+    <h2>Schichten bearbeiten</h2>
+</header>
+<nav id="nav-sub">
+    <a href="shift.php?id_shift_type=<?php echo $placeholder['id_shift_type'];?>" tabindex="8" class="button">
+        <i class="fa fa-chevron-left"></i> zurück
+    </a>
+</nav>
 <div class="container-center">
-    <?php if (isset($placeholder['message'])) : ?>
-        <div id="note-box" class="fade-in">
-            <?php if (isset($placeholder['message']['success'])): ?>
-                <p class="success">
-                    <?php echo $placeholder['message']['success'];?>
-                </p>
-            <?php elseif (isset($placeholder['message']['error'])): ?>
-                <p class="error">
-                    <?php echo $placeholder['message']['error'];?>
-                </p>
-            <?php endif; ?>
-            <button type="button" onclick="closeNoteBox()">
-                <i class="fa fa-times"></i> schliessen
-            </button>
-        </div>
-    <?php endif; ?>
     <form method="post">
         <fieldset>
             <legend>Schichten</legend>
