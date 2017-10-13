@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <?php endif;?>
-                    <li style="float:right">
+                    <li id="logout">
                         <a href="/?logout">
                             <i class="fa fa-sign-out"></i> Abmelden
                         </a>

@@ -10,37 +10,45 @@
 </a>
 <h3>Schichtverlauf</h3>
 <h4>Fehlermeldungen</h4>
-<div class="table-container">
-    <table>
-        <tr>
-            <th>Ausgeführt am</th>
-            <th>Ausgeführt von</th>
-            <th>Mitteilung</th>
-        </tr>
-        <?php foreach ($placeholder['shift_error_list'] as $shift_history) : ?>
+<?php if(empty($placeholder['shift_error_list'])) : ?>
+    <p>Es sind keine Fehlermeldungen vorhanden.</p>
+<?php else : ?>
+    <div class="table-container">
+        <table>
             <tr>
-                <td><?php echo $shift_history['created'];?></td>
-                <td><?php echo $shift_history['name'];?></td>
-                <td><?php echo $shift_history['message'];?></td>
+                <th>Ausgeführt am</th>
+                <th>Ausgeführt von</th>
+                <th>Mitteilung</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
-</div>
+            <?php foreach ($placeholder['shift_error_list'] as $shift_history) : ?>
+                <tr>
+                    <td><?php echo $shift_history['created'];?></td>
+                    <td><?php echo $shift_history['name'];?></td>
+                    <td><?php echo $shift_history['message'];?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+<?php endif;?>
+
 <h4>Statusmeldungen</h4>
-<div class="table-container">
-    <table>
-        <tr>
-            <th>Ausgeführt am</th>
-            <th>Ausgeführt von</th>
-            <th>Mitteilung</th>
-        </tr>
-        <?php foreach ($placeholder['shift_success_list'] as $shift_history) : ?>
+<?php if(empty($placeholder['shift_success_list'])) : ?>
+    <p>Es sind keine Statusmeldungen vorhanden.</p>
+<?php else : ?>
+    <div class="table-container">
+        <table>
             <tr>
-                <td><?php echo $shift_history['created'];?></td>
-                <td><?php echo $shift_history['name'];?></td>
-                <td><?php echo $shift_history['message'];?></td>
+                <th>Ausgeführt am</th>
+                <th>Ausgeführt von</th>
+                <th>Mitteilung</th>
             </tr>
-        <?php endforeach; ?>
-    </table>
-</div>
-</fieldset>
+            <?php foreach ($placeholder['shift_success_list'] as $shift_history) : ?>
+                <tr>
+                    <td><?php echo $shift_history['created'];?></td>
+                    <td><?php echo $shift_history['name'];?></td>
+                    <td><?php echo $shift_history['message'];?></td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+<?php endif;?>

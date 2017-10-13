@@ -137,6 +137,9 @@ nav a {
     font-family: FontAwesome;
     margin-right: 4px;
     content: "\f09b"; }
+#logout {
+    float: right;
+    background-color: #444444; }
 /**
  * Messages
  */
