@@ -20,14 +20,15 @@ class Database {
 
     static function create_tables(\PDO $connection): bool {
         return
-            Users::create_table($connection) &&
-            ShiftsDays::create_table($connection) &&
-            Shifts::create_table($connection) &&
-            ShiftTypes::create_table($connection) &&
-            ShiftUserMaps::create_table($connection) &&
-            Infos::create_table($connection) &&
-            History::create_table($connection) &&
+			EmailTemplates::create_table($connection) &&
+			History::create_table($connection) &&
+			InfoFiles::create_table($connection) &&
+			Infos::create_table($connection) &&
+			LoginFails::create_table($connection) &&
 			Reports::create_table($connection) &&
-			LoginFails::create_table($connection);
+			Shifts::create_table($connection) &&
+			ShiftTypes::create_table($connection) &&
+			ShiftUserMaps::create_table($connection) &&
+            Users::create_table($connection);
     }
 }

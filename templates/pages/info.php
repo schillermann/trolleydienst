@@ -12,17 +12,21 @@
     </nav>
 <?php endif; ?>
 <div>
-    <ul class="info-list">
+    <ul id="info-list">
     <?php foreach ($placeholder['file_list'] as $file) : ?>
-    <li>
-        <a target="_blank" href="info-file.php?id_info=<?php echo $file['id_info'];?>">
-            <img src="<?php echo $get_file_icon_uri($file['mime_type']);?>">
-            <h4><?php echo $file['label']; ?></h4>
-            <?php if ($_SESSION['is_admin']) : ?>
-                <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button" target="_blank">bearbeiten</a>
-            <?php endif; ?>
-        </a>
-    </li>
+        <li>
+            <a target="_blank" href="info-file.php?id_info=<?php echo $file['id_info'];?>">
+                <?php if($file['mime_type'] == 'application/pdf'): ?>
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                <?php else: ?>
+                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                <?php endif;?>
+                <h4><?php echo $file['label']; ?></h4>
+                <?php if ($_SESSION['is_admin']) : ?>
+                    <a href="info-edit.php?id_info=<?php echo $file['id_info']; ?>" class="button" target="_blank">bearbeiten</a>
+                <?php endif; ?>
+            </a>
+        </li>
     <?php endforeach; ?>
     </ul>
 </div>

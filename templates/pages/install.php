@@ -1,4 +1,4 @@
-<?php include 'templates/snippets/note-box.php' ?>
+<?php include 'templates/pagesnippets/note-box.php' ?>
 <header>
     <h2>Installation</h2>
 </header>
@@ -27,7 +27,7 @@
             <legend>Einstellungen</legend>
             <div>
                 <label for="email_address_from">E-Mail Server Absender Adresse <small>(Pflichtfeld)</small></label>
-                <input id="email_address_from" name="email_address_from" tabindex="5" required placeholder="absender@email.de" value="<?php echo (isset($_POST['email_address_from']))? $_POST['email_address_from'] : '';?>">
+                <input id="email_address_from" name="email_address_from" tabindex="5" required placeholder="absender@email.de" value="<?php echo (isset($_POST['email_address_from']))? $_POST['email_address_from'] : 'no-reply@' . $_SERVER['SERVER_NAME'];?>">
             </div>
             <div>
                 <label for="email_address_reply">E-Mail Antwort Adresse <small>(Pflichtfeld)</small></label>
@@ -54,12 +54,7 @@
     </form>
 </div>
 <script>
-    var emailAddressFrom = document.getElementById('email_address_from');
-    var emailAddressReply = document.getElementById('email_address_reply');
-
     function insertEmail(email) {
-        emailAddressFrom.value = email.value;
-        emailAddressReply.value = email.value;
+        document.getElementById('email_address_reply').value = email.value;
     }
-
 </script>

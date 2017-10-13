@@ -1,7 +1,7 @@
 <?php
 define('APPLICATION_NAME', 'Öffentliches Zeugnisgeben');
 define('CONGREGATION_NAME', 'Installation');
-define('REQUIRE_INPUT_FIELDS', 9);
+define('REQUIRE_INPUT_FIELDS', 7);
 
 spl_autoload_register();
 
@@ -10,17 +10,15 @@ if(Tables\Database::exists_database()) {
     return;
 }
 
-
 $placeholder = array();
 
 if(isset($_POST['install'])) {
     $filter_post_input = include 'modules/filter_post_input.php';
     $input_list = $filter_post_input();
 
-    if($_POST['password'] != $_POST['password_repeat']) {
+    if(empty($_POST['password']) || empty($_POST['password_repeat']) || $_POST['password'] != $_POST['password_repeat']) {
         $placeholder['message']['error'] = 'Passwörter stimmen nicht überein!';
-    }
-    else if(count($input_list) === REQUIRE_INPUT_FIELDS) {
+    } else if(count($input_list) === REQUIRE_INPUT_FIELDS) {
 
         $user = new Models\User(
             1,
@@ -46,6 +44,7 @@ if(isset($_POST['install'])) {
         if(
             Tables\Database::create_tables($pdo) &&
             Tables\Users::insert($pdo, $user) &&
+			$pdo->exec(include 'install/sql_import.php') !== false &&
             $write_config_file($config)
         ) {
             header('location: /');
@@ -53,7 +52,9 @@ if(isset($_POST['install'])) {
         }
 
         $placeholder['message']['error'] = 'Bei der Installation ist ein Fehler aufgetreten!';
-    }
+    } else {
+		$placeholder['message']['error'] = 'Alle Pflichtfelder müssen ausgefüllt werden!';
+	}
 }
 
 $render_page = include 'includes/render_page.php';

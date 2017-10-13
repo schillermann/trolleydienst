@@ -1,10 +1,10 @@
-<?php include 'templates/snippets/note-box.php' ?>
+<?php include 'templates/pagesnippets/note-box.php' ?>
 <header>
     <h2>Berichte</h2>
 </header>
 <nav id="nav-sub">
-    <a href="report-submit.php" class="button">
-        <i class="fa fa-sticky-note-o"></i> Bericht abgeben
+    <a href="report-submit.php" class="button active">
+        <i class="fa fa-plus"></i> Bericht abgeben
     </a>
 </nav>
 <div class="container-center">

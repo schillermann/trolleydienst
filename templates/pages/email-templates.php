@@ -1,4 +1,4 @@
-<?php include 'templates/snippets/note-box.php' ?>
+<?php include 'templates/pagesnippets/note-box.php' ?>
 <header>
 	<h2>E-Mail Vorlagen</h2>
 </header>

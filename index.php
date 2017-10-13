@@ -7,16 +7,16 @@ if(isset($_GET['logout'])) {
     return;
 }
 
-if(isset($_SESSION) && !empty($_SESSION)) {
-    header('location: shift.php');
-    return;
-}
-
 spl_autoload_register();
 
 if(!Tables\Database::exists_database()) {
     header('location: install.php');
     return;
+}
+
+if(isset($_SESSION) && !empty($_SESSION)) {
+	header('location: shift.php');
+	return;
 }
 
 include 'config.php';
@@ -45,11 +45,13 @@ if(isset($_POST['name']) && isset($_POST['password'])) {
 		else
 	        $placeholder['message']['error'] = 'Anmeldung ist fehlgeschlagen!';
 
+		$user_ip_address = include 'modules/get_ip_address.php';
+
         Tables\History::insert(
             $database_pdo,
 			$name,
             Tables\History::LOGIN_ERROR,
-            $placeholder['message']['error']
+			'Anmeldung mit der IP ' . $user_ip_address . ' ist fehlgeschlagen!'
         );
     }
 }

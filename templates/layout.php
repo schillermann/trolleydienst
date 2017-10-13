@@ -28,11 +28,12 @@
                 <ul>
                     <?php if(!empty($_SESSION)) : ?>
                     <?php foreach ($placeholder['shift_types'] as $shift_type): ?>
-                    <li>
-                        <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $active_page('shift.php', 'shift-add.php', 'shift-edit.php', 'user-details.php');?>">
-                            <i class="fa fa-calendar"></i> <?php echo $shift_type['name'];?>
-                        </a>
-                    </li>
+                        <?php $shift_class = ($_SERVER['REQUEST_URI'] == '/shift.php?id_shift_type=' . $shift_type['id_shift_type'])? 'active':'';?>
+                        <li>
+                            <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $shift_class;?>">
+                                <i class="fa fa-calendar"></i> <?php echo $shift_type['name'];?>
+                            </a>
+                        </li>
                     <?php endforeach;?>
                     <li>
                         <a href="report.php" class="<?php echo $active_page('report.php', 'report-submit.php');?>">

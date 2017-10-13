@@ -28,7 +28,7 @@
 <?php endif; ?>
 
 <header>
-    <h2>Schichten</h2>
+    <h2><?php echo $placeholder['shift_type']['name'];?> Schichten</h2>
 	<?php if(!empty($placeholder['shift_type']['info'])): ?>
         <div class="info-box">
             <p>

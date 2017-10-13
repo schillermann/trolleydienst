@@ -1,4 +1,4 @@
-<?php include 'templates/snippets/note-box.php' ?>
+<?php include 'templates/pagesnippets/note-box.php' ?>
 <div class="container-center">
     <form method="post">
         <fieldset>

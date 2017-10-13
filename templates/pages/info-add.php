@@ -1,4 +1,4 @@
-<?php include 'templates/snippets/note-box.php' ?>
+<?php include 'templates/pagesnippets/note-box.php' ?>
 <header>
     <h2>Datei hochladen</h2>
 </header>
@@ -11,7 +11,7 @@
     </div>
     <form method="post" enctype="multipart/form-data">
         <fieldset>
-            <legend>Datei</legend>
+            <legend>Datei auswählen</legend>
             <div>
                 <label for="info_file_label">Bezeichnung</label>
                 <input id="info_file_label" name="info_file_label" tabindex="1" value="<?php echo (isset($_POST['info_file_label']))? $_POST['info_file_label'] : '';?>" required>
