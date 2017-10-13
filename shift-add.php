@@ -7,6 +7,7 @@ if(!isset($_GET['id_shift_type'])) {
 $placeholder = require 'includes/init_page.php';
 
 if(isset($_POST['save'])) {
+	Tables\History::delete_old_entries($database_pdo);
 	Tables\Shifts::delete_old_entries($database_pdo);
     Tables\ShiftUserMaps::delete_old_entries($database_pdo);
 

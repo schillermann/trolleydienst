@@ -27,34 +27,51 @@
                     <?php if(!empty($_SESSION)) : ?>
                     <?php foreach ($placeholder['shift_types'] as $shift_type): ?>
                     <li>
-                        <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $active_page('shift');?>"><?php echo $shift_type['name'];?></a>
+                        <a href="shift.php?id_shift_type=<?php echo $shift_type['id_shift_type'];?>" class="<?php echo $active_page('shift');?>">
+                            <i class="fa fa-calendar"></i> <?php echo $shift_type['name'];?>
+                        </a>
                     </li>
                     <?php endforeach;?>
                     <li>
-                        <a href="report.php" class="<?php echo $active_page('report');?>">Bericht</a>
+                        <a href="report.php" class="<?php echo $active_page('report');?>">
+                            <i class="fa fa-list-alt"></i> Bericht
+                        </a>
                     </li>
                     <li>
-                        <a href="info.php" class="<?php echo $active_page('info');?>">Info</a>
+                        <a href="info.php" class="<?php echo $active_page('info');?>">
+                            <i class="fa fa-info"></i> Info
+                        </a>
                     </li>
                     <li>
-                        <a href="profile.php" class="<?php echo $active_page('profile');?>">Profil</a>
+                        <a href="profile.php" class="<?php echo $active_page('profile');?>">
+                            <i class="fa fa-user"></i> Profil
+                        </a>
                     </li>
                     <?php if($_SESSION['is_admin']) : ?>
                     <li>
-                        <a href="shifttype.php" class="<?php echo $active_page('shifttype');?>">Schichtart</a>
+                        <a href="shifttype.php" class="<?php echo $active_page('shifttype');?>">
+                            <i class="fa fa-calendar"></i> Schichtart</a>
                     </li>
                     <li>
-                        <a href="user.php" class="<?php echo $active_page('user');?>">Teilnehmer</a>
+                        <a href="user.php" class="<?php echo $active_page('user');?>">
+                            <i class="fa fa-users"></i> Teilnehmer
+                        </a>
                     </li>
                     <li>
-                        <a href="email.php" class="<?php echo $active_page('email');?>">E-Mail</a>
+                        <a href="email.php" class="<?php echo $active_page('email');?>">
+                            <i class="fa fa-envelope-o"></i> E-Mail
+                        </a>
                     </li>
                     <li>
-                        <a href="history.php" class="<?php echo $active_page('history');?>">Verlauf</a>
+                        <a href="history-shift.php" class="<?php echo $active_page('history');?>">
+                            <i class="fa fa-history"></i> Verlauf
+                        </a>
                     </li>
                     <?php endif;?>
                     <li style="float:right">
-                        <a href="/?logout">Abmelden</a>
+                        <a href="/?logout">
+                            <i class="fa fa-sign-out"></i> Abmelden
+                        </a>
                     </li>
                     <?php endif;?>
                 </ul>
