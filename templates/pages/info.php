@@ -1,9 +1,6 @@
-<?php $get_file_icon_uri = include 'templates/helpers/get_file_icon_uri.php'; ?>
-
 <header>
     <h2>Info</h2>
 </header>
-
 <?php if($_SESSION['is_admin']): ?>
     <nav id="nav-sub">
         <a href="info-add.php" tabindex="1" class="button active">

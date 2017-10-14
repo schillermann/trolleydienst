@@ -39,7 +39,7 @@
             </div>
             <div>
                 <label for="team_name">Team Name <small>(Pflichtfeld)</small></label>
-                <input id="team_name" name="team_name" tabindex="8" required value="<?php echo (isset($_POST['application_name']))? $_POST['application_name'] : 'Trolley Team';?>">
+                <input id="team_name" name="team_name" tabindex="8" required value="<?php echo (isset($_POST['team_name']))? $_POST['team_name'] : 'Trolley Team';?>">
             </div>
             <div>
                 <label for="congregation_name">Name der Versammlung <small>(Pflichtfeld)</small></label>
